@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:paddingTop="70dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:text="아이디"
+        android:textSize="20dp"
+        />
+
+    <EditText
+        android:id="@+id/edtRegID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:layout_gravity="center"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:textSize="20dp"
+        android:backgroundTint="#317abe"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+
+        />
+    <EditText
+        android:id="@+id/edtRegPW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:textSize="20dp"
+        android:backgroundTint="#317abe"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 확인"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/edtRegPWcheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:textSize="20dp"
+        android:backgroundTint="#317abe"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/edtRegNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:textSize="20dp"
+        android:backgroundTint="#317abe"
+        />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가입"
+        android:layout_gravity="center"
+        android:backgroundTint="#317abe"
+        android:layout_marginTop="50dp"
+        />
+
+</LinearLayout>
