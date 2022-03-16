@@ -3,38 +3,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="176dp"
-        android:layout_height="176dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/kangnamlogo" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        <ImageView
+            android:layout_width="216dp"
+            android:layout_height="117dp"
+            android:gravity="top"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/kangnam" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="Schedule"
+            android:textColor="#317abe"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginTop="40dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:gravity="center"
-        android:text="강남대학교\n 익명 커뮤니티&amp;스케줄러" />
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/btnGoLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그인"
-        android:layout_gravity="center"
-        android:layout_marginTop="90dp"
-       />
+        <EditText
+            android:id="@+id/edtID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/underline"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="ID"
+            android:layout_margin="10dp"
+            />
 
-    <Button
-        android:id="@+id/btnGoRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="회원가입"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"/>
+        <EditText
+            android:id="@+id/edtPW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/underline"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:layout_margin="10dp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
+        >
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#317abe"
+            android:text="로그인"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnGoRegister"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="회원가입"
+            android:textSize="15dp"
+            android:background="@drawable/outline"
+            android:layout_marginTop="10dp"/>
+
+
+
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인 결과"/>
+
+
+
+    </LinearLayout>
+
+
 </LinearLayout>

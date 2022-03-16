@@ -11,53 +11,79 @@
         android:textSize="40dp"
         android:gravity="center"
         android:paddingTop="70dp"
+        android:textColor="@color/black"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="70dp"
-        android:text="아이디"
-        android:textSize="20dp"
+        android:text="수강 강의 목록을 불러옵니다. \n 본인이 수강중인 강의의 게시판만 입장 가능합니다."
+        android:gravity="center"
+        android:layout_marginTop="5dp"
         />
 
-    <EditText
-        android:id="@+id/edtRegID"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-      android:layout_gravity="center"
-        android:backgroundTintMode="add"
-        android:ems="10"
-        android:textSize="20dp"
-        android:backgroundTint="#317abe"
-        />
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp">
+        <EditText
+            android:id="@+id/edtRegID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:textSize="20dp"
+            android:backgroundTint="#317abe"
+            android:layout_marginLeft="50dp"
+            android:hint="ID"
 
+            />
+        <Button
+            android:id="@+id/btnIdCheck"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="중복확인"
+            android:textSize="12dp"
+            />
+
+    </LinearLayout>
     <TextView
+        android:id="@+id/tvIdCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호"
-        android:textSize="20dp"
-        android:layout_gravity="center"
+        android:text=""
+        android:layout_marginLeft="50dp"
+        android:textSize="10dp"
+        android:textColor="#ff4040"/>
 
-        />
+
+
+
     <EditText
         android:id="@+id/edtRegPW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
         android:backgroundTintMode="add"
         android:ems="10"
         android:textSize="20dp"
         android:backgroundTint="#317abe"
+        android:inputType="textPassword"
+        android:hint="Password"
+
         />
+
     <TextView
+        android:id="@+id/tvPwCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호 확인"
-        android:textSize="20dp"
-        android:layout_gravity="center"
-        />
+        android:text=""
+        android:layout_marginLeft="50dp"
+        android:textSize="10dp" />
+
 
     <EditText
         android:id="@+id/edtRegPWcheck"
@@ -67,17 +93,19 @@
         android:ems="10"
         android:textSize="20dp"
         android:backgroundTint="#317abe"
-        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:inputType="textPassword"
+        android:hint="Password Check"
+        android:layout_marginBottom="10dp"
         />
 
-    <TextView
+
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="닉네임"
-        android:textSize="20dp"
-        android:layout_gravity="center"
-        />
-
+        android:orientation="horizontal">
     <EditText
         android:id="@+id/edtRegNickname"
         android:layout_width="wrap_content"
@@ -87,8 +115,25 @@
         android:ems="10"
         android:textSize="20dp"
         android:backgroundTint="#317abe"
+        android:layout_marginLeft="50dp"
+        android:hint="Nickname"
         />
-
+        <Button
+            android:id="@+id/btnNicknameCheck"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="중복확인"
+            android:textSize="12dp"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvNicknameCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginLeft="50dp"
+        android:textSize="10dp"
+        android:textColor="#ff4040"/>
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
@@ -97,6 +142,14 @@
         android:layout_gravity="center"
         android:backgroundTint="#317abe"
         android:layout_marginTop="50dp"
+        android:enabled="true"
         />
+
+    <TextView
+        android:id="@+id/resultTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="결과텍뷰"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
