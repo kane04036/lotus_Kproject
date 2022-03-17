@@ -25,7 +25,7 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".MyInfoCheckActivity"/>
         <activity android:name=".RegisterActivity"/>
-        <activity android:name=".FragmentMainActivity"/>
+        <activity android:name=".FragmentMainActivity" />
     </application>
 
 </manifest>
