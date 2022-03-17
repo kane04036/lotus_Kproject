@@ -60,6 +60,13 @@
         android:text="강의 목록 불러오기" />
 
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:visibility="invisible"/>
 
     <EditText
         android:id="@+id/edtViewName"
@@ -97,7 +104,6 @@
         android:text="확인"
         android:layout_gravity="center"
         android:background="#317abe"
-        android:visibility="invisible"
         />
 
 </LinearLayout>

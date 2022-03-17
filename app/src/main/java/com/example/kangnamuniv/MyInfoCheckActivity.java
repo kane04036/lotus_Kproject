@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     EditText edtSchoolID, edtShoolPW, edtViewName;
     Button btnRenew, btnGoHome;
     public static String schoolID, schoolPW;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         edtViewName = findViewById(R.id.edtViewName);
         tvLecture = findViewById(R.id.tvLectures);
         btnGoHome = findViewById(R.id.btnGoHome);
+        progressBar = findViewById(R.id.progressBar);
 
         btnRenew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +50,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                 schoolID = edtSchoolID.getText().toString();
                 schoolPW = edtShoolPW.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -60,6 +65,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
 
+                            progressBar.setVisibility(View.INVISIBLE);
                             for(int i = 0; i < strlist.length; i++){
                                 tvLecture.append(strlist[i] + "\n");
                             }
