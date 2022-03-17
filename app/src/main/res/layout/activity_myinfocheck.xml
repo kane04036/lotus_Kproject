@@ -58,18 +58,14 @@
         android:layout_gravity="center"
         android:backgroundTint="#317abe"
         android:text="강의 목록 불러오기" />
-    <TextView
-        android:id="@+id/tvLectures"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+
 
 
     <EditText
         android:id="@+id/edtViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:enabled="false"
         android:hint="이름"
         android:ems="7"
@@ -79,11 +75,28 @@
         android:visibility="invisible"
         />
 
-    <ListView
+    <TextView
+        android:id="@+id/tvLectures"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        />
+
+   <!-- <ListView
         android:id="@+id/ListViewLecture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20dp"
+        android:visibility="invisible"
+        />-->
+
+    <Button
+        android:id="@+id/btnGoHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:layout_gravity="center"
+        android:background="#317abe"
         android:visibility="invisible"
         />
 

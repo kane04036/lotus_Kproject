@@ -1,5 +1,6 @@
 package com.example.kangnamuniv;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class MyInfoCheckActivity extends AppCompatActivity {
     TextView tvLecture;
     EditText edtSchoolID, edtShoolPW, edtViewName;
-    Button btnRenew;
+    Button btnRenew, btnGoHome;
     public static String schoolID, schoolPW;
 
     @Override
@@ -38,6 +39,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         btnRenew = findViewById(R.id.btnRenew);
         edtViewName = findViewById(R.id.edtViewName);
         tvLecture = findViewById(R.id.tvLectures);
+        btnGoHome = findViewById(R.id.btnGoHome);
 
         btnRenew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,12 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             String lectures = jsonResponse.getString("lectures");
                             String[] strlist = strparsing(lectures);
 
+                            edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
+
+                            for(int i = 0; i < strlist.length; i++){
+                                tvLecture.append(strlist[i] + "\n");
+                            }
                             /*for(int i=0; i< strlist.length; i++){
                                 tvLecture.setText(strlist[i]);
                                 Thread.sleep(2000);
@@ -66,6 +73,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                            // ArrayAdapter<String> arrayadapter = new ArrayAdapter<String>(MyInfoCheckActivity.this, android.R.layout.simple_list_item_1, strlist);
                            // listView.setAdapter(arrayadapter);
+
+                            btnGoHome.setVisibility(View.VISIBLE);
 
 
                         } catch (JSONException  e) {
@@ -83,11 +92,25 @@ public class MyInfoCheckActivity extends AppCompatActivity {
             }
         });
 
+        btnGoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
     public String[] strparsing(String str){
 
+        for(int i = 0; i< str.length(); i++){
+            String newStr = str.replace("\"", "");
+            str = newStr;
+        }
+        str.replace("[", "");
+        str.replace("]", "");
         String[] strAry = str.split(",");
 
         return strAry;
