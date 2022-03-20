@@ -30,6 +30,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     Button btnRenew, btnGoHome;
     public static String schoolID, schoolPW;
     ProgressBar progressBar;
+    public static String[] lecturelist/*, seqlist*/;
+    public String seqlist;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,27 +62,22 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             String name = jsonResponse.getString("name");
                             String lectures = jsonResponse.getString("lectures");
-                            String[] strlist = strparsing(lectures);
+                            String dataNums = jsonResponse.getString("seq");
+                            lecturelist = lectureStrparsing(lectures);
+                            seqlist = seqStrParsing(dataNums);
+
 
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
 
                             progressBar.setVisibility(View.INVISIBLE);
-                            for(int i = 0; i < strlist.length; i++){
-                                tvLecture.append(strlist[i] + "\n");
+                            for(int i = 0; i < lecturelist.length; i++){
+                                tvLecture.append(lecturelist[i] + "\n");
                             }
-                            /*for(int i=0; i< strlist.length; i++){
-                                tvLecture.setText(strlist[i]);
-                                Thread.sleep(2000);
-                            }*/
-
-
-                           // ListView listView = findViewById(R.id.listViewLecture);
-
-                           // ArrayAdapter<String> arrayadapter = new ArrayAdapter<String>(MyInfoCheckActivity.this, android.R.layout.simple_list_item_1, strlist);
-                           // listView.setAdapter(arrayadapter);
+                            tvLecture.append(seqlist);
 
                             btnGoHome.setVisibility(View.VISIBLE);
+
 
 
                         } catch (JSONException  e) {
@@ -109,18 +106,26 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
     }
 
-    public String[] strparsing(String str){
+    public String[] lectureStrparsing(String lecture){
 
-        for(int i = 0; i< str.length(); i++){
-            String newStr = str.replace("\"", "");
-            str = newStr;
+        for(int i = 0; i< lecture.length(); i++){
+            String newStr = lecture.replace("\"", "");
+
+            lecture = newStr;
         }
-        str.replace("[", "");
-        str.replace("]", "");
-        String[] strAry = str.split(",");
+
+        String[] strAry = lecture.split(",");
 
         return strAry;
 
+    }
+    public String seqStrParsing(String seq){
+        for(int i = 0; i< seq.length(); i++){
+            String newStr = seq.replaceAll(",-1", "");
+            seq = newStr;
+        }
+
+        return seq;
     }
 
 

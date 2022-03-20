@@ -84,7 +84,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button btnGoMain;
+        btnGoMain = findViewById(R.id.btnGoMain);
+        btnGoMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        Button btnGoInfoCheck;
+        btnGoInfoCheck = findViewById(R.id.btnGoInfoCheck);
+        btnGoInfoCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

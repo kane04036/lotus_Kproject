@@ -101,6 +101,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로그인 결과"/>
+        <Button
+            android:id="@+id/btnGoMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메인홈가기/테스트"
+            />
+        <Button
+            android:id="@+id/btnGoInfoCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="강좌확인가기/테스트"
+            />
+
+
 
 
 
