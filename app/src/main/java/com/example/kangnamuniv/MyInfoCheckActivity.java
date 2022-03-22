@@ -1,6 +1,7 @@
 package com.example.kangnamuniv;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -23,6 +24,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MyInfoCheckActivity extends AppCompatActivity {
     TextView tvLecture;
@@ -30,8 +34,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     Button btnRenew, btnGoHome;
     public static String schoolID, schoolPW;
     ProgressBar progressBar;
-    public static String[] lecturelist/*, seqlist*/;
-    public String seqlist;
+    public static String[] lecturelist, seqlist;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,10 +74,14 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             edtViewName.setText(name);
 
                             progressBar.setVisibility(View.INVISIBLE);
+                          //  tvLecture.setText(lectures);
                             for(int i = 0; i < lecturelist.length; i++){
-                                tvLecture.append(lecturelist[i] + "\n");
+                               tvLecture.append(lecturelist[i] + "\n");
                             }
-                            tvLecture.append(seqlist);
+                            for(int i = 0; i < lecturelist.length; i++){
+                                tvLecture.append(seqlist[i] + "\n");
+                            }
+
 
                             btnGoHome.setVisibility(View.VISIBLE);
 
@@ -98,6 +105,15 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* SharedPreferences sharedPreferences = getSharedPreferences("lecture",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Set<String> set = new HashSet<String>();
+                set.addAll(Arrays.asList(lecturelist));
+                editor.putStringSet("lectures", set);
+                editor.commit();*/
+
+                //PreferenceManager.saveSharedPreferences_Data(getApplicationContext(), "lectures", lecturelist);
+
                 Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
                 startActivity(intent);
             }
@@ -108,25 +124,31 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
     public String[] lectureStrparsing(String lecture){
 
-        for(int i = 0; i< lecture.length(); i++){
+      /*  for(int i = 0; i< lecture.length(); i++){
             String newStr = lecture.replace("\"", "");
-
             lecture = newStr;
-        }
+        }*/
 
-        String[] strAry = lecture.split(",");
+        String newStr = lecture.replace("\"", "");
+        String newStr2 = newStr.replace("[","");
+        String newStr3 = newStr2.replace("]","");
+
+        String[] strAry = newStr3.split(",");
 
         return strAry;
 
     }
-    public String seqStrParsing(String seq){
-        for(int i = 0; i< seq.length(); i++){
-            String newStr = seq.replaceAll(",-1", "");
-            seq = newStr;
-        }
+    public String[] seqStrParsing(String seq){
+        String newStr = seq.replace("\"", "");
+        String newStr2 = newStr.replace("[","");
+        String newStr3 = newStr2.replace("]","");
 
-        return seq;
+        String[] seqAry = newStr3.split(",");
+
+        return seqAry;
     }
+
+
 
 
 }

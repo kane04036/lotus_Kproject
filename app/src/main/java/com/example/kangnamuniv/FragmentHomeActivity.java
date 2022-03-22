@@ -1,6 +1,8 @@
 package com.example.kangnamuniv;
 
 import static com.example.kangnamuniv.MyInfoCheckActivity.lecturelist;
+import static com.example.kangnamuniv.MyInfoCheckActivity.seqlist;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import java.util.List;
 
 public class FragmentHomeActivity extends Fragment {
@@ -32,19 +35,16 @@ public class FragmentHomeActivity extends Fragment {
         TextView textView;
         textView = view.findViewById(R.id.tvHome);
 
-        listView = (ListView) view.findViewById(R.id.listView);
-        /*CustomAdapter customAdapter = new CustomAdapter(getActivity());
+        listView = (ListView) view.findViewById(R.id.listViewLecture);
+        CustomAdapter customAdapter = new CustomAdapter(getActivity());
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //Toast.makeText(getContext(), strlist[position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), seqlist[position], Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, lecturelist);
-
-        listView.setAdapter(listViewAdapter);
 
         return view;
     }

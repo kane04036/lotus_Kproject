@@ -54,11 +54,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             if(result.equals("SUCCESS")){
-                                tvResult.setText(result + key);
-
+                                //tvResult.setText(result + key);
                                 Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
                                 startActivity(intent);
-
                             }
                             else{
                                 tvResult.setText(result + key);
