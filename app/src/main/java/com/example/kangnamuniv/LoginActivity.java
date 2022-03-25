@@ -2,9 +2,9 @@ package com.example.kangnamuniv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtID;
     EditText edtPW;
     Button btnLogin;
-    public static String Rid, Rpassword, key;
+    public static String Rid, Rpassword;
+    String key;
     TextView tvResult;
 
     @Override
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 Rid = edtID.getText().toString();
                 Rpassword = edtPW.getText().toString();
 
+
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -52,19 +54,24 @@ public class LoginActivity extends AppCompatActivity {
                             String result = jsonResponse.getString("res");
                             key = jsonResponse.getString("key");
 
+                            if (result.equals("SUCCESS")) {
+                                SharedPreferences sharedPreferences = getSharedPreferences("TEST", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("session", key);
+                                editor.commit();
 
-                            if(result.equals("SUCCESS")){
-                                //tvResult.setText(result + key);
-                                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+
+                                Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
                                 startActivity(intent);
-                            }
-                            else{
+                            } else {
                                 tvResult.setText(result + key);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
+
                 };
                 LoginRequest loginRequest = new LoginRequest(Rid, Rpassword, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
@@ -76,4 +83,5 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 }

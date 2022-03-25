@@ -10,12 +10,17 @@
         <entry key="app/src/main/res/drawable/textviewoutline.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/underline.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/font/fontbmjooa.xml" value="0.2759259259259259" />
+        <entry key="app/src/main/res/layout/activity_board.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/activity_classlist.xml" value="0.296195652173913" />
+        <entry key="app/src/main/res/layout/activity_comment.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/activity_mainframe.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/activity_myinfocheck.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_write.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/boardlistitem.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/fragment_board.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.33152173913043476" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.33152173913043476" />
@@ -34,7 +39,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.23020833333333332" />
+        <option name="scale" value="0.39166666666666666" />
       </ProjectState>
     </option>
   </component>

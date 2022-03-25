@@ -26,6 +26,8 @@
         <activity android:name=".MyInfoCheckActivity"/>
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".FragmentMainActivity" />
+        <activity android:name=".BoardActivity"/>
+        <activity android:name=".WriteActivity"/>
     </application>
 
 </manifest>

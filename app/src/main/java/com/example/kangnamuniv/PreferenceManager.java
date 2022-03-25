@@ -1,39 +1,34 @@
-/*package com.example.kangnamuniv;
+package com.example.kangnamuniv;
 
 import android.content.Context;
-
 import android.content.SharedPreferences;
 
-import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 public class PreferenceManager {
-    public static void saveSharedPreferences_Data(Context context, String key, String[] list) {
+    public static final String PREFERENCES_NAME = "TEST";
 
-        SharedPreferences pref = context.getSharedPreferences("prf", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = pref.edit();
-        Set<String> set = new HashSet<String>();
-        set.addAll(Arrays.asList(list));
-        edit.putStringSet(key, set);
-        edit.commit();
 
+    private static final String DEFAULT_VALUE_STRING = "";
+    private static final boolean DEFAULT_VALUE_BOOLEAN = false;
+    private static final int DEFAULT_VALUE_INT = -1;
+    private static final long DEFAULT_VALUE_LONG = -1L;
+    private static final float DEFAULT_VALUE_FLOAT = -1F;
+
+
+    private static SharedPreferences getPreferences(Context context) {
+        return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-
-    //꺼내기
-
-    public static ArrayList<String> loadSharedPreferencesData(Context context, String key) {
-
-
-        SharedPreferences pref = context.getSharedPreferences("prf", Context.MODE_PRIVATE);
-        Set<String> set = pref.getStringSet(key, null);
-        return new set;
-
+    public static void setString(Context context, String key, String value) {
+        SharedPreferences prefs = getPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 
-}*/
+    public static String getString(Context context, String key) {
+        SharedPreferences prefs = getPreferences(context);
+        String value = prefs.getString(key, DEFAULT_VALUE_STRING);
+        return value;
+    }
+
+}

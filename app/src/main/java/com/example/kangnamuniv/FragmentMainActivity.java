@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -18,17 +19,20 @@ public class FragmentMainActivity extends AppCompatActivity {
     private FragmentCalendarActivity fragmentCalendarActivity = new FragmentCalendarActivity();
     private FragmentHomeActivity fragmentHomeActivity = new FragmentHomeActivity();
     private FragmentProfileActivity fragmentProfileActivity = new FragmentProfileActivity();
+    public String key;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
 
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, fragmentHomeActivity).commitAllowingStateLoss();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+
 
     }
 
@@ -37,7 +41,7 @@ public class FragmentMainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            switch (menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.homeItem:
                     transaction.replace(R.id.frameLayout, fragmentHomeActivity).commitAllowingStateLoss();
                     break;
@@ -51,4 +55,6 @@ public class FragmentMainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+
 }

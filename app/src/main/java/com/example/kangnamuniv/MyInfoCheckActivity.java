@@ -35,11 +35,14 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     public static String schoolID, schoolPW;
     ProgressBar progressBar;
     public static String[] lecturelist, seqlist;
+    String key;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfocheck);
+
+        key = getIntent().getStringExtra("key");
 
         edtSchoolID = findViewById(R.id.edtSchoolID);
         edtShoolPW = findViewById(R.id.edtSchoolPW);
