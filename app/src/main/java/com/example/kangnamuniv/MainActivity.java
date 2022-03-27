@@ -3,7 +3,9 @@ package com.example.kangnamuniv;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin, btnGoRegister;
     public static String Rid, Rpassword, key;
     TextView tvResult;
+    SharedPreferences sharedPreferences;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvResult = findViewById(R.id.tvResult);
         btnGoRegister = findViewById(R.id.btnGoRegister);
+
+        sharedPreferences = getSharedPreferences("UserInfo",Context.MODE_PRIVATE);
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,14 +63,17 @@ public class MainActivity extends AppCompatActivity {
 
 
                             if(result.equals("SUCCESS")){
-                                tvResult.setText(result + key);
+                                //tvResult.setText(result + key);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("session", key);
+                                editor.commit();
 
                                 Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
                                 startActivity(intent);
 
                             }
                             else{
-                                tvResult.setText(result + key);
+                                //tvResult.setText(result + key);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
