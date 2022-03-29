@@ -3,6 +3,7 @@ package com.example.kangnamuniv;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,15 +36,14 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     Button btnRenew, btnGoHome;
     public static String schoolID, schoolPW;
     ProgressBar progressBar;
-    public static String[] lecturelist, seqlist;
+    public static ArrayList<String> lecturelist = new ArrayList<String>();
+    public static ArrayList<String> seqlist = new ArrayList<String>();
     String key;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfocheck);
-
-        key = getIntent().getStringExtra("key");
 
         edtSchoolID = findViewById(R.id.edtSchoolID);
         edtShoolPW = findViewById(R.id.edtSchoolPW);
@@ -67,39 +68,40 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             String name = jsonResponse.getString("name");
-                            String lectures = jsonResponse.getString("lectures");
-                            String dataNums = jsonResponse.getString("seq");
-                            lecturelist = lectureStrparsing(lectures);
-                            seqlist = seqStrParsing(dataNums);
+                            JSONArray lectureArray = jsonResponse.getJSONArray("lectures");
+                            JSONArray seqArray = jsonResponse.getJSONArray("seq");
+
+
+                            for (int i = 0; i < lectureArray.length(); i++) {
+                                lecturelist.add((String) lectureArray.get(i));
+                                seqlist.add(String.valueOf(seqArray.get(i)));
+                                Log.d("testmyinfo", lecturelist.get(i));
+                                Log.d("testmyinfo", seqlist.get(i));
+
+                            }
 
 
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
 
                             progressBar.setVisibility(View.INVISIBLE);
-                          //  tvLecture.setText(lectures);
-                            for(int i = 0; i < lecturelist.length; i++){
-                               tvLecture.append(lecturelist[i] + "\n");
+                            for (int i = 0; i < lecturelist.size(); i++) {
+                                tvLecture.append(lecturelist.get(i) + "\n");
                             }
-                            for(int i = 0; i < lecturelist.length; i++){
-                                tvLecture.append(seqlist[i] + "\n");
-                            }
-
 
                             btnGoHome.setVisibility(View.VISIBLE);
 
 
-
-                        } catch (JSONException  e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
+
                 };
                 MyInfoCheckRequest myInfoCheckRequest = new MyInfoCheckRequest(schoolID, schoolPW, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MyInfoCheckActivity.this);
                 queue.add(myInfoCheckRequest);
-
-
 
 
             }
@@ -108,50 +110,15 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* SharedPreferences sharedPreferences = getSharedPreferences("lecture",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Set<String> set = new HashSet<String>();
-                set.addAll(Arrays.asList(lecturelist));
-                editor.putStringSet("lectures", set);
-                editor.commit();*/
-
-                //PreferenceManager.saveSharedPreferences_Data(getApplicationContext(), "lectures", lecturelist);
 
                 Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
                 startActivity(intent);
+                //finish();
             }
         });
 
 
     }
-
-    public String[] lectureStrparsing(String lecture){
-
-      /*  for(int i = 0; i< lecture.length(); i++){
-            String newStr = lecture.replace("\"", "");
-            lecture = newStr;
-        }*/
-
-        String newStr = lecture.replace("\"", "");
-        String newStr2 = newStr.replace("[","");
-        String newStr3 = newStr2.replace("]","");
-
-        String[] strAry = newStr3.split(",");
-
-        return strAry;
-
-    }
-    public String[] seqStrParsing(String seq){
-        String newStr = seq.replace("\"", "");
-        String newStr2 = newStr.replace("[","");
-        String newStr3 = newStr2.replace("]","");
-
-        String[] seqAry = newStr3.split(",");
-
-        return seqAry;
-    }
-
-
 
 
 }

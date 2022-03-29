@@ -36,17 +36,10 @@
     </RelativeLayout>
 
 
-
-    <TextView
-        android:id="@+id/boardResult"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="25dp"
-        />
-   <!-- <ListView
+    <ListView
         android:id="@+id/boardListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />-->
+        />
 
 </LinearLayout>

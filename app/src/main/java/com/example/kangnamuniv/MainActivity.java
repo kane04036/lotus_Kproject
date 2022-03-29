@@ -1,5 +1,6 @@
 package com.example.kangnamuniv;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -27,9 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText edtPW;
     Button btnLogin, btnGoRegister;
     public static String Rid, Rpassword, key;
-    TextView tvResult;
     SharedPreferences sharedPreferences;
-
 
 
     @Override
@@ -41,10 +40,9 @@ public class MainActivity extends AppCompatActivity {
         edtID = findViewById(R.id.edtID);
         edtPW = findViewById(R.id.edtPW);
         btnLogin = findViewById(R.id.btnLogin);
-        tvResult = findViewById(R.id.tvResult);
         btnGoRegister = findViewById(R.id.btnGoRegister);
 
-        sharedPreferences = getSharedPreferences("UserInfo",Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                             key = jsonResponse.getString("key");
 
 
-                            if(result.equals("SUCCESS")){
+                            if (result.equals("SUCCESS")) {
                                 //tvResult.setText(result + key);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("session", key);
@@ -71,9 +69,11 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
                                 startActivity(intent);
 
-                            }
-                            else{
-                                //tvResult.setText(result + key);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                AlertDialog dialog = builder.setMessage("아이디와 비밀번호를 확인해주세요").setPositiveButton("확인", null).create();
+                                dialog.show();
+                                return;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -95,25 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button btnGoMain;
-        btnGoMain = findViewById(R.id.btnGoMain);
-        btnGoMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        Button btnGoInfoCheck;
-        btnGoInfoCheck = findViewById(R.id.btnGoInfoCheck);
-        btnGoInfoCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 }

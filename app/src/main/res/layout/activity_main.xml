@@ -3,67 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="216dp"
             android:layout_height="117dp"
-            android:gravity="top"
             android:layout_marginTop="20dp"
+            android:gravity="top"
             android:src="@drawable/kangnam" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:gravity="bottom"
             android:text="Schedule"
             android:textColor="#317abe"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_marginTop="40dp"
-            />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_weight="1"
         android:gravity="center"
-        android:layout_weight="1">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/edtID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:background="@drawable/underline"
             android:ems="10"
             android:gravity="center_vertical"
-            android:hint="ID"
-            android:layout_margin="10dp"
-            />
+            android:hint="ID" />
 
         <EditText
             android:id="@+id/edtPW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:background="@drawable/underline"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_margin="10dp"
-            />
+            android:inputType="textPassword" />
 
 
     </LinearLayout>
@@ -71,16 +68,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
         android:layout_weight="1"
-        >
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#317abe"
+            android:background="@drawable/roundcorner"
             android:text="로그인"
             android:textSize="20dp" />
 
@@ -88,34 +84,10 @@
             android:id="@+id/btnGoRegister"
             android:layout_width="70dp"
             android:layout_height="40dp"
-            android:text="회원가입"
-            android:textSize="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/outline"
-            android:layout_marginTop="10dp"/>
-
-
-
-
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="로그인 결과"/>
-        <Button
-            android:id="@+id/btnGoMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="메인홈가기/테스트"
-            />
-        <Button
-            android:id="@+id/btnGoInfoCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="강좌확인가기/테스트"
-            />
-
-
-
+            android:text="회원가입"
+            android:textSize="15dp" />
 
 
     </LinearLayout>

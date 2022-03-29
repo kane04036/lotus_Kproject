@@ -1,5 +1,7 @@
 package com.example.kangnamuniv;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextView resultTv, tvIdCheck, tvNicknameCheck, tvPwCheck;
     private boolean id_validate = false;
     private boolean nickname_validate = false;
+    private boolean pw_check = false;
 
 
     @Override
@@ -42,13 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
         edtRegPWcheck = findViewById(R.id.edtRegPWcheck);
         edtRegNickname = findViewById(R.id.edtRegNickname);
         btnRegister = findViewById(R.id.btnRegister);
-        resultTv = findViewById(R.id.resultTv);
         btnIdCheck = findViewById(R.id.btnIdCheck);
         btnNicknameCheck = findViewById(R.id.btnNicknameCheck);
         tvIdCheck = findViewById(R.id.tvIdCheck);
         tvNicknameCheck = findViewById(R.id.tvNicknameCheck);
         tvPwCheck = findViewById(R.id.tvPwCheck);
-
 
 
         btnIdCheck.setOnClickListener(new View.OnClickListener() {
@@ -58,10 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Rid = edtRegID.getText().toString();
 
-                if(id_validate){
+                if (id_validate) {
                     return;
                 }
-                if(Rid.equals("")){
+                if (Rid.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("아이디를 입력해주세요").setPositiveButton("확인", null).create();
                     dialog.show();
@@ -74,16 +75,15 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             String result = jsonResponse.getString("res");
 
-                            if(result.equals("SUCCESS")){
-                                //tvIdCheck.setText("사용가능한 아이디입니다.");
-                                tvIdCheck.setText(result);
+                            if (result.equals("SUCCESS")) {
+                                tvIdCheck.setTextColor(Color.BLUE);
+                                tvIdCheck.setText("사용가능한 아이디입니다.");
                                 id_validate = true;
                                 edtRegID.setEnabled(false);
                                 btnIdCheck.setEnabled(false);
-                            }
-                            else{
-                                //tvIdCheck.setText("이미 사용중인 아이디 입니다.");
-                                tvIdCheck.setText(result);
+                            } else {
+                                tvIdCheck.setTextColor(Color.RED);
+                                tvIdCheck.setText("이미 사용중인 아이디 입니다.");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -96,6 +96,31 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        edtRegPW.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if ((edtRegPW.getText().toString()).equals(edtRegPWcheck.getText().toString())) {
+                    tvPwCheck.setTextColor(Color.BLUE);
+                    tvPwCheck.setText("비밀번호가 일치합니다");
+                    pw_check = true;
+                } else {
+                    tvPwCheck.setTextColor(Color.RED);
+                    tvPwCheck.setText("비밀번호가 일치하지 않습니다.");
+                    pw_check = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         edtRegPWcheck.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -104,13 +129,14 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if((edtRegPW.getText().toString()).equals(edtRegPWcheck.getText().toString())){
+                if ((edtRegPW.getText().toString()).equals(edtRegPWcheck.getText().toString())) {
                     tvPwCheck.setTextColor(Color.BLUE);
                     tvPwCheck.setText("비밀번호가 일치합니다");
-                }
-                else{
+                    pw_check = true;
+                } else {
                     tvPwCheck.setTextColor(Color.RED);
                     tvPwCheck.setText("비밀번호가 일치하지 않습니다.");
+                    pw_check = false;
                 }
 
             }
@@ -122,19 +148,16 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-
-
-
         btnNicknameCheck.setOnClickListener(new View.OnClickListener() {
             private AlertDialog dialog;
 
             @Override
             public void onClick(View view) {
                 Rnickname = edtRegNickname.getText().toString();
-                if(nickname_validate){
+                if (nickname_validate) {
                     return;
                 }
-                if(Rnickname.equals("")){
+                if (Rnickname.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("닉네임 입력해주세요").setPositiveButton("확인", null).create();
                     dialog.show();
@@ -147,16 +170,15 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             String result = jsonResponse.getString("res");
 
-                            if(result.equals("SUCCESS")){
-                                //tvNicknameCheck.setText("사용가능한 닉네임 입니다.");
-                                tvNicknameCheck.setText(result);
+                            if (result.equals("SUCCESS")) {
+                                tvNicknameCheck.setTextColor(Color.BLUE);
+                                tvNicknameCheck.setText("사용가능한 닉네임 입니다.");
                                 nickname_validate = true;
                                 edtRegNickname.setEnabled(false);
                                 btnNicknameCheck.setEnabled(false);
-                            }
-                            else{
-                                //tvNicknameCheck.setText("이미 사용중인 닉네임 입니다.");
-                                tvNicknameCheck.setText(result);
+                            } else {
+                                tvNicknameCheck.setTextColor(Color.RED);
+                                tvNicknameCheck.setText("이미 사용중인 닉네임 입니다.");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -180,19 +202,27 @@ public class RegisterActivity extends AppCompatActivity {
                 Rnickname = edtRegNickname.getText().toString();
 
 
-                if(!id_validate){
+                if (!id_validate) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("아이디를 확인해주세요").setPositiveButton("확인", null).create();
                     dialog.show();
                     return;
                 }
+                if (!pw_check) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    dialog = builder.setMessage("비밀번호를 확인해주세요").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
 
-                if(!nickname_validate){
+                }
+
+                if (!nickname_validate) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("닉네임을 확인해주세요").setPositiveButton("확인", null).create();
                     dialog.show();
                     return;
                 }
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -201,21 +231,28 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             String result = jsonResponse.getString("res");
 
-                            if(result.equals("SUCCESS")){
-                               // resultTv.setText("회원가입 완료");
-                                resultTv.setText(result);
+                            if (result.equals("SUCCESS")) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                dialog = builder.setMessage(Rnickname + "님 회원가입이 완료되었습니다!").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).create();
+                                dialog.show();
+                                return;
 
-                            }
-                            else{
-                                //tvNicknameCheck.setText("이미 사용중인 닉네임 입니다.");
-                                resultTv.setText(result);
+
+                            } else {
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 };
-                RegisterRequest registerRequest = new RegisterRequest(Rid, Rpassword,Rnickname, responseListener);
+                RegisterRequest registerRequest = new RegisterRequest(Rid, Rpassword, Rnickname, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
 

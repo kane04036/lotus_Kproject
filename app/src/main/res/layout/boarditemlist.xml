@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvPostTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="제목은 이렇게 한 번 적어볼까 어떻게 적는 게 좋을까 나는 잘 모르겠네이렇게 계속 쓰다보면 밑으로 내려가겠지"
+        android:textSize="17dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"
+
+    />
+    <TextView
+        android:id="@+id/tvPostWriter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvPostTitle"
+        android:text="내이름은 뭐게"
+        android:textSize="12dp"
+        android:layout_marginLeft="15dp"
+        />
+
+</LinearLayout>
