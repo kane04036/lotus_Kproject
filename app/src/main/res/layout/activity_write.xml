@@ -61,9 +61,6 @@
 <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-
     <CheckBox
         android:id="@+id/chkAnonymousWrite"
         android:layout_width="match_parent"
@@ -71,7 +68,8 @@
         android:background="@drawable/whiterectangle"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="익명" />
+        android:text="익명"
+        android:checked="true"/>
     </RelativeLayout>
 
 

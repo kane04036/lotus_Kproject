@@ -9,10 +9,12 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,14 +33,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MyInfoCheckActivity extends AppCompatActivity {
-    TextView tvLecture;
+    TextView tvLecture, notice;
     EditText edtSchoolID, edtShoolPW, edtViewName;
     Button btnRenew, btnGoHome;
     public static String schoolID, schoolPW;
     ProgressBar progressBar;
     public static ArrayList<String> lecturelist = new ArrayList<String>();
-    public static ArrayList<String> seqlist = new ArrayList<String>();
-    String key;
+    public static ArrayList<Integer> seqlist = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         tvLecture = findViewById(R.id.tvLectures);
         btnGoHome = findViewById(R.id.btnGoHome);
         progressBar = findViewById(R.id.progressBar);
+        notice = findViewById(R.id.notice);
 
         btnRenew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +61,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                 schoolID = edtSchoolID.getText().toString();
                 schoolPW = edtShoolPW.getText().toString();
+                notice.setText("학번과 비밀번호를 틀리게 입력할 시 \n강의 목록이 불러와지지 않을 수도 있습니다.\n정확히 입력해주세요.");
+                notice.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
 
 
@@ -74,17 +78,18 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                             for (int i = 0; i < lectureArray.length(); i++) {
                                 lecturelist.add((String) lectureArray.get(i));
-                                seqlist.add(String.valueOf(seqArray.get(i)));
+                                seqlist.add((Integer) seqArray.get(i));
                                 Log.d("testmyinfo", lecturelist.get(i));
-                                Log.d("testmyinfo", seqlist.get(i));
+                                Log.d("testmyinfo", String.valueOf(seqlist.get(i)));
 
                             }
 
 
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
-
+                            notice.setText("");
                             progressBar.setVisibility(View.INVISIBLE);
+                            notice.setVisibility(View.INVISIBLE);
                             for (int i = 0; i < lecturelist.size(); i++) {
                                 tvLecture.append(lecturelist.get(i) + "\n");
                             }

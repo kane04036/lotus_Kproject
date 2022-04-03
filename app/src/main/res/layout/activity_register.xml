@@ -73,6 +73,7 @@
         android:backgroundTint="#317abe"
         android:inputType="textPassword"
         android:hint="Password"
+        android:maxLength="20"
 
         />
 
@@ -96,7 +97,15 @@
         android:layout_marginLeft="50dp"
         android:inputType="textPassword"
         android:hint="Password Check"
-        android:layout_marginBottom="10dp"
+        android:maxLength="20"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호는 최대 20자리 설정가능합니다."
+        android:layout_marginLeft="50dp"
+        android:textSize="10dp"
+        android:layout_marginBottom="7dp"
         />
 
 
@@ -117,6 +126,7 @@
         android:backgroundTint="#317abe"
         android:layout_marginLeft="50dp"
         android:hint="Nickname"
+        android:maxLength="15"
         />
         <Button
             android:id="@+id/btnNicknameCheck"

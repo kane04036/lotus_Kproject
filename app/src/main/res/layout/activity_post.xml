@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,74 +21,88 @@
                 android:id="@+id/tvDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="7dp"
                 android:text="글제목인데 이렇게 쓰면 왜 글씨가 안 보일까?"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="22dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvDetailNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:text="흥짓뿡" />
 
+
             <TextView
-                android:id="@+id/tvDetailContent"
+                android:id="@+id/tvDetailMsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
-                android:textSize="17dp" />
+                android:textSize="18dp" />
+            <View
+                android:background="#bababa"
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                />
+
             <ListView
                 android:id="@+id/listViewComment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
+
     </ScrollView>
 
-
-
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/underbarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
 
         <CheckBox
             android:id="@+id/chkAnonymousCommnet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/edtComment"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:text="익명"
-            android:textSize="12dp"
+            android:textSize="12dp" />
 
-            />
         <Button
             android:id="@+id/btnComment"
             android:layout_width="50dp"
-            android:layout_height="35dp"
+            android:layout_height="38dp"
+            android:layout_alignTop="@+id/edtComment"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/roundcorner"
             android:layout_marginBottom="10dp"
-            android:text="등록" />
+            android:background="@drawable/roundcorner"
+            android:text="등록"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/edtComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/chkAnonymousCommnet"
             android:layout_toLeftOf="@+id/btnComment"
+            android:layout_toRightOf="@+id/chkAnonymousCommnet"
             android:hint="댓글을 입력하세요" />
-
 
 
     </RelativeLayout>
 
-</LinearLayout>
+
+
+
+</RelativeLayout>

@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/activity_write.xml" value="0.36150603973889145" />
         <entry key="app/src/main/res/layout/boarditemlist.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/boardlistitem.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/commentlistitem.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/fragment_board.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.33152173913043476" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -26,8 +27,8 @@ import org.json.JSONObject;
 
 public class WriteActivity extends AppCompatActivity {
     String session, Lnumber;
-    String anonymous;
-    String title, msg,res;
+    int anonymous = 1;
+    String title, msg;
     EditText edtTitle, edtMsg;
     CheckBox chkAnonymousWrite;
     Button btnPost, btnBack;
@@ -51,9 +52,9 @@ public class WriteActivity extends AppCompatActivity {
                 title = edtTitle.getText().toString();
                 msg = edtMsg.getText().toString();
                 if(chkAnonymousWrite.isChecked())
-                    anonymous = "1";
+                    anonymous = 1;
                 else
-                    anonymous = "0";
+                    anonymous = 0;
 
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -71,7 +72,7 @@ public class WriteActivity extends AppCompatActivity {
                 }
                 Log.d("test7", session);
                 Log.d("test7", Lnumber);
-                Log.d("test7", anonymous);
+                Log.d("test7", String.valueOf(anonymous));
                 Log.d("test7", title);
                 Log.d("test7", msg);
 
@@ -82,20 +83,20 @@ public class WriteActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            res = response.getString("res");
+                            String Bnumber = response.getString("seq");
+                            String res = response.getString("res");
 
-                            Log.d("test", res);
 
-                            if(res.equals("[Success] 게시글 작성 성공")){
-                                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+                            Log.d("testResult", res);
+                            Log.d("testBnumber",Bnumber);
+                            Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+
+                            if(res.contains("Success")){
+                                Log.d("testResult","작성완료");
+                                Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+                                intent.putExtra("Bnumber",Bnumber);
                                 startActivity(intent);
                                 finish();
-                            }
-                            else{
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                                AlertDialog dialog = builder.setMessage("게시물을 등록할 수 없습니다.").setPositiveButton("확인", null).create();
-                                dialog.show();
-                                return;
                             }
 
                             Log.d("test7", session);
@@ -123,4 +124,5 @@ public class WriteActivity extends AppCompatActivity {
 
 
     }
+
 }

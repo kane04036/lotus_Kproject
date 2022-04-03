@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         tvNicknameCheck = findViewById(R.id.tvNicknameCheck);
         tvPwCheck = findViewById(R.id.tvPwCheck);
 
-
         btnIdCheck.setOnClickListener(new View.OnClickListener() {
             private AlertDialog dialog;
 

@@ -68,7 +68,7 @@ public class FragmentHomeActivity extends Fragment {
                 //String selected_item = (String)adapterView.getItemAtPosition(position);
                 Log.d("test6", lecturelist.get(position));
                 Log.d("test6", session);
-                Log.d("test6", seqlist.get(position));
+                Log.d("test6", String.valueOf(seqlist.get(position)));
 
 
                 Intent intent = new Intent(getActivity(), BoardActivity.class);
