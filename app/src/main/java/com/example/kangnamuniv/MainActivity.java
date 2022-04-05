@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin, btnGoRegister;
     public static String Rid, Rpassword, key;
     SharedPreferences sharedPreferences;
+    String SharedID , SharedPW;
+
 
 
     @Override
@@ -37,19 +39,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("강남대 커뮤니티");
 
+        sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         edtID = findViewById(R.id.edtID);
         edtPW = findViewById(R.id.edtPW);
         btnLogin = findViewById(R.id.btnLogin);
         btnGoRegister = findViewById(R.id.btnGoRegister);
 
-        sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedID = sharedPreferences.getString("ID",null);
+        SharedPW = sharedPreferences.getString("PW",null);
 
+
+        if(SharedID != null && SharedPW != null){
+            Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Rid = edtID.getText().toString();
                 Rpassword = edtPW.getText().toString();
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -62,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
                             if (result.equals("SUCCESS")) {
                                 //tvResult.setText(result + key);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("session", key);
+                                editor.putString("ID", Rid);
+                                editor.putString("PW", Rpassword);
                                 editor.commit();
 
                                 Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
@@ -92,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
