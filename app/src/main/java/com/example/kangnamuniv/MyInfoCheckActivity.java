@@ -1,20 +1,17 @@
 package com.example.kangnamuniv;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,11 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MyInfoCheckActivity extends AppCompatActivity {
     TextView tvLecture, notice;
@@ -40,6 +33,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static ArrayList<String> lecturelist = new ArrayList<String>();
     public static ArrayList<Integer> seqlist = new ArrayList<>();
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +56,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                 schoolID = edtSchoolID.getText().toString();
                 schoolPW = edtShoolPW.getText().toString();
-                notice.setText("학번과 비밀번호를 틀리게 입력할 시 \n강의 목록이 불러와지지 않을 수도 있습니다.\n정확히 입력해주세요.");
+                notice.setText("학번과 비밀번호를 잘못 입력할 시 \n강의 목록이 불러와지지 않습니다.\n정확히 입력해 주세요.");
                 notice.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
 
@@ -76,6 +71,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             JSONArray seqArray = jsonResponse.getJSONArray("seq");
 
 
+                            //여기를 아예 sharedPreference arraylist로 바꾸기
                             for (int i = 0; i < lectureArray.length(); i++) {
                                 lecturelist.add((String) lectureArray.get(i));
                                 seqlist.add((Integer) seqArray.get(i));
@@ -83,7 +79,6 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                                 Log.d("testmyinfo", String.valueOf(seqlist.get(i)));
 
                             }
-
 
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
@@ -95,6 +90,9 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             }
 
                             btnGoHome.setVisibility(View.VISIBLE);
+
+                           // setStringArrayPref(getApplicationContext(), "lectures", lecturelist);
+
 
 
                         } catch (JSONException e) {
@@ -125,5 +123,22 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
     }
 
+    private void setStringArrayPref(Context context, String key, ArrayList<String> values) {
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        JSONArray a = new JSONArray();
+
+        for (int i = 0; i < values.size(); i++) {
+            a.put(values.get(i));
+        }
+
+        if (!values.isEmpty()) {
+            editor.putString(key, a.toString());
+        } else {
+            editor.putString(key, null);
+        }
+
+        editor.apply();
+    }
 }

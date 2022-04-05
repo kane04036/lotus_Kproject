@@ -1,7 +1,9 @@
 package com.example.kangnamuniv;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,12 +28,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WriteActivity extends AppCompatActivity {
-    String session, Lnumber;
+    String session;
+    int Lnumber;
     int anonymous = 1;
     String title, msg;
     EditText edtTitle, edtMsg;
     CheckBox chkAnonymousWrite;
     Button btnPost, btnBack;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +47,9 @@ public class WriteActivity extends AppCompatActivity {
         btnPost = findViewById(R.id.btnPost);
         btnBack = findViewById(R.id.btnBack);
 
-        session = getIntent().getStringExtra("session");
-        Lnumber = getIntent().getStringExtra("Lnumber");
+        sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
+        session = sharedPreferences.getString("session", "");
+        Lnumber = getIntent().getIntExtra("Lnumber",0);
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +76,7 @@ public class WriteActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("test7", session);
-                Log.d("test7", Lnumber);
+                Log.d("test7", String.valueOf(Lnumber));
                 Log.d("test7", String.valueOf(anonymous));
                 Log.d("test7", title);
                 Log.d("test7", msg);
@@ -83,24 +88,24 @@ public class WriteActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String Bnumber = response.getString("seq");
+                            int Bnumber = response.getInt("seq");
                             String res = response.getString("res");
 
 
                             Log.d("testResult", res);
-                            Log.d("testBnumber",Bnumber);
-                            Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+                            Log.d("testBnumber",String.valueOf(Bnumber));
+                           // Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
 
                             if(res.contains("Success")){
                                 Log.d("testResult","작성완료");
                                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
                                 intent.putExtra("Bnumber",Bnumber);
                                 startActivity(intent);
-                                finish();
+                                //finish();
                             }
 
                             Log.d("test7", session);
-                            Log.d("test7", Lnumber);
+                            Log.d("test7", String.valueOf(Lnumber));
                             Log.d("test7", String.valueOf(anonymous));
                             Log.d("test7", title);
                             Log.d("test7", msg);

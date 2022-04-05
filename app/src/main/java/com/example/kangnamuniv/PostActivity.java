@@ -1,5 +1,7 @@
 package com.example.kangnamuniv;
 
+import static android.media.CamcorderProfile.get;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,6 +53,7 @@ public class PostActivity extends AppCompatActivity {
     ArrayList<Integer> CnumberAry = new ArrayList<>();
     ArrayList<BoardView> cmtArray = new ArrayList<>();
 
+    CustomArrayAdapterComment customArrayAdapterComment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class PostActivity extends AppCompatActivity {
         edtComment = findViewById(R.id.edtComment);
         chkAnonymousComment = findViewById(R.id.chkAnonymousCommnet);
         listViewComment = findViewById(R.id.listViewComment);
+        customArrayAdapterComment= new CustomArrayAdapterComment(getApplicationContext(), cmtArray);
+
 
         Bnumber = getIntent().getIntExtra("Bnumber",0);
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
@@ -130,7 +135,6 @@ public class PostActivity extends AppCompatActivity {
                         tvDetailNickname.setText(writer);
                         tvDetailMsg.setText(msg);
 
-                        CustomArrayAdapterComment customArrayAdapterComment= new CustomArrayAdapterComment(getApplicationContext(), cmtArray);
                         listViewComment.setAdapter(customArrayAdapterComment);
 
                     } else {
@@ -183,6 +187,8 @@ public class PostActivity extends AppCompatActivity {
 
                             if (res.contains("Success")) {
                                 edtComment.setText("");
+                                onPause();
+
                                 Log.d("testComment", res);
                             } else Log.d("testResult", res);
 
@@ -206,6 +212,90 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+       /* RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("session", session);
+            jsonObject.put("Bnumber", Bnumber);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("test7", session);
+        Log.d("test7", String.valueOf(Bnumber));
+
+
+        String URL = "http://34.64.49.11/boardview";//각 상황에 맞는 서버 url
+
+
+        JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res");
+                    JSONArray boardarray = response.getJSONArray("board");
+                    JSONArray commentarray = response.getJSONArray("comment");
+
+
+
+                    if (res.contains("Success")) {
+                        Log.d("testPost", res);
+
+                        for (int i = 0; i < boardarray.length(); i++) {
+                            JSONArray each = boardarray.getJSONArray(i);
+                            title = String.valueOf(each.get(0));
+                            writer = String.valueOf(each.get(1));
+                            msg = String.valueOf(each.get(2));
+
+                            Log.d("test: board", title);
+                            Log.d("test: board", writer);
+                            Log.d("test: board", msg);
+
+                        }
+                        final int validateCmt = CnumberAry.get(0);
+                        for (int i = 0; i < commentarray.length(); i++) {
+                            JSONArray each = commentarray.getJSONArray(i);
+                            if(validateCmt != (Integer)each.get(2) ) {
+                                cmtWritersAry.add(0,String.valueOf(each.get(0)));
+                                cmtMsgAry.add(0,String.valueOf(each.get(1)));
+                                CnumberAry.add(0,(Integer) each.get(2));
+                                cmtArray.add(0,new BoardView(String.valueOf(each.get(0)), String.valueOf(each.get(1))));
+                            }
+
+//                            Log.d("test: comment", cmtWritersAry.get(i));
+//                            Log.d("test: comment", cmtMsgAry.get(i));
+//                            Log.d("test: comment", String.valueOf(CnumberAry.get(i)));
+//                            Log.d("test: comment", String.valueOf(cmtArray.get(i)));
+
+                        }
+
+                        tvDetailTitle.setText(title);
+                        tvDetailNickname.setText(writer);
+                        tvDetailMsg.setText(msg);
+                        customArrayAdapterComment.notifyDataSetChanged();
+
+
+                    } else {
+                        Log.d("test: res", res);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+
+        requestQueue.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+*/
 
     }
 }
