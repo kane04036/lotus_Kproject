@@ -34,7 +34,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     public static ArrayList<String> lecturelist = new ArrayList<String>();
     public static ArrayList<Integer> seqlist = new ArrayList<>();
 
-    SharedPreferences sharedPreferences;
+    PreferenceManagers preferenceManagers;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +79,10 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                                 Log.d("testmyinfo", String.valueOf(seqlist.get(i)));
 
                             }
+                            Log.d("test","setter실행 전");
+
+                           // preferenceManagers.setStringArrayPref(MyInfoCheckActivity.this, "lectures", lecturelist);
+
 
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
@@ -91,8 +95,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                             btnGoHome.setVisibility(View.VISIBLE);
 
-                           // setStringArrayPref(getApplicationContext(), "lectures", lecturelist);
-
+                            Log.d("test","setter실행 ");
 
 
                         } catch (JSONException e) {
@@ -121,24 +124,5 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    private void setStringArrayPref(Context context, String key, ArrayList<String> values) {
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        JSONArray a = new JSONArray();
-
-        for (int i = 0; i < values.size(); i++) {
-            a.put(values.get(i));
-        }
-
-        if (!values.isEmpty()) {
-            editor.putString(key, a.toString());
-        } else {
-            editor.putString(key, null);
-        }
-
-        editor.apply();
     }
 }

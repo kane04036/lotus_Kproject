@@ -76,6 +76,36 @@ public class BoardActivity extends AppCompatActivity {
         tvLectureName.setText(lecture);//텍스트뷰를 설정하는 메소드 setText
         //만약에 editText에서 작성한 값을 자바 코드내에서 String 변수로 받아오고 싶으면 edtText변수이름.getText().toString(); 하면 문자열로 받아올 수 있음
 
+
+        //밑에 코드는 버튼이 클릭됐을때 작동하는 코드 버튼변수명.setOnClickListener하고 괄호한 다음에 new 만 쳐도 자동으로 상황에 맞는 onClick메소드 작성해줄 것임
+        //리스트뷰 클릭메소드랑 약간 다른데 그건 fragmenthome에 있는 클릭 메소드랑 비교하면 잘 보일듯!?
+        btnWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WriteActivity.class);//여기도 intent로 액티비티 전환 intent이름은 마음대로 해도됨
+                //Intent sueprloveintent = new Intent(get~~~~,~~.class); <<이렇게도 작성 가능
+                //intent.putExtra("session", session);
+                intent.putExtra("Lnumber", Lnumber);
+                startActivity(intent);
+            }
+        });
+
+
+        boardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //Toast.makeText(getApplicationContext(), postNum.get(position), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+                intent.putExtra("Bnumber", postNum.get(position));
+                startActivity(intent);
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         //post나 get방식으로 통신을 하기 위해서는 RequestQueue를 만들어야함 걍 이거 고대로 복붙해서 쓰면 될듯? 괄호 안에 파라미터가 오류가 날 수 있는데,,, getActivity getContext 뭐 이런 거 쳐보고 잘 되는 걸로 고고 ㅎ
 
@@ -167,36 +197,12 @@ public class BoardActivity extends AppCompatActivity {
 
         requestQueue.add(mainViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
 
-        //밑에 코드는 버튼이 클릭됐을때 작동하는 코드 버튼변수명.setOnClickListener하고 괄호한 다음에 new 만 쳐도 자동으로 상황에 맞는 onClick메소드 작성해줄 것임
-        //리스트뷰 클릭메소드랑 약간 다른데 그건 fragmenthome에 있는 클릭 메소드랑 비교하면 잘 보일듯!?
-        btnWrite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), WriteActivity.class);//여기도 intent로 액티비티 전환 intent이름은 마음대로 해도됨
-                //Intent sueprloveintent = new Intent(get~~~~,~~.class); <<이렇게도 작성 가능
-                //intent.putExtra("session", session);
-                intent.putExtra("Lnumber", Lnumber);
-                startActivity(intent);
-            }
-        });
-
-
-        boardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                //Toast.makeText(getApplicationContext(), postNum.get(position), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-                intent.putExtra("Bnumber", postNum.get(position));
-                startActivity(intent);
-
-            }
-        });
     }
 
-    @Override
+    /* @Override
     protected void onRestart() {
         super.onRestart();
-        /*RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         //post나 get방식으로 통신을 하기 위해서는 RequestQueue를 만들어야함 걍 이거 고대로 복붙해서 쓰면 될듯? 괄호 안에 파라미터가 오류가 날 수 있는데,,, getActivity getContext 뭐 이런 거 쳐보고 잘 되는 걸로 고고 ㅎ
 
         JSONObject jsonObject = new JSONObject();
@@ -264,8 +270,8 @@ public class BoardActivity extends AppCompatActivity {
         });
 
         requestQueue.add(mainViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
-*/
-    }
+
+    }*/
 
 
 }

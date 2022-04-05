@@ -37,12 +37,14 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentHomeActivity extends Fragment {
     ListView listView;
     String session;
     SharedPreferences sharedPreferences;
+    PreferenceManagers preferenceManagers;
 
     @Nullable
     @Override
@@ -57,6 +59,9 @@ public class FragmentHomeActivity extends Fragment {
 
 
         listView = (ListView) view.findViewById(R.id.listViewLecture);
+
+        //ArrayList<String> arrayList = preferenceManagers.getStringArrayPref(this.getActivity(),"lectures");
+        //Log.d("testShared", arrayList.get(3));
 
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, lecturelist);
@@ -83,7 +88,10 @@ public class FragmentHomeActivity extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }
 
 

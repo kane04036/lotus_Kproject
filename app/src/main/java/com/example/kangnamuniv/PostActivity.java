@@ -187,9 +187,10 @@ public class PostActivity extends AppCompatActivity {
 
                             if (res.contains("Success")) {
                                 edtComment.setText("");
-                                onPause();
-
                                 Log.d("testComment", res);
+                                finish();
+                                startActivity(getIntent());
+
                             } else Log.d("testResult", res);
 
 

@@ -101,7 +101,7 @@ public class WriteActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
                                 intent.putExtra("Bnumber",Bnumber);
                                 startActivity(intent);
-                                //finish();
+                                finish();
                             }
 
                             Log.d("test7", session);
