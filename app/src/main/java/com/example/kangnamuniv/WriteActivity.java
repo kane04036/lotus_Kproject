@@ -30,8 +30,8 @@ import org.json.JSONObject;
 public class WriteActivity extends AppCompatActivity {
     String session;
     int Lnumber;
-    int anonymous = 1;
-    String title, msg;
+    int anonymous;
+    String title, msg, lecture;
     EditText edtTitle, edtMsg;
     CheckBox chkAnonymousWrite;
     Button btnPost, btnBack;
@@ -50,6 +50,7 @@ public class WriteActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
         Lnumber = getIntent().getIntExtra("Lnumber",0);
+        lecture = getIntent().getStringExtra("Lecture");
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,15 +72,16 @@ public class WriteActivity extends AppCompatActivity {
                     jsonObject.put("anonymous",anonymous);
                     jsonObject.put("title",title);
                     jsonObject.put("msg",msg);
+                    Log.d("test7", session);
+                    Log.d("test7", String.valueOf(Lnumber));
+                    Log.d("test7", String.valueOf(anonymous));
+                    Log.d("test7", title);
+                    Log.d("test7", msg);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Log.d("test7", session);
-                Log.d("test7", String.valueOf(Lnumber));
-                Log.d("test7", String.valueOf(anonymous));
-                Log.d("test7", title);
-                Log.d("test7", msg);
+
 
                 String URL = "http://34.64.49.11/boardwrite";//각 상황에 맞는 서버 url
 
@@ -100,15 +102,10 @@ public class WriteActivity extends AppCompatActivity {
                                 Log.d("testResult","작성완료");
                                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
                                 intent.putExtra("Bnumber",Bnumber);
+                                intent.putExtra("Lecture", lecture);
                                 startActivity(intent);
                                 finish();
                             }
-
-                            Log.d("test7", session);
-                            Log.d("test7", String.valueOf(Lnumber));
-                            Log.d("test7", String.valueOf(anonymous));
-                            Log.d("test7", title);
-                            Log.d("test7", msg);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

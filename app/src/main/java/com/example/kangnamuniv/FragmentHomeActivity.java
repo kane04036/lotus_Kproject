@@ -1,14 +1,14 @@
 package com.example.kangnamuniv;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.kangnamuniv.MyInfoCheckActivity.lecturelist;
-import static com.example.kangnamuniv.MyInfoCheckActivity.seqlist;
+
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +34,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +46,8 @@ public class FragmentHomeActivity extends Fragment {
     String session;
     SharedPreferences sharedPreferences;
     PreferenceManagers preferenceManagers;
+    ArrayList<String> lecturelist;
+    ArrayList<Integer> seqlist;
 
     @Nullable
     @Override
@@ -57,6 +60,8 @@ public class FragmentHomeActivity extends Fragment {
         //나중에 서버로 데이터 보낼때 session키가 필요하면 위에처럼 작성해서 session 값 쓰면됨
         //근데 fragment에서는 오류가 나서 this.getActivity().getSharedPreferences(~~~~); <<이렇게 작성했는데 일반 activity에서는 getSharedPreferences(~~); 만 써도될 것임 안 되면 말해주세요,,,,
 
+        lecturelist = getStringArrayPref(view.getContext(), "lecture");
+        seqlist = getIntegerArrayPref(view.getContext(), "seq");
 
         listView = (ListView) view.findViewById(R.id.listViewLecture);
 
@@ -86,6 +91,46 @@ public class FragmentHomeActivity extends Fragment {
 
 
         return view;
+    }
+    public ArrayList<String> getStringArrayPref(Context context, String key) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefs.getString(key, null);
+        ArrayList urls = new ArrayList();
+
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+
+                for (int i = 0; i < a.length(); i++) {
+                    String url = a.optString(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
+    }
+    public ArrayList<Integer> getIntegerArrayPref(Context context, String key) {
+
+        SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefsInt.getString(key, null);
+        ArrayList urls = new ArrayList();
+
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+
+                for (int i = 0; i < a.length(); i++) {
+                    int url = a.optInt(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
     }
 
     @Override

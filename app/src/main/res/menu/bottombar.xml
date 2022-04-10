@@ -6,16 +6,16 @@
     <item
         android:id="@+id/scheduleItem"
         android:icon="@drawable/schedule"
-        android:title="Schedule"/>
+        android:title=""/>
 
     <item
         android:id="@+id/homeItem"
         android:icon="@drawable/list"
-        android:title="home"/>
+        android:title=""/>
 
     <item
         android:id="@+id/profileItem"
         android:icon="@drawable/profile"
-        android:title="profile"/>
+        android:title=""/>
 
 </menu>

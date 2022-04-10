@@ -2,8 +2,10 @@ package com.example.kangnamuniv;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -39,8 +43,8 @@ import java.util.List;
 
 public class BoardActivity extends AppCompatActivity {
     TextView tvLectureName;
-    Button btnWrite;
-    String res, data;
+    ImageButton btnWrite;
+    String res, data, lecture;
     String session;
     int Lnumber;
     ListView boardListView;
@@ -67,7 +71,7 @@ public class BoardActivity extends AppCompatActivity {
         customArrayAdapter = new CustomArrayAdapter(getApplicationContext(), boardView);
 
 
-        String lecture = getIntent().getStringExtra("lecture"); //intent 생성하고 putString해서 넘겼던 데이터들을 이렇게 받아올 수 있음
+        lecture = getIntent().getStringExtra("lecture"); //intent 생성하고 putString해서 넘겼던 데이터들을 이렇게 받아올 수 있음
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
         Lnumber = getIntent().getIntExtra("Lnumber", 0);
@@ -86,6 +90,7 @@ public class BoardActivity extends AppCompatActivity {
                 //Intent sueprloveintent = new Intent(get~~~~,~~.class); <<이렇게도 작성 가능
                 //intent.putExtra("session", session);
                 intent.putExtra("Lnumber", Lnumber);
+                intent.putExtra("Lecture", lecture);
                 startActivity(intent);
             }
         });
@@ -97,10 +102,14 @@ public class BoardActivity extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), postNum.get(position), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
                 intent.putExtra("Bnumber", postNum.get(position));
+                intent.putExtra("Lecture", lecture);
+                Log.d("testLecture1", lecture);
+
                 startActivity(intent);
 
             }
         });
+
     }
 
     @Override
@@ -136,8 +145,6 @@ public class BoardActivity extends AppCompatActivity {
                     //dataArray = new JSONArray(response.getString("data")); //data이름으로 된 데이터를 받기위한 코드
                     data = response.getString("data");
                     res = response.getString("res"); //동일
-
-
 
                     if (res.contains("Success")) {
                         Log.d("testPost2", res);

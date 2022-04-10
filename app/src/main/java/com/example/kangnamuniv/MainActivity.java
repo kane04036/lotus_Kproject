@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin, btnGoRegister;
     public static String Rid, Rpassword, key;
     SharedPreferences sharedPreferences;
-    String SharedID , SharedPW;
-
+    String SharedID, SharedPW;
 
 
     @Override
@@ -47,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnGoRegister = findViewById(R.id.btnGoRegister);
 
-        SharedID = sharedPreferences.getString("ID",null);
-        SharedPW = sharedPreferences.getString("PW",null);
+        SharedID = sharedPreferences.getString("ID", null);
+        SharedPW = sharedPreferences.getString("PW", null);
 
 
-        if(SharedID != null && SharedPW != null){
+        if (SharedID != null && SharedPW != null) {
             Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
             startActivity(intent);
             finish();

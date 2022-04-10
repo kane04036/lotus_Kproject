@@ -33,6 +33,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static ArrayList<String> lecturelist = new ArrayList<String>();
     public static ArrayList<Integer> seqlist = new ArrayList<>();
+    int j = 0;
 
     PreferenceManagers preferenceManagers;
 
@@ -40,6 +41,18 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfocheck);
+        ArrayList<String> lecturePreferCheck;
+        ArrayList<Integer> seqPreferCheck;
+
+        lecturePreferCheck = getStringArrayPref(MyInfoCheckActivity.this, "lecture");
+        seqPreferCheck = getIntegerArrayPref(MyInfoCheckActivity.this, "seq");
+
+        if(!lecturePreferCheck.isEmpty() && !seqPreferCheck.isEmpty()){
+            Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 
         edtSchoolID = findViewById(R.id.edtSchoolID);
         edtShoolPW = findViewById(R.id.edtSchoolPW);
@@ -79,23 +92,27 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                                 Log.d("testmyinfo", String.valueOf(seqlist.get(i)));
 
                             }
-                            Log.d("test","setter실행 전");
+                            Log.d("test", "setter실행 전");
 
-                           // preferenceManagers.setStringArrayPref(MyInfoCheckActivity.this, "lectures", lecturelist);
 
+                            setStringArrayPref(MyInfoCheckActivity.this, "lecture", lecturelist);
+                            setIntegerArrayPref(MyInfoCheckActivity.this, "seq", seqlist);
 
                             edtViewName.setVisibility(View.VISIBLE);
                             edtViewName.setText(name);
                             notice.setText("");
                             progressBar.setVisibility(View.INVISIBLE);
                             notice.setVisibility(View.INVISIBLE);
-                            for (int i = 0; i < lecturelist.size(); i++) {
-                                tvLecture.append(lecturelist.get(i) + "\n");
+                            if (j < 1) {
+                                for (int i = 0; i < lecturelist.size(); i++) {
+                                    tvLecture.append(lecturelist.get(i) + "\n");
+                                }
+                                j++;
                             }
 
                             btnGoHome.setVisibility(View.VISIBLE);
 
-                            Log.d("test","setter실행 ");
+                            Log.d("test", "setter실행 ");
 
 
                         } catch (JSONException e) {
@@ -119,10 +136,87 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
 
 
     }
+    public void setStringArrayPref(Context context, String key, ArrayList<String> values) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        JSONArray a = new JSONArray();
+
+        for (int i = 0; i < values.size(); i++) {
+            a.put(values.get(i));
+        }
+
+        if (!values.isEmpty()) {
+            editor.putString(key, a.toString());
+        } else {
+            editor.putString(key, null);
+        }
+
+        editor.apply();
+    }
+    public void setIntegerArrayPref(Context context, String key, ArrayList<Integer> values) {
+
+        SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefsInt.edit();
+        JSONArray a = new JSONArray();
+
+        for (int i = 0; i < values.size(); i++) {
+            a.put(values.get(i));
+        }
+
+        if (!values.isEmpty()) {
+            editor.putString(key, a.toString());
+        } else {
+            editor.putString(key, null);
+        }
+
+        editor.apply();
+    }
+    public ArrayList<String> getStringArrayPref(Context context, String key) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefs.getString(key, null);
+        ArrayList urls = new ArrayList();
+
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+
+                for (int i = 0; i < a.length(); i++) {
+                    String url = a.optString(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
+    }
+    public ArrayList<Integer> getIntegerArrayPref(Context context, String key) {
+
+        SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefsInt.getString(key, null);
+        ArrayList urls = new ArrayList();
+
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+
+                for (int i = 0; i < a.length(); i++) {
+                    int url = a.optInt(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
+    }
+
 }
