@@ -8,13 +8,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +53,8 @@ public class PostActivity extends AppCompatActivity {
     String commentMsg, lecture;
     int commentAnonymous;
     ListView listViewComment;
+    ImageButton btnMore;
+
 
     ArrayList<String> cmtWritersAry = new ArrayList<String>();
     ArrayList<String> cmtMsgAry = new ArrayList<String>();
@@ -72,6 +77,7 @@ public class PostActivity extends AppCompatActivity {
         listViewComment = findViewById(R.id.listViewComment);
         customArrayAdapterComment = new CustomArrayAdapterComment(getApplicationContext(), cmtArray);
         tvPostLecture = findViewById(R.id.tvPostLecture);
+        btnMore = findViewById(R.id.btnMore);
 
 
         Bnumber = getIntent().getIntExtra("Bnumber", 0);
@@ -82,6 +88,29 @@ public class PostActivity extends AppCompatActivity {
         Log.d("testLecture2", lecture);
 
         tvPostLecture.setText(lecture);
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(PostActivity.this, view);
+                getMenuInflater().inflate(R.menu.popup, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.menu_delete:
+                                postDelete();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+
+                //return true;
+            }
+        });
 
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,6 +330,64 @@ public class PostActivity extends AppCompatActivity {
 
         requestQueue.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
 
+
+    }
+    private void postDelete(){
+        RequestQueue QeueDelete = Volley.newRequestQueue(getApplicationContext());
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("session", session);
+            jsonObject.put("Bnumber", Bnumber);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("test7", session);
+        Log.d("test7", String.valueOf(Bnumber));
+
+
+        String URL = "http://34.64.49.11/boarddelete";//각 상황에 맞는 서버 url
+
+
+        JsonObjectRequest boardDeleteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res");
+                    Log.d("testDelete", res);
+
+                    if (res.contains("Success")) {
+                        Log.d("testDelete", res);
+                        Toast.makeText(getApplicationContext(), "삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                        int position = ((BoardActivity)BoardActivity.context_main).postNum.indexOf(Bnumber);
+                        ((BoardActivity)BoardActivity.context_main).postNum.remove(position);
+                        ((BoardActivity)BoardActivity.context_main).boardView.remove(position);
+                        Intent intent = new Intent(getApplicationContext(), BoardActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        Log.d("testDelete", res);
+                        Toast.makeText(getApplicationContext(), res,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+
+        QeueDelete.add(boardDeleteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
 
     }
 }

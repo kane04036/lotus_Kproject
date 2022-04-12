@@ -30,7 +30,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +55,8 @@
                 android:paddingLeft="10dp"
                 android:hint="내용을 입력해주세요"
                 android:background="@android:color/transparent"
-                android:maxLength="200"/>
+                android:maxLength="200"
+                />
         </LinearLayout>
 
     </ScrollView>

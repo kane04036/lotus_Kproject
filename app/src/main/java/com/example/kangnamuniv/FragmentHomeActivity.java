@@ -3,7 +3,6 @@ package com.example.kangnamuniv;
 import static android.content.Context.MODE_PRIVATE;
 
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,6 +47,7 @@ public class FragmentHomeActivity extends Fragment {
     PreferenceManagers preferenceManagers;
     ArrayList<String> lecturelist;
     ArrayList<Integer> seqlist;
+
 
     @Nullable
     @Override
