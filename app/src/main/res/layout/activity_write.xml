@@ -20,12 +20,12 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/roundcorner"
-            android:textColor="@color/white"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/roundcorner"
+            android:text="등록"
 
-            android:text="등록" />
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <ScrollView

@@ -205,7 +205,7 @@ public class PostActivity extends AppCompatActivity {
                                         customArrayAdapterComment.notifyDataSetChanged();
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "댓글 작성자만 삭제할 수 있습니다", Toast.LENGTH_SHORT).show();
 
                                     }
 
@@ -363,13 +363,13 @@ public class PostActivity extends AppCompatActivity {
                         int position = ((BoardActivity)BoardActivity.context_main).postNum.indexOf(Bnumber);
                         ((BoardActivity)BoardActivity.context_main).postNum.remove(position);
                         ((BoardActivity)BoardActivity.context_main).boardView.remove(position);
-                        Intent intent = new Intent(getApplicationContext(), BoardActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(PostActivity.this, BoardActivity.class);
+                        //startActivity(intent);
                         finish();
 
                     } else {
                         Log.d("testDelete", res);
-                        Toast.makeText(getApplicationContext(), res,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "글 작성자만 삭제할 수 있습니다",Toast.LENGTH_SHORT).show();
 
                     }
 
