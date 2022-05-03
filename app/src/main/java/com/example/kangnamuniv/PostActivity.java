@@ -370,7 +370,6 @@ public class PostActivity extends AppCompatActivity {
                     } else {
                         Log.d("testDelete", res);
                         Toast.makeText(getApplicationContext(), "글 작성자만 삭제할 수 있습니다",Toast.LENGTH_SHORT).show();
-
                     }
 
                 } catch (JSONException e) {
@@ -385,9 +384,6 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
-
-
         QeueDelete.add(boardDeleteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
-
     }
 }

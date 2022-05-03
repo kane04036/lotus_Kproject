@@ -9,14 +9,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MonthsView {
+import java.util.ArrayList;
 
-    public MonthsView(String session, int month, Context context) {
+public class MonthsView {
+    ArrayList<CalendarDay> date = new ArrayList<>();
+
+    public MonthsView(String session, int year,  int month, Context context) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
@@ -37,15 +42,18 @@ public class MonthsView {
             public void onResponse(JSONObject response) {
                 try {
                     String res = response.getString("res"); //동일
-                    Log.d("testCalendar", res);
-                    //String ds = response.getString("ds");
-                    //Log.d("testCalendar", ds);
+                    Log.d("testCalendarRes", res);
+                    String ds = response.getString("day");
+                    Log.d("testDay", ds);
+                    JSONArray dateArray = response.getJSONArray("day");
+                    for(int i = 0; i< dateArray.length(); i++){
+                        JSONArray each = dateArray.getJSONArray(i);
+                        //Log.d("eachValueTest", (String) each.get(0) + "<<End");
+                        CalendarDay day = CalendarDay.from(year, month, (Integer) each.get(0));
+                        //Log.d( "testDateinDetailview", each.get(0) + "and" + year + "and" + month + "<<End");
 
-                    JSONArray dateArray = response.getJSONArray("ds");
-                    for (int i = 0; i < dateArray.length(); i++) {
-                        JSONArray each = (JSONArray) dateArray.get(i);
-                        for (int j = 0; j < each.length(); j++)
-                            Log.d("testArray", String.valueOf(each.get(j)));
+                       // Log.d("testCalArray", String.valueOf(day));
+                        date.add(day);
                     }
 
                 } catch (JSONException e) {
@@ -60,5 +68,8 @@ public class MonthsView {
         });
 
         requestQueue.add(monthviewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+    }
+    public ArrayList<CalendarDay> getDate() {
+        return date;
     }
 }

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 public class DetailsView {
     ArrayList<String> returnArray;
+    ArrayList<TodoView> msgArrayList = new ArrayList<>();
+    ArrayList<Integer> todoSeqArray = new ArrayList<>();
+
 
     public DetailsView(String session, int month, int day, Context context) {
 
@@ -41,21 +44,28 @@ public class DetailsView {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    msgArrayList.clear();
                     String res = response.getString("res"); //동일
-                    Log.d("testCalendar", res);
+                    Log.d("testCalendarResult", res);
                     JSONArray msgArray = response.getJSONArray("msg");
+                    JSONArray seqArray = response.getJSONArray("seq");
+                    String seq = response.getString("seq");
+                    Log.d("testSeq", seq);
 
-                    // msgArrayList.clear();
-                    ArrayList<String> msgArrayList = new ArrayList<>();
+                    msgArrayList.clear();
 
                     for (int i = 0; i < msgArray.length(); i++) {
                         JSONArray each = (JSONArray) msgArray.get(i);
                         for (int j = 0; j < each.length(); j++) {
-                            msgArrayList.add(String.valueOf(each.get(j)));
-                            Log.d("testArray", (String) each.get(j));
+                            msgArrayList.add(new TodoView(String.valueOf(each.get(j))));
                         }
                     }
-                    setArrayList(msgArrayList);
+//                    for (int i = 0; i < seqArray.length(); i++) {
+//                        JSONArray each = (JSONArray) seqArray.get(i);
+//                           todoSeqArray.add((Integer) each.get(0));
+//                            Log.d("testSeq", (String) each.get(0));
+//
+//                    }
 
 
                 } catch (JSONException e) {
@@ -72,14 +82,9 @@ public class DetailsView {
         requestQueue.add(dayviewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
     }
 
-    void setArrayList(ArrayList<String> arrayList){
-        returnArray = arrayList;
-    }
-    public ArrayList<String> getMsgArrayList() {
-        for(int i = 0; i<returnArray.size(); i++)
-            Log.d("testMsgArrayInner", returnArray.get(i));
-        Log.d("testReturn","resturn내부");
-        return returnArray;
+    public ArrayList<TodoView> getMsgArrayList() {
+        Log.d("test", "getMsgArrayList: " + "return Arraylist");
+        return msgArrayList;
     }
 }
 

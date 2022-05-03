@@ -15,7 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ScheduleWrite {
-    String result;
+    String res;
+    boolean result;
 
     public ScheduleWrite(String session, int month, int day, String msg, Context context){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -28,6 +29,7 @@ public class ScheduleWrite {
             jsonObject.put("month", month);
             jsonObject.put("day", day);
             jsonObject.put("msg", msg);
+            Log.d("testWrite", session + String.valueOf(month) + String.valueOf(day) + msg);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,8 +40,12 @@ public class ScheduleWrite {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    result = response.getString("res"); //동일
-                    Log.d("testCalendar", result);
+                    res = response.getString("res"); //동일
+                    if(res.contains("SUCCESS"))
+                        result = true;
+                    else
+                        result = false;
+                    Log.d("testCalendar", res);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -55,7 +61,6 @@ public class ScheduleWrite {
         requestQueue.add(scheduleWriteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
     }
     boolean getResult(){
-        //if(result.contains())
-        return true;
+        return result;
     }
 }
