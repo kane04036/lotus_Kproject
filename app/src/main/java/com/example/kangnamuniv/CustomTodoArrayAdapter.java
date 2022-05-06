@@ -1,7 +1,6 @@
 package com.example.kangnamuniv;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +25,14 @@ public class CustomTodoArrayAdapter extends ArrayAdapter<TodoView> {
 
         View currentItemView = convertView;
         if (currentItemView == null) {
-            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.todolistitem, parent, false);
+            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.todoitem, parent, false);
         }
 
         TodoView currentPosition = getItem(position);
 
-        TextView todoTv = currentItemView.findViewById(R.id.todoTv);
+        //TextView todoTv = currentItemView.findViewById(R.id.todoTv);
         CheckBox todoCheckbox = currentItemView.findViewById(R.id.todoCheckbox);
-        todoTv.setText(currentPosition.getMsg());
+        //todoTv.setText(currentPosition.getMsg());
 
         return currentItemView;
     }

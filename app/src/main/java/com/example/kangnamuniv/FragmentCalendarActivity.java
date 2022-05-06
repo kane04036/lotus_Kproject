@@ -29,6 +29,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -46,14 +48,12 @@ public class FragmentCalendarActivity extends Fragment {
     String session, msg;
     SharedPreferences sharedPreferences;
     ListView calendarListView;
-    //    LinearLayout calendarLayout;
-//    ScrollView calendarScrollView;
     Handler handler = new Handler();
     ArrayList<TodoView> todoArray = new ArrayList<>();
     ArrayList<Integer> todoSeqArray = new ArrayList<>();
     CustomTodoArrayAdapter customTodoArrayAdapter;
-
-
+    RecyclerView recyclerView;
+    TodoRecyclerVeiwAdapter todoAdapter;
 
 
     @Nullable
@@ -67,31 +67,15 @@ public class FragmentCalendarActivity extends Fragment {
         btnCheck = view.findViewById(R.id.btnCheck);
         edtTodo = view.findViewById(R.id.edtTodo);
         btnCheck.setEnabled(false);
-        calendarListView = view.findViewById(R.id.calendarListView);
+        recyclerView = view.findViewById(R.id.todoRecyclerView);
 
-//        calendarLayout = view.findViewById(R.id.calendarLayout);
-//        calendarScrollView = view.findViewById(R.id.calendarScrollView);
+
+        todoAdapter = new TodoRecyclerVeiwAdapter(todoArray);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         sharedPreferences = this.getActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
-
-//        calendarLayout.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                edtTodo.clearFocus();
-//                Log.d("testToch","에디트 외에 터치 발생");
-//                return false;
-//            }
-//        });
-//        calendarScrollView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                Log.d("testToch", "에디트 외에 터치 발생");
-//
-//                return true;
-//            }
-//        });
-
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -100,17 +84,11 @@ public class FragmentCalendarActivity extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        todoArray.clear();
                         todoArray = detailsView.getMsgArrayList();
-                        todoSeqArray = detailsView.getTodoSeqArray();
-                        customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
-                        calendarListView.setAdapter(customTodoArrayAdapter);
-                        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Log.d("testClick", "클릭됨");
-                                Toast.makeText(getActivity(),"클릭", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        for(int i = 0; i< todoArray.size(); i++){
+                            Log.d("testArrayValue", todoArray.get(i).getMsg());}
+                        todoAdapter.notifyDataSetChanged();
 
                     }
                 }, 150);
@@ -144,16 +122,9 @@ public class FragmentCalendarActivity extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        todoArray.clear();
                         todoArray = detailsView.getMsgArrayList();
-                        customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
-                        calendarListView.setAdapter(customTodoArrayAdapter);
-                        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Log.d("testClick", "클릭됨");
-                                Toast.makeText(getActivity(),"클릭", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        todoAdapter.notifyDataSetChanged();
 
                     }
                 }, 150);
@@ -209,9 +180,9 @@ public class FragmentCalendarActivity extends Fragment {
             }
         });
 
-
         return view;
     }
+
 
 
     @Override
@@ -232,18 +203,10 @@ public class FragmentCalendarActivity extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                todoArray.clear();
                 todoArray = detailsView.getMsgArrayList();
-                todoSeqArray = detailsView.getTodoSeqArray();
-                customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
-                calendarListView.setAdapter(customTodoArrayAdapter);
-                customTodoArrayAdapter.notifyDataSetChanged();
-                calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.d("testClick", "클릭됨");
-                        Toast.makeText(getActivity(),"클릭", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                todoAdapter.notifyDataSetChanged();
+
 
             }
         }, 150);
@@ -251,31 +214,5 @@ public class FragmentCalendarActivity extends Fragment {
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-////        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////            @Override
-////            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                PopupMenu popup = new PopupMenu(getActivity(), view);
-////                inflater().inflate(R.menu.popup, popup.getMenu());
-////
-////
-////                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-////                    @Override
-////                    public boolean onMenuItemClick(MenuItem menuItem) {
-////                        switch (menuItem.getItemId()) {
-////                            case R.id.menu_delete:
-////                                postDelete();
-////                                break;
-////                        }
-////                        return false;
-////                    }
-////                });
-////                popup.show();
-////
-////                //return true;
-////            }
-//        });
-//    }
+
 }

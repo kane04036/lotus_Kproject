@@ -19,7 +19,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DetailsView {
-    ArrayList<String> returnArray;
+//    ArrayList<String> msgArrayList = new ArrayList<>();
     public ArrayList<TodoView> msgArrayList = new ArrayList<>();
     public ArrayList<Integer> todoSeqArray = new ArrayList<>();
 

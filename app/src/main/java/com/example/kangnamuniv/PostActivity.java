@@ -24,6 +24,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,16 +54,16 @@ public class PostActivity extends AppCompatActivity {
     CheckBox chkAnonymousComment;
     String commentMsg, lecture;
     int commentAnonymous;
-    ListView listViewComment;
+    RecyclerView listViewComment;
     ImageButton btnMore;
-
+    CommentRecyclerViewAdapter commentAdapater;
 
     ArrayList<String> cmtWritersAry = new ArrayList<String>();
     ArrayList<String> cmtMsgAry = new ArrayList<String>();
     ArrayList<Integer> CnumberAry = new ArrayList<>();
     ArrayList<BoardView> cmtArray = new ArrayList<>();
 
-    CustomArrayAdapterComment customArrayAdapterComment;
+//    CustomArrayAdapterComment customArrayAdapterComment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,10 +77,12 @@ public class PostActivity extends AppCompatActivity {
         edtComment = findViewById(R.id.edtComment);
         chkAnonymousComment = findViewById(R.id.chkAnonymousCommnet);
         listViewComment = findViewById(R.id.listViewComment);
-        customArrayAdapterComment = new CustomArrayAdapterComment(getApplicationContext(), cmtArray);
+//        customArrayAdapterComment = new CustomArrayAdapterComment(getApplicationContext(), cmtArray);
         tvPostLecture = findViewById(R.id.tvPostLecture);
         btnMore = findViewById(R.id.btnMore);
 
+        commentAdapater = new CommentRecyclerViewAdapter(cmtArray);
+        listViewComment.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         Bnumber = getIntent().getIntExtra("Bnumber", 0);
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
@@ -167,74 +171,74 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        listViewComment.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                AlertDialog.Builder dlg = new AlertDialog.Builder(PostActivity.this);
-                dlg.setMessage("삭제하시겠습니까?");
-                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        RequestQueue requestQueueCommentDel = Volley.newRequestQueue(getApplicationContext());
-
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("session", session);
-                            jsonObject.put("Cnumber", CnumberAry.get(position));
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        String URL = "http://34.64.49.11/commentdelete";//각 상황에 맞는 서버 url
-
-
-                        JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    String res = response.getString("res");
-                                    if(res.contains("Success")){
-                                        Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-
-                                        CnumberAry.remove(position);
-                                        cmtMsgAry.remove(position);
-                                        cmtWritersAry.remove(position);
-                                        cmtArray.remove(position);
-                                        customArrayAdapterComment.notifyDataSetChanged();
-                                    }
-                                    else{
-                                        Toast.makeText(getApplicationContext(), "댓글 작성자만 삭제할 수 있습니다", Toast.LENGTH_SHORT).show();
-
-                                    }
-
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-
-
-                        requestQueueCommentDel.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
-                        //Toast.makeText(getApplicationContext(), "삭제할까요?", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                dlg.show();
-
-
-                return false;
-            }
-        });
+//        listViewComment.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+//
+//                AlertDialog.Builder dlg = new AlertDialog.Builder(PostActivity.this);
+//                dlg.setMessage("삭제하시겠습니까?");
+//                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        RequestQueue requestQueueCommentDel = Volley.newRequestQueue(getApplicationContext());
+//
+//                        JSONObject jsonObject = new JSONObject();
+//                        try {
+//                            jsonObject.put("session", session);
+//                            jsonObject.put("Cnumber", CnumberAry.get(position));
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        String URL = "http://34.64.49.11/commentdelete";//각 상황에 맞는 서버 url
+//
+//
+//                        JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                try {
+//                                    String res = response.getString("res");
+//                                    if(res.contains("Success")){
+//                                        Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+//
+//                                        CnumberAry.remove(position);
+//                                        cmtMsgAry.remove(position);
+//                                        cmtWritersAry.remove(position);
+//                                        cmtArray.remove(position);
+//                                        customArrayAdapterComment.notifyDataSetChanged();
+//                                    }
+//                                    else{
+//                                        Toast.makeText(getApplicationContext(), "댓글 작성자만 삭제할 수 있습니다", Toast.LENGTH_SHORT).show();
+//
+//                                    }
+//
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//
+//                            }
+//                        }, new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//
+//                            }
+//                        });
+//
+//
+//                        requestQueueCommentDel.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+//                        //Toast.makeText(getApplicationContext(), "삭제할까요?", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//                dlg.show();
+//
+//
+//                return false;
+//            }
+//        });
 
     }
 
@@ -289,7 +293,6 @@ public class PostActivity extends AppCompatActivity {
                                 CnumberAry.add( (Integer) each.get(2));
                                 cmtArray.add( new BoardView(String.valueOf(each.get(0)), String.valueOf(each.get(1))));
                             }
-                            listViewComment.setAdapter(customArrayAdapterComment);
                         } else {
                             final int validateCmt = CnumberAry.get(0);
                             for (int i = 0; i < commentarray.length(); i++) {
@@ -301,7 +304,7 @@ public class PostActivity extends AppCompatActivity {
                                     cmtArray.add( new BoardView(String.valueOf(each.get(0)), String.valueOf(each.get(1))));
                                 }
                             }
-                            customArrayAdapterComment.notifyDataSetChanged();
+                            commentAdapater.notifyDataSetChanged();
 
                         }
 
