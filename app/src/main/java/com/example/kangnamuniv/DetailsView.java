@@ -15,12 +15,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DetailsView {
     ArrayList<String> returnArray;
-    ArrayList<TodoView> msgArrayList = new ArrayList<>();
-    ArrayList<Integer> todoSeqArray = new ArrayList<>();
+    public ArrayList<TodoView> msgArrayList = new ArrayList<>();
+    public ArrayList<Integer> todoSeqArray = new ArrayList<>();
 
 
     public DetailsView(String session, int month, int day, Context context) {
@@ -44,7 +45,6 @@ public class DetailsView {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    msgArrayList.clear();
                     String res = response.getString("res"); //동일
                     Log.d("testCalendarResult", res);
                     JSONArray msgArray = response.getJSONArray("msg");
@@ -53,6 +53,7 @@ public class DetailsView {
                     Log.d("testSeq", seq);
 
                     msgArrayList.clear();
+                    todoSeqArray.clear();
 
                     for (int i = 0; i < msgArray.length(); i++) {
                         JSONArray each = (JSONArray) msgArray.get(i);
@@ -60,12 +61,12 @@ public class DetailsView {
                             msgArrayList.add(new TodoView(String.valueOf(each.get(j))));
                         }
                     }
-//                    for (int i = 0; i < seqArray.length(); i++) {
-//                        JSONArray each = (JSONArray) seqArray.get(i);
-//                           todoSeqArray.add((Integer) each.get(0));
-//                            Log.d("testSeq", (String) each.get(0));
-//
-//                    }
+                    for (int i = 0; i < seqArray.length(); i++) {
+                        JSONArray each = (JSONArray) seqArray.get(i);
+                        for (int j = 0; j < each.length(); j++) {
+                            todoSeqArray.add((Integer) each.get(j));
+                        }
+                    }
 
 
                 } catch (JSONException e) {
@@ -85,6 +86,9 @@ public class DetailsView {
     public ArrayList<TodoView> getMsgArrayList() {
         Log.d("test", "getMsgArrayList: " + "return Arraylist");
         return msgArrayList;
+    }
+    public ArrayList<Integer> getTodoSeqArray() {
+        return todoSeqArray;
     }
 }
 

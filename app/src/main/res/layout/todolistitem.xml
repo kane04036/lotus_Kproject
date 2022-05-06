@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/todoCheckbox"
         android:layout_alignBaseline="@+id/todoCheckbox"
-        android:textSize="15dp"
+        android:textSize="17dp"
         android:textColor="@color/black"
         android:text="오늘의 할일"/>
 

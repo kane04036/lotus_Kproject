@@ -14,9 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class ScheduleWrite {
-    String res;
+    String res, msg1;
     boolean result;
+    int seq;
+
 
     public ScheduleWrite(String session, int month, int day, String msg, Context context){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -41,11 +45,16 @@ public class ScheduleWrite {
             public void onResponse(JSONObject response) {
                 try {
                     res = response.getString("res"); //동일
+                    msg1 = response.getString("msg");
+                    seq = response.getInt("seq");
+
+
                     if(res.contains("SUCCESS"))
                         result = true;
                     else
                         result = false;
                     Log.d("testCalendar", res);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -63,4 +72,6 @@ public class ScheduleWrite {
     boolean getResult(){
         return result;
     }
+    String getMsg(){return msg1;}
+    int getSeq(){return seq;}
 }

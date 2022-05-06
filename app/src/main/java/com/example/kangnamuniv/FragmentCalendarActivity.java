@@ -50,7 +50,10 @@ public class FragmentCalendarActivity extends Fragment {
 //    ScrollView calendarScrollView;
     Handler handler = new Handler();
     ArrayList<TodoView> todoArray = new ArrayList<>();
+    ArrayList<Integer> todoSeqArray = new ArrayList<>();
     CustomTodoArrayAdapter customTodoArrayAdapter;
+
+
 
 
     @Nullable
@@ -65,7 +68,6 @@ public class FragmentCalendarActivity extends Fragment {
         edtTodo = view.findViewById(R.id.edtTodo);
         btnCheck.setEnabled(false);
         calendarListView = view.findViewById(R.id.calendarListView);
-        customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
 
 //        calendarLayout = view.findViewById(R.id.calendarLayout);
 //        calendarScrollView = view.findViewById(R.id.calendarScrollView);
@@ -98,8 +100,17 @@ public class FragmentCalendarActivity extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), detailsView.getMsgArrayList());
+                        todoArray = detailsView.getMsgArrayList();
+                        todoSeqArray = detailsView.getTodoSeqArray();
+                        customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
                         calendarListView.setAdapter(customTodoArrayAdapter);
+                        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Log.d("testClick", "클릭됨");
+                                Toast.makeText(getActivity(),"클릭", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     }
                 }, 150);
@@ -116,37 +127,12 @@ public class FragmentCalendarActivity extends Fragment {
         });
 
 
-        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                PopupMenu popup = new PopupMenu(getActivity(), view);
-//                popup.getMenuInflater().inflate(R.menu.todomenu, popup.getMenu());
-//                //getMenuInflater().inflate(R.menu.popup, popup.getMenu());
-//
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem menuItem) {
-//                        switch (menuItem.getItemId()) {
-//                            case R.id.todoModify:
-//                                break;
-//                            case R.id.todoDelete:
-//                                break;
-//                        }
-//                        return false;
-//                    }
-//                });
-//                popup.show();
-//
-//                //return true;
-
-            }
-        });
-
 
         calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 MonthsView newMonth = new MonthsView(session, calendarView.getCurrentDate().getYear(), calendarView.getCurrentDate().getMonth(), getActivity());
+                calendarView.setSelectedDate(calendarView.getCurrentDate());
 
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -154,6 +140,24 @@ public class FragmentCalendarActivity extends Fragment {
                         calendarView.addDecorator(new DotDecorator(Color.RED, newMonth.getDate(), getActivity()));
                     }
                 }, 150);
+                DetailsView detailsView = new DetailsView(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), getActivity());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        todoArray = detailsView.getMsgArrayList();
+                        customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
+                        calendarListView.setAdapter(customTodoArrayAdapter);
+                        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Log.d("testClick", "클릭됨");
+                                Toast.makeText(getActivity(),"클릭", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                }, 150);
+
             }
         });
 
@@ -185,6 +189,11 @@ public class FragmentCalendarActivity extends Fragment {
                             edtTodo.setEnabled(false);
                             edtTodo.setVisibility(View.INVISIBLE);
                             MonthsView monthsViewWrite = new MonthsView(session, calendarView.getSelectedDate().getYear(), calendarView.getSelectedDate().getMonth(), getActivity());
+                            String newMsg = scheduleWrite.getMsg();
+                            int newSeq = scheduleWrite.getSeq();
+                            todoArray.add(new TodoView(newMsg));
+                            todoSeqArray.add(newSeq);
+                            customTodoArrayAdapter.notifyDataSetChanged();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -223,9 +232,18 @@ public class FragmentCalendarActivity extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), detailsView.getMsgArrayList());
+                todoArray = detailsView.getMsgArrayList();
+                todoSeqArray = detailsView.getTodoSeqArray();
+                customTodoArrayAdapter = new CustomTodoArrayAdapter(getActivity(), todoArray);
                 calendarListView.setAdapter(customTodoArrayAdapter);
                 customTodoArrayAdapter.notifyDataSetChanged();
+                calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.d("testClick", "클릭됨");
+                        Toast.makeText(getActivity(),"클릭", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         }, 150);
