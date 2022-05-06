@@ -176,6 +176,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
             editor.putString(key, null);
         }
 
+
         editor.apply();
     }
     public ArrayList<String> getStringArrayPref(Context context, String key) {

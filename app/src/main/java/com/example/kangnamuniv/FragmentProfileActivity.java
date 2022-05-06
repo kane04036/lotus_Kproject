@@ -1,9 +1,12 @@
 package com.example.kangnamuniv;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +48,15 @@ public class FragmentProfileActivity extends Fragment {
         TextView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences prefLecture = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor1 = prefLecture.edit();
+                editor1.remove("lecture");
+                editor1.commit();
+                SharedPreferences prefSeq = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor2 = prefSeq.edit();
+                editor2.remove("seq");
+                editor2.commit();
+
                 Intent intent = new Intent(getActivity(),MyInfoCheckActivity.class);
                 startActivity(intent);
 
