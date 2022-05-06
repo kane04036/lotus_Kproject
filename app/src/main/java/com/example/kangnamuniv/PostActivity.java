@@ -2,6 +2,7 @@ package com.example.kangnamuniv;
 
 import static android.media.CamcorderProfile.get;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -263,6 +264,7 @@ public class PostActivity extends AppCompatActivity {
 
 
         JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @SuppressLint("LongLogTag")
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -286,6 +288,7 @@ public class PostActivity extends AppCompatActivity {
 
                         }
                         if (CnumberAry.isEmpty()) {
+                            Log.d("testPostActivityAdapter1","어뎁터 설정 전");
                             for (int i = 0; i < commentarray.length(); i++) {
                                 JSONArray each = commentarray.getJSONArray(i);
                                 cmtWritersAry.add( String.valueOf(each.get(0)));
@@ -298,15 +301,19 @@ public class PostActivity extends AppCompatActivity {
                             for (int i = 0; i < commentarray.length(); i++) {
                                 JSONArray each = commentarray.getJSONArray(i);
                                 if (validateCmt != (Integer) each.get(2)) {
+                                    Log.d("testPostActivityAdapter2","어뎁터 설정 전");
                                     cmtWritersAry.add( String.valueOf(each.get(0)));
                                     cmtMsgAry.add(String.valueOf(each.get(1)));
                                     CnumberAry.add( (Integer) each.get(2));
                                     cmtArray.add( new BoardView(String.valueOf(each.get(0)), String.valueOf(each.get(1))));
                                 }
                             }
-                            commentAdapater.notifyDataSetChanged();
+//                            commentAdapater.notifyDataSetChanged();
+                            Log.d("testPostActivityAdapter","어뎁터 설정 전");
+
 
                         }
+
 
                         tvDetailTitle.setText(title);
                         tvDetailNickname.setText(writer);

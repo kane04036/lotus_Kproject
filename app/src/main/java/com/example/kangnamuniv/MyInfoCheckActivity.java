@@ -103,6 +103,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             notice.setText("");
                             progressBar.setVisibility(View.INVISIBLE);
                             notice.setVisibility(View.INVISIBLE);
+                            tvLecture.setText("");
                             if (j < 1) {
                                 for (int i = 0; i < lecturelist.size(); i++) {
                                     tvLecture.append(lecturelist.get(i) + "\n");
