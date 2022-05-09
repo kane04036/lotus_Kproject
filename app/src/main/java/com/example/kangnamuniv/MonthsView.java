@@ -46,6 +46,7 @@ public class MonthsView {
                     String ds = response.getString("day");
                     Log.d("testDay", ds);
                     JSONArray dateArray = response.getJSONArray("day");
+                    date.clear();
                     for(int i = 0; i< dateArray.length(); i++){
                         JSONArray each = dateArray.getJSONArray(i);
                         //Log.d("eachValueTest", (String) each.get(0) + "<<End");

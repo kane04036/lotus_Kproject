@@ -9,7 +9,38 @@
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘의 할일"
+        android:layout_alignBottom="@+id/todoEdit"
         />
+    <EditText
+        android:id="@+id/todoEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘의 할일"
+        android:textSize="18dp"
+        android:layout_toRightOf="@+id/todoCheckbox"
+        android:enabled="false"
+        android:textColor="@color/black"
+        />
+    <ImageButton
+        android:id="@+id/btnTodoModify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/checkimg"
+        android:background="@android:color/transparent"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/btnTodoMore"
+        android:visibility="invisible"
+        />
+        <ImageButton
+            android:id="@+id/btnTodoMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/todomoreimg"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            />
+
 
 </RelativeLayout>

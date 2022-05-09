@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/buttomimg.xml" value="0.4015384615384615" />
         <entry key="app/src/main/res/drawable/cancleimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/checkimg.xml" value="0.4015384615384615" />
+        <entry key="app/src/main/res/drawable/commentdeleteimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/moreimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/outline.xml" value="0.24635416666666668" />
@@ -15,6 +16,7 @@
         <entry key="app/src/main/res/drawable/roundcorner.xml" value="0.38796296296296295" />
         <entry key="app/src/main/res/drawable/searchimg.xml" value="0.4015384615384615" />
         <entry key="app/src/main/res/drawable/textviewoutline.xml" value="0.2759259259259259" />
+        <entry key="app/src/main/res/drawable/todomoreimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/underline.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/whiterectangle.xml" value="0.38796296296296295" />
         <entry key="app/src/main/res/drawable/writeimg.xml" value="0.4015384615384615" />

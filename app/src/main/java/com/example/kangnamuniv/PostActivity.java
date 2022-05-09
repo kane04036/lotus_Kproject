@@ -63,7 +63,6 @@ public class PostActivity extends AppCompatActivity {
     ArrayList<String> cmtMsgAry = new ArrayList<String>();
     ArrayList<Integer> CnumberAry = new ArrayList<>();
     ArrayList<BoardView> cmtArray = new ArrayList<>();
-    ArrayList<BoardView> newArray = new ArrayList<>();
     String TAG = "test";
 
 
@@ -82,7 +81,7 @@ public class PostActivity extends AppCompatActivity {
         tvPostLecture = findViewById(R.id.tvPostLecture);
         btnMore = findViewById(R.id.btnMore);
 
-        commentAdapater = new CommentRecyclerViewAdapter(cmtArray);
+        commentAdapater = new CommentRecyclerViewAdapter(cmtArray, getApplicationContext());
         listViewComment.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         listViewComment.setAdapter(commentAdapater);
 
@@ -163,6 +162,8 @@ public class PostActivity extends AppCompatActivity {
 //
 //                        }
 
+                        commentAdapater.setSeqArray(CnumberAry);
+                        Log.d(TAG, "onResponse: seq set 완료");
                         commentAdapater.notifyDataSetChanged();
 
                         tvDetailTitle.setText(title);
@@ -257,6 +258,8 @@ public class PostActivity extends AppCompatActivity {
                                 cmtArray.add(new BoardView(msg, writer));
                                 CnumberAry.add(seq);
 
+                                commentAdapater.putSeqArray(seq);
+                                Log.d(TAG, "onResponse: seq put 완료");
                                 commentAdapater.notifyDataSetChanged();
 
                             } else Log.d("testResult", res);
@@ -373,6 +376,7 @@ public class PostActivity extends AppCompatActivity {
                     Log.d("testDelete", res);
 
                     if (res.contains("Success")) {
+                        finish();
                         Log.d("testDelete", res);
                         Toast.makeText(getApplicationContext(), "삭제되었습니다.",Toast.LENGTH_SHORT).show();
                         int position = ((BoardActivity)BoardActivity.context_main).postNum.indexOf(Bnumber);
@@ -380,7 +384,7 @@ public class PostActivity extends AppCompatActivity {
                         ((BoardActivity)BoardActivity.context_main).boardView.remove(position);
                         //Intent intent = new Intent(PostActivity.this, BoardActivity.class);
                         //startActivity(intent);
-                        finish();
+
 
                     } else {
                         Log.d("testDelete", res);

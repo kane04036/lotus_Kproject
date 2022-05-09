@@ -54,6 +54,8 @@ public class FragmentCalendarActivity extends Fragment {
     RecyclerView recyclerView;
     TodoRecyclerVeiwAdapter todoAdapter;
     ArrayList<TodoView> newArray = new ArrayList<>();
+    public static Context context_main;
+
 
 
     @Nullable
@@ -62,6 +64,7 @@ public class FragmentCalendarActivity extends Fragment {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_calendar, container, false);
         setHasOptionsMenu(true);
 
+        context_main = getActivity();
         calendarView = view.findViewById(R.id.calendarview);
         btnPlus = view.findViewById(R.id.btnPlus);
         btnCheck = view.findViewById(R.id.btnCheck);
@@ -84,10 +87,12 @@ public class FragmentCalendarActivity extends Fragment {
                     @Override
                     public void run() {
                         newArray = detailsView.getMsgArrayList();
+                        todoSeqArray = detailsView.getTodoSeqArray();
                         todoArray.clear();
-                        for(int i = 0; i< newArray.size(); i++){
+                        for (int i = 0; i < newArray.size(); i++) {
                             todoArray.add(newArray.get(i));
                         }
+                        todoAdapter.setSeqArray(todoSeqArray);
                         todoAdapter.notifyDataSetChanged();
 
                     }
@@ -105,7 +110,6 @@ public class FragmentCalendarActivity extends Fragment {
         });
 
 
-
         calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
@@ -118,14 +122,16 @@ public class FragmentCalendarActivity extends Fragment {
                         calendarView.addDecorator(new DotDecorator(Color.RED, newMonth.getDate(), getActivity()));
                     }
                 }, 150);
-                DetailsView detailsView = new DetailsView(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), getActivity());
+                DetailsView detailsView = new DetailsView(session, calendarView.getCurrentDate().getMonth(), calendarView.getCurrentDate().getDay(), getActivity());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         newArray = detailsView.getMsgArrayList();
-                        for(int i = 0; i< newArray.size(); i++){
+                        todoSeqArray = detailsView.getTodoSeqArray();
+                        for (int i = 0; i < newArray.size(); i++) {
                             todoArray.add(newArray.get(i));
                         }
+                        todoAdapter.setSeqArray(todoSeqArray);
                         todoAdapter.notifyDataSetChanged();
 
                     }
@@ -166,6 +172,7 @@ public class FragmentCalendarActivity extends Fragment {
                             int newSeq = scheduleWrite.getSeq();
                             todoArray.add(new TodoView(newMsg));
                             todoSeqArray.add(newSeq);
+                            todoAdapter.putSeqArray(newSeq);
                             todoAdapter.notifyDataSetChanged();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -184,7 +191,6 @@ public class FragmentCalendarActivity extends Fragment {
 
         return view;
     }
-
 
 
     @Override
@@ -206,12 +212,13 @@ public class FragmentCalendarActivity extends Fragment {
             @Override
             public void run() {
                 newArray = detailsView.getMsgArrayList();
+                todoSeqArray = detailsView.getTodoSeqArray();
                 todoArray.clear();
-                for(int i = 0; i< newArray.size(); i++){
+                for (int i = 0; i < newArray.size(); i++) {
                     todoArray.add(newArray.get(i));
                 }
+                todoAdapter.setSeqArray(todoSeqArray);
                 todoAdapter.notifyDataSetChanged();
-
 
 
             }
@@ -220,5 +227,10 @@ public class FragmentCalendarActivity extends Fragment {
 
     }
 
-
+    ArrayList getDate() {
+        ArrayList date = new ArrayList();
+        date.add(calendarView.getSelectedDate().getMonth());
+        date.add(calendarView.getSelectedDate().getDay());
+        return date;
+    }
 }
