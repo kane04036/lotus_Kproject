@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -34,7 +35,8 @@ public class WriteActivity extends AppCompatActivity {
     String title, msg, lecture;
     EditText edtTitle, edtMsg;
     CheckBox chkAnonymousWrite;
-    Button btnPost, btnBack;
+    Button btnPost;
+    ImageButton btnBack;
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,13 @@ public class WriteActivity extends AppCompatActivity {
         session = sharedPreferences.getString("session", "");
         Lnumber = getIntent().getIntExtra("Lnumber",0);
         lecture = getIntent().getStringExtra("Lecture");
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override

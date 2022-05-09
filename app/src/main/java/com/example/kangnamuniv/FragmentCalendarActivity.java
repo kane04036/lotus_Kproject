@@ -37,6 +37,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
@@ -47,13 +48,12 @@ public class FragmentCalendarActivity extends Fragment {
     EditText edtTodo;
     String session, msg;
     SharedPreferences sharedPreferences;
-    ListView calendarListView;
     Handler handler = new Handler();
     ArrayList<TodoView> todoArray = new ArrayList<>();
     ArrayList<Integer> todoSeqArray = new ArrayList<>();
-    CustomTodoArrayAdapter customTodoArrayAdapter;
     RecyclerView recyclerView;
     TodoRecyclerVeiwAdapter todoAdapter;
+    ArrayList<TodoView> newArray = new ArrayList<>();
 
 
     @Nullable
@@ -69,10 +69,9 @@ public class FragmentCalendarActivity extends Fragment {
         btnCheck.setEnabled(false);
         recyclerView = view.findViewById(R.id.todoRecyclerView);
 
-
-        todoAdapter = new TodoRecyclerVeiwAdapter(todoArray);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        todoAdapter = new TodoRecyclerVeiwAdapter(todoArray, getActivity());
+        recyclerView.setAdapter(todoAdapter);
 
         sharedPreferences = this.getActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
@@ -84,10 +83,11 @@ public class FragmentCalendarActivity extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        newArray = detailsView.getMsgArrayList();
                         todoArray.clear();
-                        todoArray = detailsView.getMsgArrayList();
-                        for(int i = 0; i< todoArray.size(); i++){
-                            Log.d("testArrayValue", todoArray.get(i).getMsg());}
+                        for(int i = 0; i< newArray.size(); i++){
+                            todoArray.add(newArray.get(i));
+                        }
                         todoAdapter.notifyDataSetChanged();
 
                     }
@@ -122,8 +122,10 @@ public class FragmentCalendarActivity extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        todoArray.clear();
-                        todoArray = detailsView.getMsgArrayList();
+                        newArray = detailsView.getMsgArrayList();
+                        for(int i = 0; i< newArray.size(); i++){
+                            todoArray.add(newArray.get(i));
+                        }
                         todoAdapter.notifyDataSetChanged();
 
                     }
@@ -164,7 +166,7 @@ public class FragmentCalendarActivity extends Fragment {
                             int newSeq = scheduleWrite.getSeq();
                             todoArray.add(new TodoView(newMsg));
                             todoSeqArray.add(newSeq);
-                            customTodoArrayAdapter.notifyDataSetChanged();
+                            todoAdapter.notifyDataSetChanged();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -203,9 +205,13 @@ public class FragmentCalendarActivity extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                newArray = detailsView.getMsgArrayList();
                 todoArray.clear();
-                todoArray = detailsView.getMsgArrayList();
+                for(int i = 0; i< newArray.size(); i++){
+                    todoArray.add(newArray.get(i));
+                }
                 todoAdapter.notifyDataSetChanged();
+
 
 
             }

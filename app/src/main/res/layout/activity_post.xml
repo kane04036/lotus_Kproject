@@ -33,7 +33,7 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,16 +62,16 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
                 <ImageButton
                     android:id="@+id/btnMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/more"
-                    android:background="@android:color/transparent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="3dp"
                     android:layout_marginTop="3dp"
-                    />
+                    android:layout_marginRight="3dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/moreimg" />
             </RelativeLayout>
 
 
@@ -99,25 +99,26 @@
                 android:layout_marginBottom="7dp"
                 />
 
-           <!-- <ListView
-                android:id="@+id/listViewComment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>-->
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listViewComment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+
 
         </LinearLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
         android:id="@+id/underbarLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         >
 
         <CheckBox
