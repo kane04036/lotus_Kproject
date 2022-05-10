@@ -82,6 +82,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             String name = jsonResponse.getString("name");
                             JSONArray lectureArray = jsonResponse.getJSONArray("lectures");
                             JSONArray seqArray = jsonResponse.getJSONArray("seq");
+                            String res = jsonResponse.getString("res");
+                            Log.d("test", "onResponse: lecture"+res);
 
 
                             //여기를 아예 sharedPreference arraylist로 바꾸기

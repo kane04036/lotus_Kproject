@@ -1,6 +1,8 @@
 package com.example.kangnamuniv;
 
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -18,6 +20,7 @@ public class MyInfoCheckRequest extends StringRequest {
     public MyInfoCheckRequest(String schoolID, String schoolPW, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
+        Log.d("test", "MyInfoCheckRequest: myinfo set"+schoolID+"and"+schoolPW);
         parameters = new HashMap<String, String>();
         parameters.put("id", schoolID);
         parameters.put("pw", schoolPW);
