@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="닉네임 변경"
+    android:textSize="40dp"
+    android:gravity="center"
+    android:paddingTop="70dp"
+    android:textColor="@color/black"
+    />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="닉네임을 변경합니다."
+    android:gravity="center"
+    android:layout_marginTop="5dp"
+    />
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="80dp">
+    <EditText
+        android:id="@+id/newnick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:textSize="20dp"
+        android:backgroundTint="#317abe"
+        android:layout_marginLeft="50dp"
+        android:hint="새 닉네임"
+
+        />
+    <Button
+        android:id="@+id/btnIdCheck"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:text="중복확인"
+        android:textSize="12dp"
+        />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:layout_gravity="center"
+        android:backgroundTint="#317abe"
+        android:layout_marginTop="50dp"
+        android:enabled="true"
+        android:textColor="@color/white"
+        />
+</LinearLayout>

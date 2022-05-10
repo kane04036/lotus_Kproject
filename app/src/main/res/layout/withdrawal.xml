@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원탈퇴"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:paddingTop="70dp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원탈퇴를 진행합니다. \n 진행 후에는 기존 정보를 불러올 수 없습니다."
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp">
+        <EditText
+            android:id="@+id/newnick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:textSize="20dp"
+            android:backgroundTint="#317abe"
+            android:layout_marginLeft="50dp"
+            android:hint="입력해주세요. '회원 탈퇴' "
+
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:layout_gravity="center"
+        android:backgroundTint="#317abe"
+        android:layout_marginTop="50dp"
+        android:enabled="true"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>
