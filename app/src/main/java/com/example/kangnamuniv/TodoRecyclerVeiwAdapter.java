@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +18,19 @@ import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVeiwAdapter.MyViewHolder> {
     private ArrayList<TodoView> list;
     private ArrayList<Integer> seqArray;
+    ArrayList<Integer> checkedList = new ArrayList();
     Context context;
     String TAG = "test";
     String session;
+
     TodoRecyclerVeiwAdapter(ArrayList<TodoView> list, Context context) {
         this.list = list;
         this.context = context;
@@ -61,27 +67,38 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        checkedList = getIntegerArrayPref(context, "checkedlist");
+        holder.checkBox.setChecked(false);
+        holder.editText.setPaintFlags(0);
+        holder.editText.setTextColor(Color.BLACK);
         holder.btnTodoModify.setEnabled(false);
         holder.editText.setText(list.get(position).getMsg());
-        holder.checkBox.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return false;
-            }
-        });
+        if(checkedList.contains(seqArray.get(position))) {
+            holder.checkBox.setChecked(true);
+            holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.editText.setTextColor(Color.GRAY);
+        }
+
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holder.checkBox.isChecked()) {
+                if (holder.checkBox.isChecked()) {
                     holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.editText.setTextColor(Color.GRAY);
-                }
+//                    list.add(0,list.get(position));
+//                    list.remove(position+1);
+//                    notifyDataSetChanged();
+                    if (!checkedList.contains(seqArray.get(position)))
+                        checkedList.add(seqArray.get(position));
 
-                else {
+                } else {
                     holder.editText.setPaintFlags(0);
                     holder.editText.setTextColor(Color.BLACK);
-
+                    if (checkedList.contains(seqArray.get(position)))
+                        checkedList.remove(checkedList.indexOf(seqArray.get(position)));
                 }
+
+                setIntegerArrayPref(context, "checkedlist", checkedList);
 
             }
         });
@@ -144,12 +161,53 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
         return list.size();
     }
 
-    void putSeqArray(int seq){
+    void putSeqArray(int seq) {
         seqArray.add(seq);
     }
-    void setSeqArray(ArrayList seq){
+
+    void setSeqArray(ArrayList seq) {
         seqArray = seq;
     }
+    public void setIntegerArrayPref(Context context, String key, ArrayList<Integer> values) {
+
+        SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefsInt.edit();
+        JSONArray a = new JSONArray();
+
+        for (int i = 0; i < values.size(); i++) {
+            a.put(values.get(i));
+        }
+
+        if (!values.isEmpty()) {
+            editor.putString(key, a.toString());
+        } else {
+            editor.putString(key, null);
+        }
+
+
+        editor.apply();
+    }
+    public ArrayList<Integer> getIntegerArrayPref(Context context, String key) {
+
+        SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefsInt.getString(key, null);
+        ArrayList urls = new ArrayList();
+
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+
+                for (int i = 0; i < a.length(); i++) {
+                    int url = a.optInt(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
+    }
+
 
 }
 

@@ -3,6 +3,7 @@ package com.example.kangnamuniv;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,7 +42,14 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Timer;
+import java.util.function.Consumer;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FragmentCalendarActivity extends Fragment {
     MaterialCalendarView calendarView;
@@ -55,6 +64,8 @@ public class FragmentCalendarActivity extends Fragment {
     TodoRecyclerVeiwAdapter todoAdapter;
     ArrayList<TodoView> newArray = new ArrayList<>();
     public static Context context_main;
+    Disposable backgroundTask;
+
 
 
 
@@ -84,6 +95,7 @@ public class FragmentCalendarActivity extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 DetailsView detailsView = new DetailsView(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), getActivity());
                 handler.postDelayed(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void run() {
                         newArray = detailsView.getMsgArrayList();
@@ -128,6 +140,7 @@ public class FragmentCalendarActivity extends Fragment {
                     public void run() {
                         newArray = detailsView.getMsgArrayList();
                         todoSeqArray = detailsView.getTodoSeqArray();
+                        todoArray.clear();
                         for (int i = 0; i < newArray.size(); i++) {
                             todoArray.add(newArray.get(i));
                         }
@@ -208,6 +221,7 @@ public class FragmentCalendarActivity extends Fragment {
         }, 150);
 
         DetailsView detailsView = new DetailsView(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), getActivity());
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
