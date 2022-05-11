@@ -39,13 +39,8 @@ public class FragmentProfileActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        TextView btnLogout;
-        btnLogout = view.findViewById(R.id.btnLogout);
-        String URL = "http://34.64.49.11/logout";//각 상황에 맞는 서버 url
-
-
-
-        TextView TextView1 = (TextView) view.findViewById(R.id.EditText01);
+//      과목갱신
+        TextView TextView1 = (TextView) view.findViewById(R.id.pr_lec_renew);
 
         TextView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +60,10 @@ public class FragmentProfileActivity extends Fragment {
             }
         });
 
+//      로그아웃
+        TextView btnLogout;
+        btnLogout = view.findViewById(R.id.pr_logout);
+        String URL = "http://34.64.49.11/logout";//각 상황에 맞는 서버 url
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +117,7 @@ public class FragmentProfileActivity extends Fragment {
         });
 
 
+//      회원탈퇴
 
         return view;
     }

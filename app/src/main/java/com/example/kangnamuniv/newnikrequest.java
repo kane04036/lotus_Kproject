@@ -22,7 +22,7 @@ public class newnikrequest extends StringRequest {
                String URL = "http://34.64.49.11/changenk";
 
 
-               JsonObjectRequest logoutRequest = new JsonObjectRequest(Request.Method.GET, URL,null, new Response.Listener<JSONObject>() {
+               JsonObjectRequest newnikRequest = new JsonObjectRequest(Request.Method.GET, URL,null, new Response.Listener<JSONObject>() {
                   @Override
                        try {
                            String res = response.getString("res"); //동일
@@ -42,7 +42,7 @@ public class newnikrequest extends StringRequest {
                    }
                });
 
-               requestQueue.add(logoutRequest);
+               requestQueue.add(newnikRequest);
 
 
 }
