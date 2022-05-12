@@ -55,6 +55,18 @@ public class FragmentHomeActivity extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false); /*현재 설정해놓은 layout을 view로 만드는 부분. fragmentProfileActivity 작성할때는
         그대로 복사하고 R.layout.fragment_profile 로 작성하면됨. 근데 무조건 return 해야해서 현재 onCreateView 메소드가 끝날때 return view 를 해줘야함*/
 
+
+//        ArrayList<String> lecturePreferCheck;
+//        ArrayList<Integer> seqPreferCheck;
+//
+//        lecturePreferCheck = getStringArrayPref(getActivity(), "lecture");
+//        seqPreferCheck = getIntegerArrayPref(getActivity(), "seq");
+//
+//        if(!lecturePreferCheck.isEmpty() && !seqPreferCheck.isEmpty()){
+//            Intent intent = new Intent(getActivity(), FragmentMainActivity.class);
+//            startActivity(intent);
+//        }
+
         sharedPreferences = this.getActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", ""); //내가 세션키를 session으로 저장해놔서 데이터를 빼서 쓰려면 이렇게 코드 작성하면 데이터를 꺼내서 쓸 수 있음
         //나중에 서버로 데이터 보낼때 session키가 필요하면 위에처럼 작성해서 session 값 쓰면됨

@@ -41,6 +41,9 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfocheck);
+        overridePendingTransition(R.anim.none, R.anim.none);
+
+
         ArrayList<String> lecturePreferCheck;
         ArrayList<Integer> seqPreferCheck;
 
@@ -49,8 +52,11 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
         if(!lecturePreferCheck.isEmpty() && !seqPreferCheck.isEmpty()){
             Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+            overridePendingTransition(R.anim.none, R.anim.none);
+
         }
 
 
@@ -138,8 +144,8 @@ public class MyInfoCheckActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -223,4 +229,11 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         return urls;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isFinishing())
+            overridePendingTransition(R.anim.none, R.anim.none);
+
+    }
 }

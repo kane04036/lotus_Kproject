@@ -36,12 +36,12 @@
 
         />
     <ImageButton
-        android:id="@+id/btnCommentDelete"
+        android:id="@+id/btnCommentMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/commentdeleteimg"
+        android:src="@drawable/commentmoreimg"
         android:background="@android:color/transparent"
         android:layout_alignParentRight="true"
         />

@@ -1,7 +1,9 @@
 package com.example.kangnamuniv;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        overridePendingTransition(R.anim.none, R.anim.none);
+
 
         edtRegID = findViewById(R.id.edtRegID);
         edtRegPW = findViewById(R.id.edtRegPW);
@@ -162,6 +166,12 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
+                if(Rnickname.length() > 15){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    dialog = builder.setMessage("닉네임의 최대 길이는 15글자 입니다.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -175,6 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 nickname_validate = true;
                                 edtRegNickname.setEnabled(false);
                                 btnNicknameCheck.setEnabled(false);
+
                             } else {
                                 tvNicknameCheck.setTextColor(Color.RED);
                                 tvNicknameCheck.setText("이미 사용중인 닉네임 입니다.");
@@ -221,7 +232,12 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
-
+                if(Rpassword.length() > 20){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    dialog = builder.setMessage("비밀번호의 최대 길이는 20글자 입니다.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -259,5 +275,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isFinishing()){
+            overridePendingTransition(R.anim.none, R.anim.none);
+        }
+    }
 }

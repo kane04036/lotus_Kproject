@@ -22,14 +22,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             />
-        <View
-            android:background="#bababa"
-            android:layout_width="match_parent"
-            android:layout_height="3px"
-            android:layout_marginTop="7dp"
-            android:layout_below="@+id/tvLectureName"
 
-            />
        <!-- <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
@@ -45,16 +38,16 @@
             android:background="@color/white"
             android:drawableStart="@drawable/pencilimg" />-->
 
-        <ImageButton
-            android:id="@+id/btnSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/btnWrite"
-            android:src="@drawable/searchimg"
-            android:background="@android:color/transparent"
-            android:layout_marginRight="20dp"
-            android:layout_alignTop="@+id/btnWrite"
-            />
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnSearch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toLeftOf="@+id/btnWrite"-->
+<!--            android:src="@drawable/searchimg"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_alignTop="@+id/btnWrite"-->
+<!--            />-->
 
         <ImageButton
             android:id="@+id/btnWrite"
@@ -68,6 +61,13 @@
             />
 
     </RelativeLayout>
+
+    <View
+        android:background="#b0b0b0"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+
+        />
 
 
     <ListView

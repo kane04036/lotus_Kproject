@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/postRelative">
+        android:id="@+id/postRelative"
+        >
         <TextView
             android:id="@+id/tvPostLecture"
             android:layout_width="wrap_content"
@@ -21,13 +22,13 @@
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             />
-        <View
-            android:background="#bababa"
-            android:layout_width="match_parent"
-            android:layout_height="3px"
-            android:layout_marginTop="7dp"
-            android:layout_below="@+id/tvPostLecture"
 
+        <View
+            android:id="@+id/view2"
+            android:background="#b0b0b0"
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            android:layout_below="@+id/tvPostLecture"
             />
 
 

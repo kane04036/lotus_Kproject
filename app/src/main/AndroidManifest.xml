@@ -28,6 +28,7 @@
         <activity android:name=".BoardActivity"/>
         <activity android:name=".WriteActivity"/>
         <activity android:name=".PostActivity"/>
+        <activity android:name=".ChangeNicknameActivity"/>
     </application>
 
 </manifest>

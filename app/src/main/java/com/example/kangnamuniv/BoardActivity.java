@@ -66,6 +66,7 @@ public class BoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board); //액티비티는 onCreate 에서 작동하니까 무조건 oncreate 메소드?를 만들고 그 내부에서 실행할 코드를 작성하삼. 안도르이드 생명주기 검색해서 봐보시면 이해 될 거여요
         setTitle("글쓰기");
+        overridePendingTransition(R.anim.none, R.anim.none);
 
         context_main = this;
 
@@ -115,6 +116,8 @@ public class BoardActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     @Override
     protected void onResume() {
@@ -210,6 +213,12 @@ public class BoardActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isFinishing()){
+            overridePendingTransition(R.anim.none, R.anim.none);
+        }
+    }
 }
 

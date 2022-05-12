@@ -70,6 +70,8 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+        overridePendingTransition(R.anim.none, R.anim.none);
+
 
         tvDetailTitle = findViewById(R.id.tvDetailTitle);
         tvDetailNickname = findViewById(R.id.tvDetailNickname);
@@ -404,5 +406,13 @@ public class PostActivity extends AppCompatActivity {
             }
         });
         QeueDelete.add(boardDeleteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isFinishing())
+            overridePendingTransition(R.anim.none, R.anim.none);
+
     }
 }

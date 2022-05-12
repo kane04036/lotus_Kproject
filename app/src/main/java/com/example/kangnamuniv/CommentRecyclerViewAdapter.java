@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         Log.d(TAG, "생성자");
         this.context = context;
         this.list = list;
+
     }
 
     @NonNull
@@ -52,34 +55,39 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.title.setText(list.get(position).getTitle());
         holder.writer.setText(list.get(position).getWriter());
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        holder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: " + seqArray.get(position));
-                Commentdelete commentdelete = new Commentdelete(seqArray.get(position), context);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(commentdelete.getResult()){
-                            seqArray.remove(position);
-                            list.remove(position);
-                            notifyDataSetChanged();
-                        }
-                    }
-                }, 150);
 
-//                AlertDialog.Builder dlg = new AlertDialog.Builder(context);
-//                dlg.setMessage("삭제하시겠습니까?");
-//                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        Commentdelete commentdelete = new Commentdelete(seqArray.get(position), context);
-//                    }
-//                });
-//
-//                dlg.show();
+                PopupMenu popupMenu = new PopupMenu(context, view);
+                popupMenu.getMenuInflater().inflate(R.menu.commentmoremenu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.commentDelete:
+                                Commentdelete commentdelete = new Commentdelete(seqArray.get(position), context);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (commentdelete.getResult()) {
+                                            list.remove(position);
+                                            seqArray.remove(position);
+                                            notifyDataSetChanged();
+                                        }
+
+                                    }
+                                }, 100);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
+
     }
 
     @Override
@@ -90,13 +98,13 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView writer;
-        private ImageButton btnDelete;
+        private ImageButton btnMore;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.title = itemView.findViewById(R.id.tvCommentMsg);
             this.writer = itemView.findViewById(R.id.tvCommentWriter);
-            this.btnDelete = itemView.findViewById(R.id.btnCommentDelete);
+            this.btnMore = itemView.findViewById(R.id.btnCommentMore);
         }
     }
 
@@ -107,4 +115,5 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     void setSeqArray(ArrayList seq) {
         seqArray = seq;
     }
+
 }

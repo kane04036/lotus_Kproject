@@ -3,6 +3,7 @@ package com.example.kangnamuniv;
 import static android.content.Context.MODE_PRIVATE;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,10 +38,27 @@ public class FragmentProfileActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragmentprofilenew, container, false);
 
-//      과목갱신
-        TextView TextView1 = (TextView) view.findViewById(R.id.pr_lec_renew);
+        TextView btnLogout;
+        btnLogout = view.findViewById(R.id.btnLogout);
+        String URL = "http://34.64.49.11/logout";//각 상황에 맞는 서버 url
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
+        String nickname = sharedPreferences.getString("nickname", "");
+
+        TextView TextView1 = (TextView) view.findViewById(R.id.EditText01);
+        TextView tvNickname = view.findViewById(R.id.EditText0);
+        tvNickname.setText(nickname);
+        TextView tvNickChange = view.findViewById(R.id.EditText02);
+
+        tvNickChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChangeNicknameActivity.class);
+                startActivity(intent);
+            }
+        });
 
         TextView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +78,6 @@ public class FragmentProfileActivity extends Fragment {
             }
         });
 
-//      로그아웃
-        TextView btnLogout;
-        btnLogout = view.findViewById(R.id.pr_logout);
-        String URL = "http://34.64.49.11/logout";//각 상황에 맞는 서버 url
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +131,6 @@ public class FragmentProfileActivity extends Fragment {
         });
 
 
-//      회원탈퇴
 
         return view;
     }

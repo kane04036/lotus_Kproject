@@ -42,6 +42,8 @@ public class WriteActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+        overridePendingTransition(R.anim.none, R.anim.none);
+
 
         edtTitle = findViewById(R.id.edtTitle);
         edtMsg = findViewById(R.id.edtMsg);
@@ -58,6 +60,8 @@ public class WriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.none, R.anim.horizontalexit);
+
             }
         });
 
@@ -136,4 +140,11 @@ public class WriteActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isFinishing())
+            overridePendingTransition(R.anim.none, R.anim.horizontalexit);
+
+    }
 }

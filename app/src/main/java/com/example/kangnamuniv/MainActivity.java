@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             String result = jsonResponse.getString("res");
                             key = jsonResponse.getString("key");
+                            String nickname = jsonResponse.getString("nickname");
 
 
                             if (result.equals("SUCCESS")) {
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putString("session", key);
                                 editor.putString("ID", Rid);
                                 editor.putString("PW", Rpassword);
+                                editor.putString("nickname", nickname);
                                 editor.commit();
 
                                 Intent intent = new Intent(getApplicationContext(), MyInfoCheckActivity.class);
