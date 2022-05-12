@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/cancleimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/checkimg.xml" value="0.4015384615384615" />
         <entry key="app/src/main/res/drawable/commentdeleteimg.xml" value="0.20625" />
+        <entry key="app/src/main/res/drawable/commentmoreimg.xml" value="0.4015384615384615" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/moreimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/outline.xml" value="0.24635416666666668" />
@@ -33,6 +34,9 @@
         <entry key="app/src/main/res/layout/activity_write.xml" value="0.36150603973889145" />
         <entry key="app/src/main/res/layout/boarditemlist.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/boardlistitem.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/change_nick.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/change_nick_new.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/change_password.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/commentlistitem.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/fragment_board.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.33152173913043476" />
@@ -43,6 +47,7 @@
         <entry key="app/src/main/res/layout/todoitem.xml" value="0.33" />
         <entry key="app/src/main/res/layout/todolistitem.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/menu/bottombar.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/menu/commentmoremenu.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/menu/popup.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/menu/todomenu.xml" value="0.20833333333333334" />
       </map>

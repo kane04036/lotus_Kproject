@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/EditText0"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:text=" 닉네임"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/EditText01"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/EditText0"
+        android:layout_centerHorizontal="true"
+        android:text="  과목갱신"
+        android:textSize="27sp" />
+
+    <TextView
+        android:id="@+id/EditText02"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/EditText01"
+        android:layout_centerHorizontal="true"
+        android:text="  닉네임 변경"
+        android:onClick="onTextViewClicked"
+        android:clickable="true"
+        android:textSize="27sp"/>
+    <TextView
+        android:id="@+id/EditText03"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/EditText02"
+        android:layout_centerHorizontal="true"
+        android:text="  비밀번호 변경"
+        android:onClick="onTextViewClicked"
+        android:clickable="true"
+        android:textSize="27sp"/>
+    <TextView
+        android:id="@+id/btnLogout"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/EditText03"
+        android:layout_centerHorizontal="true"
+        android:text="  로그아웃"
+        android:textSize="27sp"/>
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="3px"
+        android:layout_below="@id/btnLogout"
+        android:layout_alignStart="@+id/EditText0"
+        android:layout_alignEnd="@+id/EditText0"
+        android:background="#a1a1a1"
+        />
+    <TextView
+        android:id="@+id/Btn_1"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/view3"
+        android:text="  이용안내"
+        android:onClick="onTextViewClicked"
+        android:clickable="true"
+        android:layout_marginTop="100dp"
+        android:textSize="27sp"/>
+    <TextView
+        android:id="@+id/Btn_2"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:text="  기타문의"
+        android:onClick="onTextViewClicked"
+        android:clickable="true"
+        android:textSize="27sp"
+        android:layout_below="@id/Btn_1"
+     />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="3px"
+        android:layout_below="@id/Btn_2"
+        android:layout_alignStart="@+id/EditText0"
+        android:layout_alignEnd="@+id/EditText0"
+        android:background="#a1a1a1"
+
+        />
+
+</RelativeLayout>
