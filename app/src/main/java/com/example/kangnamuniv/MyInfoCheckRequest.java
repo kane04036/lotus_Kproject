@@ -20,7 +20,6 @@ public class MyInfoCheckRequest extends StringRequest {
     public MyInfoCheckRequest(String schoolID, String schoolPW, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
-        Log.d("test", "MyInfoCheckRequest: myinfo set"+schoolID+"and"+schoolPW);
         parameters = new HashMap<String, String>();
         parameters.put("id", schoolID);
         parameters.put("pw", schoolPW);

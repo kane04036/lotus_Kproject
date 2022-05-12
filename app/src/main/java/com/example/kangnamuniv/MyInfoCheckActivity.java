@@ -33,7 +33,6 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static ArrayList<String> lecturelist = new ArrayList<String>();
     public static ArrayList<Integer> seqlist = new ArrayList<>();
-    int j = 0;
 
     PreferenceManagers preferenceManagers;
 
@@ -50,7 +49,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         lecturePreferCheck = getStringArrayPref(MyInfoCheckActivity.this, "lecture");
         seqPreferCheck = getIntegerArrayPref(MyInfoCheckActivity.this, "seq");
 
-        if(!lecturePreferCheck.isEmpty() && !seqPreferCheck.isEmpty()){
+        if (!lecturePreferCheck.isEmpty() && !seqPreferCheck.isEmpty()) {
             Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -89,10 +88,12 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             JSONArray lectureArray = jsonResponse.getJSONArray("lectures");
                             JSONArray seqArray = jsonResponse.getJSONArray("seq");
                             String res = jsonResponse.getString("res");
-                            Log.d("test", "onResponse: lecture"+res);
+                            Log.d("test", "onResponse: lecture" + res);
 
 
                             //여기를 아예 sharedPreference arraylist로 바꾸기
+                            lecturelist.clear();
+                            seqlist.clear();
                             for (int i = 0; i < lectureArray.length(); i++) {
                                 lecturelist.add((String) lectureArray.get(i));
                                 seqlist.add((Integer) seqArray.get(i));
@@ -112,12 +113,11 @@ public class MyInfoCheckActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.INVISIBLE);
                             notice.setVisibility(View.INVISIBLE);
                             tvLecture.setText("");
-                            if (j < 1) {
-                                for (int i = 0; i < lecturelist.size(); i++) {
-                                    tvLecture.append(lecturelist.get(i) + "\n");
-                                }
-                                j++;
+
+                            for (int i = 0; i < lecturelist.size(); i++) {
+                                tvLecture.append(lecturelist.get(i) + "\n");
                             }
+
 
                             btnGoHome.setVisibility(View.VISIBLE);
 
@@ -151,6 +151,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
 
     }
+
     public void setStringArrayPref(Context context, String key, ArrayList<String> values) {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -169,6 +170,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
         editor.apply();
     }
+
     public void setIntegerArrayPref(Context context, String key, ArrayList<Integer> values) {
 
         SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
@@ -188,6 +190,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
         editor.apply();
     }
+
     public ArrayList<String> getStringArrayPref(Context context, String key) {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -208,6 +211,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
         }
         return urls;
     }
+
     public ArrayList<Integer> getIntegerArrayPref(Context context, String key) {
 
         SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
@@ -232,7 +236,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(isFinishing())
+        if (isFinishing())
             overridePendingTransition(R.anim.none, R.anim.none);
 
     }

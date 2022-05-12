@@ -42,7 +42,7 @@ android:orientation="vertical">
 
         />
     <Button
-        android:id="@+id/btnchgnik1"
+        android:id="@+id/btnNewNickCheck"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:text="중복확인"
@@ -51,7 +51,7 @@ android:orientation="vertical">
 
     </LinearLayout>
     <TextView
-        android:id="@+id/tvNicknameCheck2"
+        android:id="@+id/tvNickchange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -60,7 +60,7 @@ android:orientation="vertical">
         android:textColor="@color/black"/>
 
     <Button
-        android:id="@+id/btnchgnik2"
+        android:id="@+id/btnChangeNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="확인"

@@ -47,10 +47,13 @@ public class FragmentProfileActivity extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         String nickname = sharedPreferences.getString("nickname", "");
 
+
+
         TextView TextView1 = (TextView) view.findViewById(R.id.EditText01);
         TextView tvNickname = view.findViewById(R.id.EditText0);
         tvNickname.setText(nickname);
         TextView tvNickChange = view.findViewById(R.id.EditText02);
+        TextView tvPWChange = view.findViewById(R.id.EditText03);
 
         tvNickChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +130,15 @@ public class FragmentProfileActivity extends Fragment {
 //                });
 //
 //                requestQueue.add(logoutRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+            }
+        });
+
+        tvPWChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChangePWActivity.class);
+                startActivity(intent);
+
             }
         });
 
