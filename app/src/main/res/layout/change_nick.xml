@@ -42,7 +42,7 @@ android:orientation="vertical">
 
         />
     <Button
-        android:id="@+id/btnIdCheck"
+        android:id="@+id/btnchgnik1"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:text="중복확인"
@@ -50,9 +50,17 @@ android:orientation="vertical">
         />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/tvNicknameCheck2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginLeft="50dp"
+        android:textSize="10dp"
+        android:textColor="@color/black"/>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnchgnik2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="확인"
