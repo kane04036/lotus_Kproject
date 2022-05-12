@@ -126,9 +126,9 @@
         android:layout_height="60dp"
         android:layout_above="@+id/pr_gitarmoon"
         android:layout_centerHorizontal="true"
-        android:text="  이용안내"
-        android:onClick="onTextViewClicked"
         android:clickable="true"
+        android:onClick="onTextViewClicked"
+        android:text="  이용안내"
         android:textSize="27sp"></TextView>
 
 

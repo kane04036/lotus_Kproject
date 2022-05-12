@@ -30,6 +30,8 @@
         <activity android:name=".PostActivity"/>
         <activity android:name=".ChangeNicknameActivity"/>
         <activity android:name=".ChangePWActivity"/>
+        <activity android:name=".InfoActivity"/>
+        <activity android:name=".QnAActivity"/>
     </application>
 
 </manifest>

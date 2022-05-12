@@ -54,7 +54,24 @@ public class FragmentProfileActivity extends Fragment {
         tvNickname.setText(nickname);
         TextView tvNickChange = view.findViewById(R.id.EditText02);
         TextView tvPWChange = view.findViewById(R.id.EditText03);
+        TextView tvInfo = view.findViewById(R.id.Btn_1);
+        TextView tvQnA = view.findViewById(R.id.Btn_2);
 
+        tvInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvQnA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), QnAActivity.class);
+                startActivity(intent);
+            }
+        });
         tvNickChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
