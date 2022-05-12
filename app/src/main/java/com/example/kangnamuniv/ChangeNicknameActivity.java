@@ -25,7 +25,11 @@ import org.json.JSONObject;
 
 public class ChangeNicknameActivity extends AppCompatActivity {
     String newNickname;
-    boolean nickname_validate;
+    boolean nickname_validate = false;
+    EditText edtNewNick;
+    Button btnNewNickCheck, btnChageNickname;
+    TextView tvNickchange;
+    String session;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,35 +38,22 @@ public class ChangeNicknameActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.none, R.anim.none);
 
 
-
-        EditText edtNewNick = findViewById(R.id.newnick);
-        Button btnNewNickCheck = findViewById(R.id.btnNewNickCheck);
-        Button btnChageNickname = findViewById(R.id.btnChangeNick);
-        TextView tvNickchange = findViewById(R.id.tvNickchange);
+        edtNewNick = findViewById(R.id.newnick);
+        btnNewNickCheck = findViewById(R.id.btnNewNickCheck);
+        btnChageNickname = findViewById(R.id.btnChangeNick);
+        tvNickchange = findViewById(R.id.tvNickchange);
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
-        String session = sharedPreferences.getString("session", "");
+        session = sharedPreferences.getString("session", "");
+        Log.d("test", "Change onCreate session : " + session );
 
         btnNewNickCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 newNickname = edtNewNick.getText().toString();
-                if (nickname_validate) {
-                    return;
-                }
-                AlertDialog dialog;
-                if (newNickname.equals("")) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                    dialog = builder.setMessage("닉네임 입력해주세요").setPositiveButton("확인", null).create();
-                    dialog.show();
-                    return;
-                }
-                if (newNickname.length() > 15) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                    dialog = builder.setMessage("닉네임의 최대 길이는 15글자 입니다.").setPositiveButton("확인", null).create();
-                    dialog.show();
-                    return;
-                }
+                Log.d("test", "Change onCreate nickname  : " +  newNickname );
+
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -97,13 +88,20 @@ public class ChangeNicknameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("test", "onClick: 클릭되엇습니다 ");
+                newNickname = edtNewNick.getText().toString();
+                Log.d("test", "Change onCreate nickname2  : " +  newNickname );
+
+                AlertDialog dialog;
+
                 if (nickname_validate) {
                     Changenk changenk = new Changenk(session, edtNewNick.getText().toString(), getApplicationContext());
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(changenk.getResult()){
+                            if (changenk.getResult()) {
+
+
                                 newNickname = changenk.getNewNickname();
                                 SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -117,13 +115,30 @@ public class ChangeNicknameActivity extends AppCompatActivity {
                             }
                         }
                     }, 200);
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                    AlertDialog dialog = builder.setMessage("닉네임 중복체크가 되지 않았습니다.").setPositiveButton("확인", null).create();
+                } else if(!nickname_validate) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangeNicknameActivity.this);
+                    dialog = builder.setMessage("닉네임 중복체크가 되지 않았습니다.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }else if (edtNewNick.getText().toString().isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangeNicknameActivity.this);
+                    dialog = builder.setMessage("닉네임 입력해주세요").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                } else if (newNickname.length() > 15) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangeNicknameActivity.this);
+                    dialog = builder.setMessage("닉네임의 최대 길이는 15글자 입니다.").setPositiveButton("확인", null).create();
                     dialog.show();
                     return;
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(isFinishing()){
+            overridePendingTransition(R.anim.none, R.anim.none);
+        }
     }
 }

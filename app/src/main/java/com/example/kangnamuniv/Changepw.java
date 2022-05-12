@@ -37,11 +37,11 @@ public class Changepw {
                     String res = response.getString("res"); //동일
 
 
-                    if (res.contains("SUCCESS"))
+                    if (res.contains("변경완료"))
                         result = true;
                     else
                         result = false;
-                    Log.d("testCalendar", res);
+                    Log.d("testChangePw", res);
 
 
                 } catch (JSONException e) {
@@ -56,5 +56,8 @@ public class Changepw {
         });
 
         requestQueue.add(changeNkRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+    }
+    boolean getResult(){
+        return true;
     }
 }

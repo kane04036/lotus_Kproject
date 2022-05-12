@@ -29,6 +29,7 @@
         <activity android:name=".WriteActivity"/>
         <activity android:name=".PostActivity"/>
         <activity android:name=".ChangeNicknameActivity"/>
+        <activity android:name=".ChangePWActivity"/>
     </application>
 
 </manifest>

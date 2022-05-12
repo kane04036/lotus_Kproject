@@ -38,9 +38,9 @@ public class changenik extends AppCompatActivity {
 
 
         edtnewnik = findViewById(R.id.newnick);
-        btnchgnik1 = findViewById(R.id.btnchgnik1);
-        btnchgnik2 = findViewById(R.id.btnchgnik2);
-        tvNicknameCheck = findViewById(R.id.tvNicknameCheck2);
+        btnchgnik1 = findViewById(R.id.btnNewNickCheck);
+        btnchgnik2 = findViewById(R.id.btnChangeNick);
+        tvNicknameCheck = findViewById(R.id.tvNickchange);
 
         btnchgnik1.setOnClickListener(new View.OnClickListener() {
             private AlertDialog dialog;

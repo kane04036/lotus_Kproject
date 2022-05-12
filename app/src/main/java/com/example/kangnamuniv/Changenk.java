@@ -25,7 +25,7 @@ public class Changenk {
        try {
            jsonObject.put("session", session);
            jsonObject.put("nickname", newNk);
-           Log.d("test", "Changenk: " + session + "and"+newNk);
+           Log.d("test", "Changenk: " + session + " and "+newNk);
 
        } catch (Exception e) {
            e.printStackTrace();

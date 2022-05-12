@@ -2,15 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/Editborder1"
+        android:layout_width="345dp"
+        android:layout_height="360dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center">
 
+
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/Editborder2"
+        android:layout_width="345dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center">
+
+
+        <requestFocus />
+    </EditText>
     <TextView
         android:id="@+id/EditText0"
         android:layout_width="340dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="5dp"
         android:text=" 닉네임"
+        android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold" />
 
@@ -18,8 +50,10 @@
         android:id="@+id/EditText01"
         android:layout_width="340dp"
         android:layout_height="60dp"
+        android:layout_marginTop="35dp"
         android:layout_below="@+id/EditText0"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
         android:text="  과목갱신"
         android:textSize="27sp" />
 
@@ -29,10 +63,11 @@
         android:layout_height="60dp"
         android:layout_below="@+id/EditText01"
         android:layout_centerHorizontal="true"
-        android:text="  닉네임 변경"
-        android:onClick="onTextViewClicked"
         android:clickable="true"
-        android:textSize="27sp"/>
+        android:onClick="onTextViewClicked"
+        android:text="  닉네임 변경"
+        android:textColor="@color/black"
+        android:textSize="27sp" />
     <TextView
         android:id="@+id/EditText03"
         android:layout_width="340dp"
@@ -41,8 +76,10 @@
         android:layout_centerHorizontal="true"
         android:text="  비밀번호 변경"
         android:onClick="onTextViewClicked"
+        android:textColor="@color/black"
         android:clickable="true"
         android:textSize="27sp"/>
+
     <TextView
         android:id="@+id/btnLogout"
         android:layout_width="340dp"
@@ -50,7 +87,8 @@
         android:layout_below="@+id/EditText03"
         android:layout_centerHorizontal="true"
         android:text="  로그아웃"
-        android:textSize="27sp"/>
+        android:textColor="@color/black"
+        android:textSize="27sp" />
     <View
         android:id="@+id/view3"
         android:layout_width="wrap_content"
@@ -59,6 +97,7 @@
         android:layout_alignStart="@+id/EditText0"
         android:layout_alignEnd="@+id/EditText0"
         android:background="#a1a1a1"
+        android:visibility="gone"
         />
     <TextView
         android:id="@+id/Btn_1"
@@ -69,7 +108,8 @@
         android:text="  이용안내"
         android:onClick="onTextViewClicked"
         android:clickable="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
         android:textSize="27sp"/>
     <TextView
         android:id="@+id/Btn_2"
@@ -78,18 +118,19 @@
         android:layout_centerHorizontal="true"
         android:text="  기타문의"
         android:onClick="onTextViewClicked"
+        android:textColor="@color/black"
         android:clickable="true"
         android:textSize="27sp"
         android:layout_below="@id/Btn_1"
-     />
+        />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="3px"
-        android:layout_below="@id/Btn_2"
-        android:layout_alignStart="@+id/EditText0"
-        android:layout_alignEnd="@+id/EditText0"
-        android:background="#a1a1a1"
+<!--    <View-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="3px"-->
+<!--        android:layout_below="@id/Btn_2"-->
+<!--        android:layout_alignStart="@+id/EditText0"-->
+<!--        android:layout_alignEnd="@+id/EditText0"-->
+<!--        android:background="#a1a1a1"-->
 
         />
 
