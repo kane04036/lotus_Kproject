@@ -14,13 +14,6 @@ android:orientation="vertical">
     android:textColor="@color/black"
     />
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="닉네임을 변경합니다."
-    android:gravity="center"
-    android:layout_marginTop="5dp"
-    />
 
 
 <LinearLayout
@@ -35,6 +28,7 @@ android:orientation="vertical">
         android:layout_gravity="center"
         android:backgroundTintMode="add"
         android:ems="10"
+
         android:textSize="20dp"
         android:backgroundTint="#317abe"
         android:layout_marginLeft="50dp"
