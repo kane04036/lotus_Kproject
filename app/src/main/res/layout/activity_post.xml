@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tvPostLecture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/postRelative"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:text="강좌이름"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_below="@id/tvPostLecture"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:background="#b0b0b0"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
         >
-        <TextView
-            android:id="@+id/tvPostLecture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="강좌이름"
-            android:layout_centerInParent="true"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
-            />
-
-        <View
-            android:id="@+id/view2"
-            android:background="#b0b0b0"
-            android:layout_width="match_parent"
-            android:layout_height="5px"
-            android:layout_below="@+id/tvPostLecture"
-            />
-
-
-    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:layout_below="@+id/postRelative"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             >
 
             <RelativeLayout
@@ -91,13 +91,13 @@
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:textSize="17dp" />
+
             <View
-                android:background="#bababa"
                 android:layout_width="match_parent"
                 android:layout_height="3px"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="7dp"
-                />
+                android:background="#bababa" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -105,8 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
-                android:overScrollMode="never" />
-
+                android:overScrollMode="never"
+                />
 
 
         </LinearLayout>
@@ -114,12 +114,17 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/underbarComment">
     <RelativeLayout
         android:id="@+id/underbarLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        >
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+       >
 
         <CheckBox
             android:id="@+id/chkAnonymousCommnet"
@@ -135,9 +140,9 @@
             android:id="@+id/btnComment"
             android:layout_width="50dp"
             android:layout_height="38dp"
-            android:layout_alignTop="@+id/edtComment"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/roundcorner"
             android:text="등록"
             android:textColor="@color/white" />
@@ -145,16 +150,38 @@
         <EditText
             android:id="@+id/edtComment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/btnComment"
+            android:layout_toLeftOf="@+id/tvTextCountComment"
             android:layout_toRightOf="@+id/chkAnonymousCommnet"
+            android:maxLength="50"
             android:hint="댓글을 입력하세요" />
+
+        <TextView
+            android:id="@+id/tvTextTotalCountComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/btnComment"
+            android:layout_alignBaseline="@+id/edtComment"
+            android:textSize="10dp"
+            android:layout_marginRight="5dp"
+            android:text=" / 50" />
+
+        <TextView
+            android:id="@+id/tvTextCountComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+
+            android:layout_alignBaseline="@+id/edtComment"
+            android:layout_toLeftOf="@+id/tvTextTotalCountComment"
+            android:text="0" />
 
 
     </RelativeLayout>
 
+</LinearLayout>
 
 
 
-</RelativeLayout>
+</LinearLayout>

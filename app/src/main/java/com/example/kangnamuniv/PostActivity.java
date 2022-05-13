@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +51,7 @@ public class PostActivity extends AppCompatActivity {
     static String session;
     static int Bnumber;
 
-    TextView tvDetailTitle, tvDetailNickname, tvDetailMsg, tvPostLecture;
+    TextView tvDetailTitle, tvDetailNickname, tvDetailMsg, tvPostLecture, tvTextCountComment;
     Button btnComment;
     EditText edtComment;
     CheckBox chkAnonymousComment;
@@ -72,7 +74,7 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
         overridePendingTransition(R.anim.none, R.anim.none);
 
-
+        tvTextCountComment = findViewById(R.id.tvTextCountComment);
         tvDetailTitle = findViewById(R.id.tvDetailTitle);
         tvDetailNickname = findViewById(R.id.tvDetailNickname);
         tvDetailMsg = findViewById(R.id.tvDetailMsg);
@@ -148,21 +150,6 @@ public class PostActivity extends AppCompatActivity {
                                 cmtArray.add( new BoardView(String.valueOf(each.get(1)), String.valueOf(each.get(0))));
                             }
 
-//                        } else {
-//                            final int validateCmt = CnumberAry.get(0);
-//                            for (int i = 0; i < commentarray.length(); i++) {
-//                                JSONArray each = commentarray.getJSONArray(i);
-//                                if (validateCmt != (Integer) each.get(2)) {
-//                                    Log.d("testPostActivityAdapter2","어뎁터 설정 전");
-//                                    cmtWritersAry.add( String.valueOf(each.get(0)));
-//                                    cmtMsgAry.add(String.valueOf(each.get(1)));
-//                                    CnumberAry.add( (Integer) each.get(2));
-//                                    cmtArray.add( new BoardView(String.valueOf(each.get(1)), String.valueOf(each.get(0))));
-//                                }
-//                            }
-//
-//
-//                        }
 
                         commentAdapater.setSeqArray(CnumberAry);
                         Log.d(TAG, "onResponse: seq set 완료");
@@ -194,6 +181,22 @@ public class PostActivity extends AppCompatActivity {
         requestQueue.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
 
 
+        edtComment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tvTextCountComment.setText(String.valueOf(edtComment.getText().length()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,7 +28,7 @@ android:orientation="vertical">
         android:layout_gravity="center"
         android:backgroundTintMode="add"
         android:ems="10"
-
+        android:maxLength="15"
         android:textSize="20dp"
         android:backgroundTint="#317abe"
         android:layout_marginLeft="50dp"
@@ -49,6 +49,7 @@ android:orientation="vertical">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:maxLength="15"
         android:layout_marginLeft="50dp"
         android:textSize="10dp"
         android:textColor="@color/black"/>
