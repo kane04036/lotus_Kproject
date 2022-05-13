@@ -5,12 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -38,6 +41,7 @@ public class WriteActivity extends AppCompatActivity {
     Button btnPost;
     ImageButton btnBack;
     SharedPreferences sharedPreferences;
+    TextView tvTextCount;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +53,31 @@ public class WriteActivity extends AppCompatActivity {
         edtMsg = findViewById(R.id.edtMsg);
         chkAnonymousWrite = findViewById(R.id.chkAnonymousWrite);
         btnPost = findViewById(R.id.btnPost);
+        tvTextCount = findViewById(R.id.tvTextCount);
         btnBack = findViewById(R.id.btnBack);
-
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
         Lnumber = getIntent().getIntExtra("Lnumber",0);
         lecture = getIntent().getStringExtra("Lecture");
+
+
+        edtMsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            tvTextCount.setText(String.valueOf(edtMsg.getText().length()));
+                Log.d("test", "onTextChanged: " + edtMsg.getText().length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
