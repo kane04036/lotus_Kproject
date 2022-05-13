@@ -28,7 +28,7 @@ android:orientation="vertical">
         android:layout_gravity="center"
         android:backgroundTintMode="add"
         android:ems="10"
-
+        android:maxLength="15"
         android:textSize="20dp"
         android:backgroundTint="#317abe"
         android:layout_marginLeft="50dp"
