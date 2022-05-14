@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                             key = jsonResponse.getString("key");
                             String nickname = jsonResponse.getString("nickname");
 
+                            Log.d("test", "onResponse: MainActivity "+result);
 
                             if (result.equals("SUCCESS")) {
                                 //tvResult.setText(result + key);

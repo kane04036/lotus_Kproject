@@ -140,7 +140,6 @@ public class PostActivity extends AppCompatActivity {
                             Log.d("test: board", msg);
 
                         }
-//                        if (CnumberAry.isEmpty()) {
                             Log.d("testPostActivityAdapter1","어뎁터 설정 전");
                             for (int i = 0; i < commentarray.length(); i++) {
                                 JSONArray each = commentarray.getJSONArray(i);
@@ -284,74 +283,6 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-//        listViewComment.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-//
-//                AlertDialog.Builder dlg = new AlertDialog.Builder(PostActivity.this);
-//                dlg.setMessage("삭제하시겠습니까?");
-//                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        RequestQueue requestQueueCommentDel = Volley.newRequestQueue(getApplicationContext());
-//
-//                        JSONObject jsonObject = new JSONObject();
-//                        try {
-//                            jsonObject.put("session", session);
-//                            jsonObject.put("Cnumber", CnumberAry.get(position));
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                        String URL = "http://34.64.49.11/commentdelete";//각 상황에 맞는 서버 url
-//
-//
-//                        JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//                                try {
-//                                    String res = response.getString("res");
-//                                    if(res.contains("Success")){
-//                                        Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-//
-//                                        CnumberAry.remove(position);
-//                                        cmtMsgAry.remove(position);
-//                                        cmtWritersAry.remove(position);
-//                                        cmtArray.remove(position);
-//                                        customArrayAdapterComment.notifyDataSetChanged();
-//                                    }
-//                                    else{
-//                                        Toast.makeText(getApplicationContext(), "댓글 작성자만 삭제할 수 있습니다", Toast.LENGTH_SHORT).show();
-//
-//                                    }
-//
-//
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//
-//                            }
-//                        }, new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//
-//                            }
-//                        });
-//
-//
-//                        requestQueueCommentDel.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
-//                        //Toast.makeText(getApplicationContext(), "삭제할까요?", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//                dlg.show();
-//
-//
-//                return false;
-//            }
-//        });
 
     }
 

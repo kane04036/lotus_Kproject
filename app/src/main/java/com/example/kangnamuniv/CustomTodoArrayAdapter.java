@@ -30,9 +30,7 @@ public class CustomTodoArrayAdapter extends ArrayAdapter<TodoView> {
 
         TodoView currentPosition = getItem(position);
 
-        //TextView todoTv = currentItemView.findViewById(R.id.todoTv);
         CheckBox todoCheckbox = currentItemView.findViewById(R.id.todoCheckbox);
-        //todoTv.setText(currentPosition.getMsg());
 
         return currentItemView;
     }

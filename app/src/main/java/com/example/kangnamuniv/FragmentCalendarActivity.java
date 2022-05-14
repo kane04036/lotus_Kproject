@@ -117,6 +117,7 @@ public class FragmentCalendarActivity extends Fragment {
         calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+                calendarView.setSelectedDate(calendarView.getCurrentDate());
                 monthView();
                 detailsView();
 
@@ -139,37 +140,7 @@ public class FragmentCalendarActivity extends Fragment {
             public void onClick(View view) {
                 msg = edtTodo.getText().toString();
                 scheduleWrite(msg);
-//                ScheduleWrite scheduleWrite = new ScheduleWrite(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), msg, getActivity());
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (scheduleWrite.getResult()) {
-//                            edtTodo.setText("");
-//                            btnCheck.setVisibility(View.INVISIBLE);
-//                            btnCheck.setEnabled(false);
-//                            btnPlus.setVisibility(View.VISIBLE);
-//                            btnPlus.setEnabled(true);
-//                            edtTodo.setEnabled(false);
-//                            edtTodo.setVisibility(View.INVISIBLE);
-//                            MonthsView monthsViewWrite = new MonthsView(session, calendarView.getSelectedDate().getYear(), calendarView.getSelectedDate().getMonth(), getActivity());
-//                            String newMsg = scheduleWrite.getMsg();
-//                            int newSeq = scheduleWrite.getSeq();
-//                            todoArray.add(new TodoView(newMsg));
-//                            todoSeqArray.add(newSeq);
-//                            todoAdapter.putSeqArray(newSeq);
-//                            todoAdapter.notifyDataSetChanged();
-//                            handler.postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    calendarView.addDecorator(new DotDecorator(Color.RED, monthsViewWrite.getDate(), getActivity()));
-//                                }
-//                            }, 150);
-//
-//                        } else {
-//                            Toast.makeText(getActivity(), "일정 작성 실패", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }, 150);
+
             }
         });
 
