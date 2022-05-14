@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:gravity="bottom"
-            android:text="Schedule"
+            android:text="KNU VILLAGE"
             android:textColor="#317abe"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -50,7 +50,9 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:background="@drawable/underline"
+            android:backgroundTint="@color/lightblue"
             android:ems="10"
+            android:paddingLeft="5dp"
             android:gravity="center_vertical"
             android:hint="ID" />
 
@@ -60,7 +62,9 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="25dp"
+            android:paddingLeft="5dp"
             android:background="@drawable/underline"
+            android:backgroundTint="@color/lightblue"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword" />
