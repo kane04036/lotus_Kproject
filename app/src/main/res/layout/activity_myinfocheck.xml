@@ -95,7 +95,7 @@
     <ScrollView
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="@layout/border"
+
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="vertical"
@@ -132,6 +132,7 @@
                 android:text="확인"
                 android:layout_marginTop="10dp"
                 android:visibility="invisible"
+
                 android:textSize="18dp"
                 android:textColor="@color/white"/>
         </LinearLayout>

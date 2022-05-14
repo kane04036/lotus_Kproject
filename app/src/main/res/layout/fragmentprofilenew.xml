@@ -18,118 +18,89 @@
         android:textStyle="bold"
 
         />
-    <EditText
-        android:id="@+id/Editborder1"
-        android:layout_width="380dp"
-        android:layout_height="350dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="145dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@layout/border"
-        android:ems="10"
-        android:enabled="false"
-        android:gravity="center">
-
-
-        <requestFocus />
-    </EditText>
-    <EditText
-        android:id="@+id/Editborder2"
-        android:layout_width="380dp"
-        android:layout_height="220dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="520dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@layout/border"
-        android:ems="10"
-        android:enabled="false"
-        android:gravity="center">
-
-
-        <requestFocus />
-    </EditText>
 
 
     <TextView
         android:id="@+id/EditText0"
         android:layout_width="380dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="닉네임"
-
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="40sp"
-        android:textStyle="bold"
+
         />
+
     <TextView
         android:id="@+id/EditText00"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_height="60dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/EditText0"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
-        android:text="  내 정보"
+        android:text="내 정보"
         android:textStyle="bold"
         android:fontFamily="@font/minsans"
         android:textSize="30sp" />
     <TextView
         android:id="@+id/EditText01"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_height="70dp"
         android:layout_below="@+id/EditText00"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:text="   과목갱신"
+        android:text="과목갱신"
         android:textStyle="bold"
-        android:fontFamily="@font/minsans"
         android:textSize="22sp" />
 
     <TextView
         android:id="@+id/EditText02"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_height="70dp"
         android:layout_below="@+id/EditText01"
         android:layout_centerHorizontal="true"
-        android:text="   닉네임 변경"
+        android:text="닉네임 변경"
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:onClick="onTextViewClicked"
         android:textColor="@color/black"
         android:clickable="true"
-        android:fontFamily="@font/minsans"
         android:textSize="22sp"/>
     <TextView
         android:id="@+id/EditText03"
-        android:layout_width="380dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/EditText02"
         android:layout_centerHorizontal="true"
-        android:text="   비밀번호 변경"
+        android:text="비밀번호 변경"
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:onClick="onTextViewClicked"
         android:textColor="@color/black"
         android:clickable="true"
-        android:fontFamily="@font/minsans"
         android:textSize="22sp"/>
     <TextView
         android:id="@+id/btnLogout"
-        android:layout_width="380dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/EditText03"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
-        android:text="   로그아웃"
+        android:text="로그아웃"
         android:gravity="center_vertical"
         android:textStyle="bold"
-        android:fontFamily="@font/minsans"
         android:textSize="22sp"/>
     <View
         android:id="@+id/view3"
@@ -144,19 +115,21 @@
 ///////////////기타
     <TextView
         android:id="@+id/EditText000"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/view3"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
-        android:text="  기타"
+        android:text="기타"
         android:textStyle="bold"
         android:fontFamily="@font/minsans"
         android:textSize="30sp" />
     <TextView
         android:id="@+id/Btn_1"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_height="70dp"
         android:layout_below="@+id/view3"
         android:layout_centerHorizontal="true"
@@ -165,17 +138,17 @@
         android:fontFamily="@font/minsans"
         android:textStyle="bold"
         android:onClick="onTextViewClicked"
-        android:text="   이용안내"
+        android:text="공지사항"
         android:textColor="@color/black"
         android:gravity="center_vertical"
         android:textSize="22sp" />
     <TextView
         android:id="@+id/Btn_2"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
-        android:text="   문의사항"
-        android:fontFamily="@font/minsans"
+        android:text="문의하기"
         android:textStyle="bold"
         android:onClick="onTextViewClicked"
         android:textColor="@color/black"

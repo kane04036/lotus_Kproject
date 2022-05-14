@@ -16,9 +16,8 @@
         android:layout_height="wrap_content"
         android:text="강의 목록"
         android:textColor="#317abe"
-        android:textSize="30dp"
+        android:textSize="5dp"
         android:textStyle="bold"
-        android:background="@drawable/underline"
         android:padding="7dp"
         />
     <ListView

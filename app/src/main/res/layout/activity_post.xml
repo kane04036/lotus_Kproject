@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="3dp"
-                    android:layout_marginRight="3dp"
+                    android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/moreimg" />
             </RelativeLayout>
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:text="흥짓뿡" />
 
 
@@ -116,10 +116,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listViewComment"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                android:paddingLeft="10dp" />
+                />
 
 
         </LinearLayout>
@@ -136,7 +138,10 @@
     <RelativeLayout
         android:id="@+id/underbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/skyblue"
+        android:background="@drawable/border"
        >
 
         <CheckBox
@@ -146,6 +151,7 @@
             android:layout_alignTop="@+id/edtComment"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
             android:text="익명"
             android:textSize="10dp" />
 
@@ -156,18 +162,19 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/roundcorner"
-            android:text="등록"
-            android:textColor="@color/white" />
+            android:background="@drawable/checkimg"
+            />
 
         <EditText
             android:id="@+id/edtComment"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/tvTextCountComment"
             android:layout_toRightOf="@+id/chkAnonymousCommnet"
             android:maxLength="50"
+            android:backgroundTint="@color/white"
+            android:paddingLeft="5dp"
             android:hint="댓글을 입력하세요" />
 
         <TextView
