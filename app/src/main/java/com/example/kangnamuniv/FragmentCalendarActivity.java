@@ -34,10 +34,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -62,11 +72,8 @@ public class FragmentCalendarActivity extends Fragment {
     ArrayList<Integer> todoSeqArray = new ArrayList<>();
     RecyclerView recyclerView;
     TodoRecyclerVeiwAdapter todoAdapter;
-    ArrayList<TodoView> newArray = new ArrayList<>();
     public static Context context_main;
-    Disposable backgroundTask;
-
-
+    ArrayList<CalendarDay> date = new ArrayList<>();
 
 
     @Nullable
@@ -83,6 +90,7 @@ public class FragmentCalendarActivity extends Fragment {
         btnCheck.setEnabled(false);
         recyclerView = view.findViewById(R.id.todoRecyclerView);
 
+//        todoArray.add(new TodoView("오늘의 할일 "));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         todoAdapter = new TodoRecyclerVeiwAdapter(todoArray, getActivity());
         recyclerView.setAdapter(todoAdapter);
@@ -93,23 +101,7 @@ public class FragmentCalendarActivity extends Fragment {
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                DetailsView detailsView = new DetailsView(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), getActivity());
-                handler.postDelayed(new Runnable() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void run() {
-                        newArray = detailsView.getMsgArrayList();
-                        todoSeqArray = detailsView.getTodoSeqArray();
-                        todoArray.clear();
-                        for (int i = 0; i < newArray.size(); i++) {
-                            todoArray.add(newArray.get(i));
-                        }
-                        todoAdapter.setSeqArray(todoSeqArray);
-                        todoAdapter.notifyDataSetChanged();
-
-                    }
-                }, 150);
-
+                detailsView();
                 edtTodo.setText("");
                 btnCheck.setVisibility(View.INVISIBLE);
                 btnCheck.setEnabled(false);
@@ -125,30 +117,8 @@ public class FragmentCalendarActivity extends Fragment {
         calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                MonthsView newMonth = new MonthsView(session, calendarView.getCurrentDate().getYear(), calendarView.getCurrentDate().getMonth(), getActivity());
-                calendarView.setSelectedDate(calendarView.getCurrentDate());
-
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        calendarView.addDecorator(new DotDecorator(Color.RED, newMonth.getDate(), getActivity()));
-                    }
-                }, 150);
-                DetailsView detailsView = new DetailsView(session, calendarView.getCurrentDate().getMonth(), calendarView.getCurrentDate().getDay(), getActivity());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        newArray = detailsView.getMsgArrayList();
-                        todoSeqArray = detailsView.getTodoSeqArray();
-                        todoArray.clear();
-                        for (int i = 0; i < newArray.size(); i++) {
-                            todoArray.add(newArray.get(i));
-                        }
-                        todoAdapter.setSeqArray(todoSeqArray);
-                        todoAdapter.notifyDataSetChanged();
-
-                    }
-                }, 150);
+                monthView();
+                detailsView();
 
             }
         });
@@ -168,37 +138,38 @@ public class FragmentCalendarActivity extends Fragment {
             @Override
             public void onClick(View view) {
                 msg = edtTodo.getText().toString();
-                ScheduleWrite scheduleWrite = new ScheduleWrite(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), msg, getActivity());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (scheduleWrite.getResult()) {
-                            edtTodo.setText("");
-                            btnCheck.setVisibility(View.INVISIBLE);
-                            btnCheck.setEnabled(false);
-                            btnPlus.setVisibility(View.VISIBLE);
-                            btnPlus.setEnabled(true);
-                            edtTodo.setEnabled(false);
-                            edtTodo.setVisibility(View.INVISIBLE);
-                            MonthsView monthsViewWrite = new MonthsView(session, calendarView.getSelectedDate().getYear(), calendarView.getSelectedDate().getMonth(), getActivity());
-                            String newMsg = scheduleWrite.getMsg();
-                            int newSeq = scheduleWrite.getSeq();
-                            todoArray.add(new TodoView(newMsg));
-                            todoSeqArray.add(newSeq);
-                            todoAdapter.putSeqArray(newSeq);
-                            todoAdapter.notifyDataSetChanged();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    calendarView.addDecorator(new DotDecorator(Color.RED, monthsViewWrite.getDate(), getActivity()));
-                                }
-                            }, 150);
-
-                        } else {
-                            Toast.makeText(getActivity(), "일정 작성 실패", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 150);
+                scheduleWrite(msg);
+//                ScheduleWrite scheduleWrite = new ScheduleWrite(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), msg, getActivity());
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (scheduleWrite.getResult()) {
+//                            edtTodo.setText("");
+//                            btnCheck.setVisibility(View.INVISIBLE);
+//                            btnCheck.setEnabled(false);
+//                            btnPlus.setVisibility(View.VISIBLE);
+//                            btnPlus.setEnabled(true);
+//                            edtTodo.setEnabled(false);
+//                            edtTodo.setVisibility(View.INVISIBLE);
+//                            MonthsView monthsViewWrite = new MonthsView(session, calendarView.getSelectedDate().getYear(), calendarView.getSelectedDate().getMonth(), getActivity());
+//                            String newMsg = scheduleWrite.getMsg();
+//                            int newSeq = scheduleWrite.getSeq();
+//                            todoArray.add(new TodoView(newMsg));
+//                            todoSeqArray.add(newSeq);
+//                            todoAdapter.putSeqArray(newSeq);
+//                            todoAdapter.notifyDataSetChanged();
+//                            handler.postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    calendarView.addDecorator(new DotDecorator(Color.RED, monthsViewWrite.getDate(), getActivity()));
+//                                }
+//                            }, 150);
+//
+//                        } else {
+//                            Toast.makeText(getActivity(), "일정 작성 실패", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, 150);
             }
         });
 
@@ -210,41 +181,182 @@ public class FragmentCalendarActivity extends Fragment {
     public void onResume() {
         super.onResume();
         calendarView.setSelectedDate(CalendarDay.today());
-        MonthsView monthsView = new MonthsView(session, calendarView.getSelectedDate().getYear(), calendarView.getSelectedDate().getMonth(), getActivity());
-        Log.d("dateValuetest", String.valueOf(calendarView.getSelectedDate().getYear() + "and" + calendarView.getSelectedDate().getMonth()));
+        monthView();
+        detailsView();
+    }
 
-        handler.postDelayed(new Runnable() {
+    void scheduleWrite(String msg){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        String URL = "http://34.64.49.11/schedulewrite";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("session", session);
+            jsonObject.put("month", calendarView.getSelectedDate().getMonth());
+            jsonObject.put("day", calendarView.getSelectedDate().getDay());
+            jsonObject.put("msg", msg);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest scheduleWriteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
-            public void run() {
-                calendarView.addDecorator(new DotDecorator(Color.RED, monthsView.getDate(), getActivity()));
-            }
-        }, 150);
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res"); //동일
+                    String message = response.getString("msg");
+                    int seq = response.getInt("seq");
 
-        DetailsView detailsView = new DetailsView(session, calendarView.getSelectedDate().getMonth(), calendarView.getSelectedDate().getDay(), getActivity());
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                newArray = detailsView.getMsgArrayList();
-                todoSeqArray = detailsView.getTodoSeqArray();
-                todoArray.clear();
-                for (int i = 0; i < newArray.size(); i++) {
-                    todoArray.add(newArray.get(i));
+                    if(res.contains("SUCCESS")) {
+                        edtTodo.setText("");
+                        btnCheck.setVisibility(View.INVISIBLE);
+                        btnCheck.setEnabled(false);
+                        btnPlus.setVisibility(View.VISIBLE);
+                        btnPlus.setEnabled(true);
+                        edtTodo.setEnabled(false);
+                        edtTodo.setVisibility(View.INVISIBLE);
+                        monthView();
+                        todoArray.add(new TodoView(message));
+                        todoSeqArray.add(seq);
+                        todoAdapter.putSeqArray(seq);
+                        todoAdapter.notifyDataSetChanged();
+//                        calendarView.addDecorator(new DotDecorator(Color.RED, monthsViewWrite.getDate(), getActivity()));
+                        monthView();
+
+                    }
+                    else{
+                        Toast.makeText(getActivity(),"댓글 작성을 실패했습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d("testCalendar", res);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                todoAdapter.setSeqArray(todoSeqArray);
-                todoAdapter.notifyDataSetChanged();
-
 
             }
-        }, 150);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
 
-
+        requestQueue.add(scheduleWriteRequest);
     }
 
-    ArrayList getDate() {
-        ArrayList date = new ArrayList();
-        date.add(calendarView.getSelectedDate().getMonth());
-        date.add(calendarView.getSelectedDate().getDay());
-        return date;
+    public void monthView() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        String URL = "http://34.64.49.11/monthsview";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("session", session);
+            jsonObject.put("month", calendarView.getSelectedDate().getMonth());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest monthviewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res"); //동일
+                    Log.d("testCalendarRes", res);
+                    if (res.contains("SUCCESS")) {
+                        String ds = response.getString("day");
+                        Log.d("testDay", ds);
+                        JSONArray dateArray = response.getJSONArray("day");
+                        date.clear();
+                        for (int i = 0; i < dateArray.length(); i++) {
+                            JSONArray each = dateArray.getJSONArray(i);
+                            CalendarDay day = CalendarDay.from(calendarView.getSelectedDate().getYear(), calendarView.getSelectedDate().getMonth(), (Integer) each.get(0));
+                            date.add(day);
+                        }
+                        calendarView.addDecorator(new DotDecorator(Color.RED, date, getActivity()));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        requestQueue.add(monthviewRequest);
     }
+
+    void detailsView() {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        String URL = "http://34.64.49.11/detailsview";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("session", session);
+            jsonObject.put("month", calendarView.getSelectedDate().getMonth());
+            jsonObject.put("day", calendarView.getSelectedDate().getDay());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest dayviewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res"); //동일
+                    Log.d("testCalendarResult", res);
+                    JSONArray msgArray = response.getJSONArray("msg");
+                    JSONArray seqArray = response.getJSONArray("seq");
+                    String seq = response.getString("seq");
+                    Log.d("testSeq", seq);
+
+                    if (res.contains("SUCCESS")) {
+                        todoArray.clear();
+                        todoSeqArray.clear();
+
+                        for (int i = 0; i < msgArray.length(); i++) {
+                            JSONArray each = (JSONArray) msgArray.get(i);
+                            for (int j = 0; j < each.length(); j++) {
+                                todoArray.add(new TodoView(String.valueOf(each.get(j))));
+                            }
+                        }
+                        for (int i = 0; i < seqArray.length(); i++) {
+                            JSONArray each = (JSONArray) seqArray.get(i);
+                            for (int j = 0; j < each.length(); j++) {
+                                todoSeqArray.add((Integer) each.get(j));
+                            }
+                        }
+                        todoAdapter.setSeqArray(todoSeqArray);
+                        todoAdapter.notifyDataSetChanged();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        requestQueue.add(dayviewRequest);
+    }
+
+
 }

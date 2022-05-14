@@ -68,7 +68,7 @@ public class MonthsView {
             }
         });
 
-        requestQueue.add(monthviewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+        requestQueue.add(monthviewRequest);
     }
     public ArrayList<CalendarDay> getDate() {
         return date;

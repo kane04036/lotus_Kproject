@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +15,21 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -73,7 +83,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
         holder.editText.setTextColor(Color.BLACK);
         holder.btnTodoModify.setEnabled(false);
         holder.editText.setText(list.get(position).getMsg());
-        if(checkedList.contains(seqArray.get(position))) {
+        if (checkedList.contains(seqArray.get(position))) {
             holder.checkBox.setChecked(true);
             holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.editText.setTextColor(Color.GRAY);
@@ -123,26 +133,116 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                                 holder.btnTodoModify.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-//                                        ScheduleWrite scheduleWrite = new ScheduleWrite(session, )
-//                                        int month = ((FragmentCalendarActivity)FragmentCalendarActivity.context_main).calendarView.getSelectedDate().getMonth();
-
                                         String msg = holder.editText.getText().toString();
-                                        Upschedule upschedule = new Upschedule(session, seqArray.get(position), msg, context);
-                                        holder.editText.setEnabled(false);
-                                        holder.btnTodoModify.setVisibility(View.INVISIBLE);
-                                        holder.btnTodoModify.setEnabled(false);
-                                        holder.btnTodoMore.setVisibility(View.VISIBLE);
-                                        holder.btnTodoMore.setEnabled(true);
+//                                        Upschedule upschedule = new Upschedule(session, seqArray.get(position), msg, context);
+                                        {
+                                            RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+                                            String URL = "http://34.64.49.11/upschedule";
+
+                                            JSONObject jsonObject = new JSONObject();
+                                            try {
+                                                jsonObject.put("session", session);
+                                                jsonObject.put("seq", seqArray.get(position));
+                                                jsonObject.put("msg", msg);
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                            JsonObjectRequest scheduleWriteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    try {
+                                                        String res = response.getString("res"); //동일
+
+
+                                                        if (res.contains("SUCCESS")) {
+                                                            holder.editText.setEnabled(false);
+                                                            holder.btnTodoModify.setVisibility(View.INVISIBLE);
+                                                            holder.btnTodoModify.setEnabled(false);
+                                                            holder.btnTodoMore.setVisibility(View.VISIBLE);
+                                                            holder.btnTodoMore.setEnabled(true);
+                                                        } else {
+                                                            Toast.makeText(context, "수정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                        Log.d("testCalendar", res);
+
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                }
+                                            });
+
+                                            requestQueue.add(scheduleWriteRequest);
+
+                                        }
+//                                        upSchedule(msg, seqArray.get(position))
 
                                     }
+
+
                                 });
                                 break;
 
                             case R.id.todoDelete:
-                                Scheduledelete scheduledelete = new Scheduledelete(session, seqArray.get(position), context);
-                                list.remove(position);
-                                seqArray.remove(position);
-                                notifyDataSetChanged();
+//                                Scheduledelete scheduledelete = new Scheduledelete(session, seqArray.get(position), context);
+                                RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+                                String URL = "http://34.64.49.11/scheduledelete";
+
+                                JSONObject jsonObject = new JSONObject();
+                                try {
+                                    jsonObject.put("session", session);
+                                    jsonObject.put("seq", seqArray.get(position));
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                JsonObjectRequest scheduleWriteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            String res = response.getString("res"); //동일
+
+
+                                            if (res.contains("Success")) {
+
+                                                list.remove(position);
+                                                seqArray.remove(position);
+                                                notifyDataSetChanged();
+//                                                FragmentCalendarActivity fragmentCalendarActivity = new FragmentCalendarActivity();
+//                                                fragmentCalendarActivity.monthView();
+
+                                            } else {
+                                                Toast.makeText(context, "삭제할 수 없습니다.", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                            Log.d("testDelete", res);
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                    }
+                                });
+
+                                requestQueue.add(scheduleWriteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+
                                 break;
                         }
                         return false;
@@ -168,6 +268,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
     void setSeqArray(ArrayList seq) {
         seqArray = seq;
     }
+
     public void setIntegerArrayPref(Context context, String key, ArrayList<Integer> values) {
 
         SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
@@ -187,6 +288,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
 
         editor.apply();
     }
+
     public ArrayList<Integer> getIntegerArrayPref(Context context, String key) {
 
         SharedPreferences prefsInt = PreferenceManager.getDefaultSharedPreferences(context);
@@ -206,6 +308,55 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
             }
         }
         return urls;
+    }
+
+    private boolean upSchedule(String msg, int seq) {
+        final boolean[] result = new boolean[1];
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        String URL = "http://34.64.49.11/upschedule";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("session", session);
+            jsonObject.put("seq", seq);
+            jsonObject.put("msg", msg);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest scheduleWriteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res"); //동일
+
+
+                    if (res.contains("SUCCESS")) {
+                        result[0] = true;
+                    } else {
+                        result[0] = false;
+                    }
+                    Log.d("testCalendar", res);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        requestQueue.add(scheduleWriteRequest);
+
+        return result[0];
+
     }
 
 

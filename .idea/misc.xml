@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/plusimg.xml" value="0.4015384615384615" />
         <entry key="app/src/main/res/drawable/roundcorner.xml" value="0.38796296296296295" />
         <entry key="app/src/main/res/drawable/searchimg.xml" value="0.4015384615384615" />
+        <entry key="app/src/main/res/drawable/soundimg.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/drawable/textviewoutline.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/todomoreimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/underline.xml" value="0.2759259259259259" />
@@ -37,6 +38,7 @@
         <entry key="app/src/main/res/layout/activity_write.xml" value="0.335" />
         <entry key="app/src/main/res/layout/boarditemlist.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/boardlistitem.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/border.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/change_nick.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/change_nick_new.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/change_password.xml" value="0.39166666666666666" />
