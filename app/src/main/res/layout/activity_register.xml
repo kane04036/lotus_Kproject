@@ -10,6 +10,8 @@
         android:text="회원가입"
         android:textSize="40dp"
         android:gravity="center"
+        android:textStyle="bold"
+        android:fontFamily="@font/minsans"
         android:paddingTop="70dp"
         android:textColor="@color/black"
         />
@@ -19,6 +21,7 @@
         android:layout_height="wrap_content"
         android:text="ID는 후에 변경할 수 없습니다"
         android:gravity="center"
+        android:fontFamily="@font/minsans"
         android:layout_marginTop="5dp"
         />
 
@@ -46,6 +49,10 @@
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:text="중복확인"
+            android:textColor="@color/white"
+            android:backgroundTint="#93DAFF"
+            android:textStyle="bold"
+            android:fontFamily="@font/minsans"
             android:textSize="12dp"
             />
 
@@ -133,7 +140,11 @@
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:text="중복확인"
+            android:textStyle="bold"
+            android:fontFamily="@font/minsans"
             android:textSize="12dp"
+            android:textColor="@color/white"
+            android:backgroundTint="#93DAFF"
             />
     </LinearLayout>
     <TextView
@@ -153,6 +164,8 @@
         android:backgroundTint="#317abe"
         android:layout_marginTop="50dp"
         android:enabled="true"
+        android:textStyle="bold"
+        android:fontFamily="@font/minsans"
         android:textColor="@color/white"
         />
 

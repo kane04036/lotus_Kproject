@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="강좌이름"
         android:textAlignment="center"
@@ -18,13 +18,7 @@
         android:textSize="20dp"
         />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_below="@id/tvPostLecture"
-        android:layout_width="match_parent"
-        android:layout_height="5px"
-        android:background="#b0b0b0"
-        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -106,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                />
+                android:paddingLeft="10dp" />
 
 
         </LinearLayout>

@@ -26,11 +26,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:paddingLeft="20dp"
         android:text="학교 아이디(학번)"
         android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/edtSchoolID"
+        android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID" />
@@ -38,6 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:text="학교 비밀번호"
         android:textColor="@color/black" />
 
@@ -47,6 +50,7 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingLeft="20dp"
 
         />
 
@@ -57,7 +61,7 @@
         android:layout_gravity="center"
         android:background="@drawable/roundcorner"
         android:padding="7dp"
-        android:text="강의 목록 불러오기"
+        android:text="강의 불러오기"
         android:textColor="@color/white"/>
 
 

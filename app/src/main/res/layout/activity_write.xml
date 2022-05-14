@@ -8,6 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        <Button-->
+<!--            android:id="@+id/btnBack"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:text="X" />-->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
@@ -20,7 +26,7 @@
         <Button
             android:id="@+id/btnPost"
             android:layout_width="60dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -29,13 +35,11 @@
 
             android:textColor="@color/white" />
     </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,11 +50,12 @@
                 android:id="@+id/edtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="제목을 입력해주세요"
-                android:paddingBottom="20dp"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
-                android:maxLength="20"/>
+                android:hint="  제목을 입력해주세요"
+                android:maxLength="20"
+                android:paddingLeft="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/edtMsg"
@@ -58,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:gravity="top"
                 android:layout_marginTop="15dp"
-                android:paddingLeft="10dp"
+                android:paddingLeft="20dp"
                 android:hint="내용을 입력해주세요"
                 android:background="@android:color/transparent"
                 android:maxLength="200"
@@ -66,38 +71,20 @@
         </LinearLayout>
 
     </ScrollView>
-</LinearLayout>
 
 
-    <RelativeLayout
+<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <CheckBox
-            android:id="@+id/chkAnonymousWrite"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/whiterectangle"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:text="익명"
-            android:checked="true"/>
-        <TextView
-            android:id="@+id/tvTextTotalCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/chkAnonymousWrite"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:text=" / 200" />
-
-        <TextView
-            android:id="@+id/tvTextCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/chkAnonymousWrite"
-            android:layout_toLeftOf="@+id/tvTextTotalCount"
-            android:text="0" />
-
+    <CheckBox
+        android:id="@+id/chkAnonymousWrite"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/whiterectangle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="익명"
+        android:checked="true"/>
     </RelativeLayout>
 
 
