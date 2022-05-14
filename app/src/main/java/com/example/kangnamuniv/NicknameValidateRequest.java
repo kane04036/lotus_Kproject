@@ -1,5 +1,7 @@
 package com.example.kangnamuniv;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -15,6 +17,7 @@ public class NicknameValidateRequest extends StringRequest {
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<String, String>();
         parameters.put("nickname", Rnickname);
+        Log.d("test", "NicknameValidateRequest: " + Rnickname);
 
     }
 
