@@ -95,9 +95,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                 if (holder.checkBox.isChecked()) {
                     holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.editText.setTextColor(Color.GRAY);
-//                    list.add(0,list.get(position));
-//                    list.remove(position+1);
-//                    notifyDataSetChanged();
+
                     if (!checkedList.contains(seqArray.get(position)))
                         checkedList.add(seqArray.get(position));
 
@@ -184,7 +182,6 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                                             requestQueue.add(scheduleWriteRequest);
 
                                         }
-//                                        upSchedule(msg, seqArray.get(position))
 
                                     }
 
@@ -220,8 +217,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                                                 list.remove(position);
                                                 seqArray.remove(position);
                                                 notifyDataSetChanged();
-//                                                FragmentCalendarActivity fragmentCalendarActivity = new FragmentCalendarActivity();
-//                                                fragmentCalendarActivity.monthView();
+
 
                                             } else {
                                                 Toast.makeText(context, "삭제할 수 없습니다.", Toast.LENGTH_SHORT).show();

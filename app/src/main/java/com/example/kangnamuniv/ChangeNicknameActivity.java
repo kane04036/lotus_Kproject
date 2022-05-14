@@ -16,8 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -45,14 +48,14 @@ public class ChangeNicknameActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
-        Log.d("test", "Change onCreate session : " + session );
+        Log.d("test", "Change onCreate session : " + session);
 
         btnNewNickCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 newNickname = edtNewNick.getText().toString();
-                Log.d("test", "Change onCreate nickname  : " +  newNickname );
+                Log.d("test", "Change onCreate nickname  : " + newNickname);
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -89,38 +92,63 @@ public class ChangeNicknameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("test", "onClick: 클릭되엇습니다 ");
                 newNickname = edtNewNick.getText().toString();
-                Log.d("test", "Change onCreate nickname2  : " +  newNickname );
+                Log.d("test", "Change onCreate nickname2  : " + newNickname);
 
                 AlertDialog dialog;
 
                 if (nickname_validate) {
-                    Changenk changenk = new Changenk(session, edtNewNick.getText().toString(), getApplicationContext());
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                    String URL = "http://34.64.49.11/changenk";
+
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("session", session);
+                        jsonObject.put("nickname", edtNewNick.getText().toString());
+                        Log.d("test", "Changenk: " + session + " and " + edtNewNick.getText().toString());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    JsonObjectRequest changeNkRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
                         @Override
-                        public void run() {
-                            if (changenk.getResult()) {
+                        public void onResponse(JSONObject response) {
+                            try {
+                                String res = response.getString("res"); //동일
+                                Log.d("test", "onResponse: nickchange" + res);
+
+                                if (res.contains("변경완료")) {
+                                    SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("nickname", edtNewNick.getText().toString());
+                                    editor.commit();
+
+                                    Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                                Log.d("testCalendar", res);
 
 
-                                newNickname = changenk.getNewNickname();
-                                SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("nickname", newNickname);
-                                editor.commit();
-
-                                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+
                         }
-                    }, 200);
-                } else if(!nickname_validate) {
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+
+                } else if (!nickname_validate) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChangeNicknameActivity.this);
                     dialog = builder.setMessage("닉네임 중복체크가 되지 않았습니다.").setPositiveButton("확인", null).create();
                     dialog.show();
                     return;
-                }else if (edtNewNick.getText().toString().isEmpty()) {
+                } else if (edtNewNick.getText().toString().isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChangeNicknameActivity.this);
                     dialog = builder.setMessage("닉네임 입력해주세요").setPositiveButton("확인", null).create();
                     dialog.show();
@@ -134,10 +162,11 @@ public class ChangeNicknameActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(isFinishing()){
+        if (isFinishing()) {
             overridePendingTransition(R.anim.none, R.anim.none);
         }
     }

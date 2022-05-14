@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -33,7 +36,6 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     private ArrayList<BoardView> list;
     ArrayList<Integer> seqArray = new ArrayList<>();
     Context context;
-    Handler handler = new Handler();
 
 
     CommentRecyclerViewAdapter(ArrayList<BoardView> list, Context context) {
@@ -66,19 +68,56 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.commentDelete:
-                                Commentdelete commentdelete = new Commentdelete(seqArray.get(position), context);
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
+                                SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
+                                String session = sharedPreferences.getString("session", "");
+
+                                RequestQueue requestQueueCommentDel = Volley.newRequestQueue(context);
+
+                                JSONObject jsonObject = new JSONObject();
+                                try {
+                                    jsonObject.put("session", session);
+                                    jsonObject.put("Cnumber", seqArray.get(position));
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                String URL = "http://34.64.49.11/commentdelete";//각 상황에 맞는 서버 url
+
+
+                                JsonObjectRequest commentDelete = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
                                     @Override
-                                    public void run() {
-                                        if (commentdelete.getResult()) {
-                                            list.remove(position);
-                                            seqArray.remove(position);
-                                            notifyDataSetChanged();
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            String res = response.getString("res");
+                                            Log.d("test", "onResponse: "+ res);
+                                            if (res.contains("Success")) {
+                                                Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                                list.remove(position);
+                                                seqArray.remove(position);
+                                                notifyDataSetChanged();
+
+                                            } else {
+                                                Toast.makeText(context, "댓글 작성자만 삭제할 수 있습니다", Toast.LENGTH_SHORT).show();
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
 
+
                                     }
-                                }, 100);
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                    }
+                                });
+
+
+                                requestQueueCommentDel.add(commentDelete);
+
                                 break;
                         }
                         return false;
@@ -115,5 +154,6 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     void setSeqArray(ArrayList seq) {
         seqArray = seq;
     }
+
 
 }

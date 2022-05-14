@@ -34,8 +34,6 @@ public class MyInfoCheckActivity extends AppCompatActivity {
     public static ArrayList<String> lecturelist = new ArrayList<String>();
     public static ArrayList<Integer> seqlist = new ArrayList<>();
 
-    PreferenceManagers preferenceManagers;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
