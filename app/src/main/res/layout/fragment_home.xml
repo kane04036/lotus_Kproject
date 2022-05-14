@@ -8,31 +8,31 @@
     <TextView
         android:id="@+id/tvPostLecture"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="게시판"
+        android:layout_height="60dp"
+        android:text="강의 게시판"
         android:textSize="20dp"
         android:textColor="@color/black"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp"
+        android:paddingTop="15dp"
         android:paddingBottom="10dp"
+        android:textStyle="bold"
         android:textAlignment="center"
         />
 
-    <View
-        android:background="#b0b0b0"
-        android:layout_width="match_parent"
-        android:layout_height="5px"
-        />
+
 
     <ListView
 
         android:id="@+id/listViewLecture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="380dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        />
 
     <TextView
         android:id="@+id/resultCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_width="400dp"
+        android:layout_height="50dp" />
 
 </LinearLayout>

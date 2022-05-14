@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/writeimg"
+
             android:layout_alignParentRight="true"
             android:layout_marginTop="7dp"
             android:layout_marginRight="7dp"
