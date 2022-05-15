@@ -164,7 +164,8 @@
             android:layout_alignTop="@+id/edtComment"
             android:layout_alignParentBottom="true"
             android:background="@android:color/transparent"
-            android:src="@drawable/commentwriteimg" />
+            android:src="@drawable/commentwriteimg"
+            android:layout_marginRight="4dp"/>
 
 
         <EditText
