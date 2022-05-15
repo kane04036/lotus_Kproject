@@ -161,11 +161,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/edtComment"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/commentwriteimg"
             android:background="@android:color/transparent"
-            />
+            android:src="@drawable/commentwriteimg" />
 
 
         <EditText
