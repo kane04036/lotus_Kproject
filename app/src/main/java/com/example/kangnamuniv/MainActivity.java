@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d("test", "onResponse: MainActivity "+result);
 
-                            if (result.equals("SUCCESS")) {
+                            if (result.contains("SUCCESS")) {
                                 //tvResult.setText(result + key);
                                 editor.putString("session", key);
                                 editor.putString("ID", Rid);

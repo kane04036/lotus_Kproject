@@ -155,15 +155,18 @@
             android:text="익명"
             android:textSize="10dp" />
 
-        <Button
+
+        <ImageButton
             android:id="@+id/btnComment"
-            android:layout_width="50dp"
-            android:layout_height="38dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/checkimg"
+            android:src="@drawable/commentwriteimg"
+            android:background="@android:color/transparent"
             />
+
 
         <EditText
             android:id="@+id/edtComment"

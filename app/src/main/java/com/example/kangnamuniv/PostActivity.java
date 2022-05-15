@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,7 +43,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class PostActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
@@ -51,8 +61,10 @@ public class PostActivity extends AppCompatActivity {
     static String session;
     static int Bnumber;
 
+    MediaPlayer mediaPlayer;
+
     TextView tvDetailTitle, tvDetailNickname, tvDetailMsg, tvPostLecture, tvTextCountComment;
-    Button btnComment;
+    ImageButton btnComment;
     EditText edtComment;
     CheckBox chkAnonymousComment;
     String commentMsg, lecture;
@@ -60,6 +72,7 @@ public class PostActivity extends AppCompatActivity {
     RecyclerView listViewComment;
     ImageButton btnMore;
     CommentRecyclerViewAdapter commentAdapater;
+    ImageButton btnSound;
 
     ArrayList<String> cmtWritersAry = new ArrayList<String>();
     ArrayList<String> cmtMsgAry = new ArrayList<String>();
@@ -84,6 +97,7 @@ public class PostActivity extends AppCompatActivity {
         listViewComment = findViewById(R.id.listViewComment);
         tvPostLecture = findViewById(R.id.tvPostLecture);
         btnMore = findViewById(R.id.btnMore);
+        btnSound = findViewById(R.id.btnSound);
 
         commentAdapater = new CommentRecyclerViewAdapter(cmtArray, getApplicationContext());
         listViewComment.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -98,7 +112,6 @@ public class PostActivity extends AppCompatActivity {
 
         tvPostLecture.setText(lecture);
 
-        super.onResume();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         JSONObject jsonObject = new JSONObject();
@@ -180,6 +193,81 @@ public class PostActivity extends AppCompatActivity {
         requestQueue.add(boardViewRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
 
 
+        btnSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                String URL = "http://34.64.49.11/voice";
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("text", msg);
+                    Log.d(TAG, "onClick: "+msg);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                JsonObjectRequest changeNkRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String res = response.getString("res");
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                byte[] decode = Base64.getDecoder().decode(res);
+                                Log.d(TAG, "onResponse: "+decode);
+                                try {
+                                    File file = new File(Environment.getExternalStorageDirectory() + "voice.wav");
+                                    FileOutputStream os = new FileOutputStream(file, true);
+                                    os.write(decode);
+                                    os.close();
+//                                    FileOutputStream fos = openFileOutput("myFile.wav",MODE_PRIVATE);
+//                                    DataOutputStream dos = new DataOutputStream(fos);
+//                                    dos.write(decode);
+//                                    dos.flush();
+//                                    dos.close();
+
+//                                    FileInputStream fis = openFileInput("myFile.wav");
+//                                    DataInputStream dis = new DataInputStream(fis);
+//
+//                                    int data1 = dis.readInt();
+//                                    String data2 = dis.readUTF();
+//                                    dis.close();
+
+
+//                                    mediaPlayer = MediaPlayer.create(getApplicationContext(), decode);
+
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }else{
+                                Log.d("test", "onResponse: 버전이 맞지 않아 해당 기능 사용이 불가능 합니다.");
+                            }
+                            
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+
+                requestQueue.add(changeNkRequest);
+            }
+        });
+
+
         edtComment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -219,6 +307,7 @@ public class PostActivity extends AppCompatActivity {
                 //return true;
             }
         });
+
 
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,7 +368,7 @@ public class PostActivity extends AppCompatActivity {
                     }
                 });
 
-                requestQueue2.add(commentWriteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+                requestQueue2.add(commentWriteRequest);
             }
         });
 
@@ -339,9 +428,52 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
-        QeueDelete.add(boardDeleteRequest); //마지막에 이거 필수!!! jsonobjectRequest 변수명 넣어주면됨
+        QeueDelete.add(boardDeleteRequest);
+
+
     }
 
+    void sound(){
+        RequestQueue requestSound = Volley.newRequestQueue(getApplicationContext());
+
+        String URL = "https://sample-api-niksw.run.goorm.io/voice";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("text", msg);
+            Log.d(TAG, "onClick: msg: "+msg);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d(TAG, "onResponse: ");
+                    String res = response.getString("res");
+
+                    Log.d(TAG, "onResponse: "+res);
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        requestSound.add(request);
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

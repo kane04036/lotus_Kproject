@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/drawable/checkimg.xml" value="0.4015384615384615" />
         <entry key="app/src/main/res/drawable/commentdeleteimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/commentmoreimg.xml" value="0.4015384615384615" />
+        <entry key="app/src/main/res/drawable/commentwriteimg.xml" value="0.2708333333333333" />
+        <entry key="app/src/main/res/drawable/ic_jjinlauncher_background.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/moreimg.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/outline.xml" value="0.24635416666666668" />
