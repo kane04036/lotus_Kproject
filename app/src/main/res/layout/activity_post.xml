@@ -134,7 +134,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/underbarComment">
+   >
     <RelativeLayout
         android:id="@+id/underbarLayout"
         android:layout_width="match_parent"

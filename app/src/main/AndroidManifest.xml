@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kangnamuniv">
+    package="com.lotus.kangnamuniv">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -17,7 +17,7 @@
         android:theme="@style/Theme.KangnamUniv"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name="com.lotus.kangnamuniv.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,16 +26,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MyInfoCheckActivity"/>
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".FragmentMainActivity" />
-        <activity android:name=".BoardActivity"/>
-        <activity android:name=".WriteActivity"/>
-        <activity android:name=".PostActivity"/>
-        <activity android:name=".ChangeNicknameActivity"/>
-        <activity android:name=".ChangePWActivity"/>
-        <activity android:name=".InfoActivity"/>
-        <activity android:name=".QnAActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.MyInfoCheckActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.RegisterActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.FragmentMainActivity" />
+        <activity android:name="com.lotus.kangnamuniv.BoardActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.WriteActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.PostActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.ChangeNicknameActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.ChangePWActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.InfoActivity"/>
+        <activity android:name="com.lotus.kangnamuniv.QnAActivity"/>
     </application>
 
 </manifest>
