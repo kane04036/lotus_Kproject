@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -37,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -188,12 +190,12 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-                String URL = "http://34.64.49.11/voice";
+                String URL = "http://34.64.49.11/wvoice";
 
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("text", msg);
-                    Log.d(TAG, "onClick: "+msg);
+                    jsonObject.put("seq", Bnumber);
+                    Log.d(TAG, "onClick: "+Bnumber);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -209,10 +211,27 @@ public class PostActivity extends AppCompatActivity {
                                 byte[] decode = Base64.getDecoder().decode(res);
                                 Log.d(TAG, "onResponse: "+decode);
                                 try {
-                                    File file = new File(Environment.getExternalStorageDirectory() + "voice.wav");
-                                    FileOutputStream os = new FileOutputStream(file, true);
-                                    os.write(decode);
-                                    os.close();
+                                    String fileUri = "/data/data/com.lotus.kangnamuniv/files/voice.wav";
+                                    FileOutputStream fileOutputStream = openFileOutput("voice.wav", Context.MODE_PRIVATE);
+                                    fileOutputStream.write(decode);
+                                    fileOutputStream.close();
+
+                                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), Uri.parse(fileUri));
+                                    mediaPlayer.start();
+
+                                    Log.d(TAG, "onResponse: 성공");
+
+                                } catch (FileNotFoundException e) {
+                                    Log.d(TAG, "onResponse: 실패 캐치1");
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    Log.d(TAG, "onResponse: 실패 캐치2");
+                                    e.printStackTrace();
+                                }
+//                                    File file = new File(Environment.getExternalStorageDirectory() + "voice.wav");
+//                                    FileOutputStream os = new FileOutputStream(file, true);
+//                                    os.write(decode);
+//                                    os.close();
 //                                    FileOutputStream fos = openFileOutput("myFile.wav",MODE_PRIVATE);
 //                                    DataOutputStream dos = new DataOutputStream(fos);
 //                                    dos.write(decode);
@@ -229,11 +248,6 @@ public class PostActivity extends AppCompatActivity {
 
 //                                    mediaPlayer = MediaPlayer.create(getApplicationContext(), decode);
 
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
 
                             }else{
                                 Log.d("test", "onResponse: 버전이 맞지 않아 해당 기능 사용이 불가능 합니다.");
