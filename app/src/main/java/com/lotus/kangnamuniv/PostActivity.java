@@ -228,25 +228,7 @@ public class PostActivity extends AppCompatActivity {
                                     Log.d(TAG, "onResponse: 실패 캐치2");
                                     e.printStackTrace();
                                 }
-//                                    File file = new File(Environment.getExternalStorageDirectory() + "voice.wav");
-//                                    FileOutputStream os = new FileOutputStream(file, true);
-//                                    os.write(decode);
-//                                    os.close();
-//                                    FileOutputStream fos = openFileOutput("myFile.wav",MODE_PRIVATE);
-//                                    DataOutputStream dos = new DataOutputStream(fos);
-//                                    dos.write(decode);
-//                                    dos.flush();
-//                                    dos.close();
 
-//                                    FileInputStream fis = openFileInput("myFile.wav");
-//                                    DataInputStream dis = new DataInputStream(fis);
-//
-//                                    int data1 = dis.readInt();
-//                                    String data2 = dis.readUTF();
-//                                    dis.close();
-
-
-//                                    mediaPlayer = MediaPlayer.create(getApplicationContext(), decode);
 
 
                             }else{

@@ -56,6 +56,7 @@ public class FragmentCalendarActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_calendar, container, false);
         setHasOptionsMenu(true);
+        context_main = getActivity();
 
         context_main = getActivity();
         calendarView = view.findViewById(R.id.calendarview);
@@ -65,7 +66,6 @@ public class FragmentCalendarActivity extends Fragment {
         btnCheck.setEnabled(false);
         recyclerView = view.findViewById(R.id.todoRecyclerView);
 
-//        todoArray.add(new TodoView("오늘의 할일 "));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         todoAdapter = new TodoRecyclerVeiwAdapter(todoArray, getActivity());
         recyclerView.setAdapter(todoAdapter);
@@ -170,7 +170,6 @@ public class FragmentCalendarActivity extends Fragment {
                         todoSeqArray.add(seq);
                         todoAdapter.putSeqArray(seq);
                         todoAdapter.notifyDataSetChanged();
-//                        calendarView.addDecorator(new DotDecorator(Color.RED, monthsViewWrite.getDate(), getActivity()));
                         monthView();
 
                     }

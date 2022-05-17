@@ -3,6 +3,7 @@ package com.lotus.kangnamuniv;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 public class FragmentProfileActivity extends Fragment {
@@ -66,17 +68,26 @@ public class FragmentProfileActivity extends Fragment {
         TextView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences prefLecture = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor1 = prefLecture.edit();
-                editor1.remove("lecture");
-                editor1.commit();
-                SharedPreferences prefSeq = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor2 = prefSeq.edit();
-                editor2.remove("seq");
-                editor2.commit();
 
-                Intent intent = new Intent(getActivity(),MyInfoCheckActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog dialog = builder.setMessage("확인을 누르는 즉시 게시판 목록이 지워집니다. 확인을 누르고 바로 갱신을 해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences prefLecture = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences.Editor editor1 = prefLecture.edit();
+                        editor1.remove("lecture");
+                        editor1.commit();
+                        SharedPreferences prefSeq = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences.Editor editor2 = prefSeq.edit();
+                        editor2.remove("seq");
+                        editor2.commit();
+
+                        Intent intent = new Intent(getActivity(),MyInfoCheckActivity.class);
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("취소", null).create();
+                dialog.show();
+
 
             }
         });

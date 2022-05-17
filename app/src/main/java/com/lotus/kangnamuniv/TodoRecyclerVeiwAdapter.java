@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -132,7 +133,6 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                                     @Override
                                     public void onClick(View view) {
                                         String msg = holder.editText.getText().toString();
-//                                        Upschedule upschedule = new Upschedule(session, seqArray.get(position), msg, context);
                                         {
                                             RequestQueue requestQueue = Volley.newRequestQueue(context);
 
@@ -190,7 +190,6 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                                 break;
 
                             case R.id.todoDelete:
-//                                Scheduledelete scheduledelete = new Scheduledelete(session, seqArray.get(position), context);
                                 RequestQueue requestQueue = Volley.newRequestQueue(context);
 
                                 String URL = "http://34.64.49.11/scheduledelete";
