@@ -72,7 +72,7 @@ public class MyInfoCheckActivity extends AppCompatActivity {
 
                 schoolID = edtSchoolID.getText().toString();
                 schoolPW = edtShoolPW.getText().toString();
-                notice.setText("학번과 비밀번호를 잘못 입력할 시 \n강의 목록이 불러와지지 않습니다.\n정확히 입력해 주세요.");
+                notice.setText("학번과 비밀번호를 잘못 입력할 시 \n강의 목록을 불러올 수 없습니다 \n정확히 입력해 주세요");
                 notice.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
 

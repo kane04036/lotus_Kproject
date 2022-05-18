@@ -35,7 +35,7 @@ android:orientation="vertical"
         android:ems="10"
         android:maxLength="15"
         android:textSize="20dp"
-        android:backgroundTint="#317abe"
+        android:backgroundTint="@color/lightblue"
         android:hint="새 닉네임"
 
         />

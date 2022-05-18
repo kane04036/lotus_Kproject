@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID는 후에 변경할 수 없습니다"
+        android:text="ID는 변경할 수 없습니다"
         android:gravity="center"
         android:fontFamily="@font/minsans"
         android:layout_marginTop="5dp"
@@ -109,7 +109,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호는 최대 20자리 설정가능합니다."
+        android:text="비밀번호는 20자리 이내로 설정가능합니다"
         android:layout_marginLeft="50dp"
         android:textSize="10dp"
         android:layout_marginBottom="7dp"

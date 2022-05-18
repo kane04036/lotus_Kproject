@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="회원 정보를 확인해주세요"
+        android:text="학생 정보를 확인해주세요"
         android:textColor="@color/black"
         android:textSize="30dp"
         android:textStyle="bold" />
@@ -21,14 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="수강중인 강의는 임의로 변경할 수 없습니다." />
+        android:text="수강중인 강의는 임의로 변경할 수 없습니다" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:paddingLeft="20dp"
-        android:text="학교 아이디(학번)"
+        android:text="강남대학교 계정 아이디(학번)"
         android:textColor="@color/black" />
 
     <EditText
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:text="학교 비밀번호"
+        android:text="강남대학교 계정 비밀번호"
         android:textColor="@color/black" />
 
     <EditText

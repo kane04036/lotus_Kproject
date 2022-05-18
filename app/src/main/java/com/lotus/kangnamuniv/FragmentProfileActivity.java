@@ -70,7 +70,7 @@ public class FragmentProfileActivity extends Fragment {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                AlertDialog dialog = builder.setMessage("확인을 누르는 즉시 게시판 목록이 지워집니다. 확인을 누르고 바로 갱신을 해주세요.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                AlertDialog dialog = builder.setMessage("기존의 게시판 목록이 지워집니다.과목을 갱신할까요?").setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SharedPreferences prefLecture = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -125,7 +125,19 @@ public class FragmentProfileActivity extends Fragment {
         });
 
 
-
+        TextView email;
+        email = view.findViewById(R.id.Btn_2);
+        email.setOnClickListener(new TextView.OnClickListener() {
+            public void onClick(View view) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setType("plain/text");
+                String[] address = {"kane2004036@gmail.com"};
+                email.putExtra(Intent.EXTRA_EMAIL, address);
+                email.putExtra(Intent.EXTRA_SUBJECT, "test@test");
+                email.putExtra(Intent.EXTRA_TEXT, "사진을 함께 첨부하면 신속한 문제 해결에 도움이 됩니다.");
+                startActivity(email);
+            }
+        });
         return view;
     }
 }
