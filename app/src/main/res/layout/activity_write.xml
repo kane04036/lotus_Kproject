@@ -31,6 +31,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
+            android:backgroundTint="@color/lightblue"
             android:background="@drawable/roundcorner"
             android:text="등록"
 
@@ -87,6 +88,7 @@
         android:id="@+id/chkAnonymousWrite"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:backgroundTint="@color/lightblue"
         android:background="@drawable/whiterectangle"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

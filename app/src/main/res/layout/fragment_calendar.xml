@@ -20,7 +20,7 @@
         android:id="@+id/calendarview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mcv_selectionColor="#317abe"/>
+        app:mcv_selectionColor="@color/lightblue"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/btnPlus"
             android:enabled="false"
+            android:backgroundTint="@color/lightblue"
             android:visibility="invisible"
             android:ems="15"
            />
