@@ -419,47 +419,7 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-    void sound(){
-        RequestQueue requestSound = Volley.newRequestQueue(getApplicationContext());
 
-        String URL = "https://sample-api-niksw.run.goorm.io/voice";
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("text", msg);
-            Log.d(TAG, "onClick: msg: "+msg);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.d(TAG, "onResponse: ");
-                    String res = response.getString("res");
-
-                    Log.d(TAG, "onResponse: "+res);
-
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-
-        requestSound.add(request);
-    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

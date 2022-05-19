@@ -45,6 +45,8 @@ public class FragmentCalendarActivity extends Fragment {
     Handler handler = new Handler();
     ArrayList<TodoView> todoArray = new ArrayList<>();
     ArrayList<Integer> todoSeqArray = new ArrayList<>();
+    ArrayList<Integer> donelist = new ArrayList<>();
+
     RecyclerView recyclerView;
     TodoRecyclerVeiwAdapter todoAdapter;
     public static Context context_main;
@@ -272,6 +274,18 @@ public class FragmentCalendarActivity extends Fragment {
                     if (res.contains("SUCCESS")) {
                         todoArray.clear();
                         todoSeqArray.clear();
+                        JSONArray doneJsonArray = response.getJSONArray("done");
+                        String donestring = response.getString("done");
+                        Log.d("test", "onResponse: donestring"+donestring);
+
+                        donelist.clear();
+                        for (int i = 0; i < doneJsonArray.length(); i++) {
+                            JSONArray each = (JSONArray) doneJsonArray.get(i);
+                            for (int j = 0; j < each.length(); j++) {
+                                donelist.add(Integer.valueOf((Integer) each.get(j)));
+                            }
+                        }
+                        todoAdapter.setDoneList(donelist);
 
                         for (int i = 0; i < msgArray.length(); i++) {
                             JSONArray each = (JSONArray) msgArray.get(i);
@@ -285,6 +299,7 @@ public class FragmentCalendarActivity extends Fragment {
                                 todoSeqArray.add((Integer) each.get(j));
                             }
                         }
+
                         todoAdapter.setSeqArray(todoSeqArray);
                         todoAdapter.notifyDataSetChanged();
                     }

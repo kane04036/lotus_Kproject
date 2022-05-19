@@ -33,14 +33,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingDeque;
 
 public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVeiwAdapter.MyViewHolder> {
     private ArrayList<TodoView> list;
     private ArrayList<Integer> seqArray;
-    ArrayList<Integer> checkedList = new ArrayList();
     Context context;
     String TAG = "test";
     String session;
+    ArrayList<Integer> donelist = new ArrayList<>();
 
     TodoRecyclerVeiwAdapter(ArrayList<TodoView> list, Context context) {
         this.list = list;
@@ -78,36 +79,51 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        checkedList = getIntegerArrayPref(context, "checkedlist");
+        Log.d(TAG, "onBindViewHolder: start");
         holder.checkBox.setChecked(false);
+
+        Log.d(TAG, "onBindViewHolder: donelist.get(position)" + donelist.get(position));
+        if(donelist.get(position) == 1){
+            holder.checkBox.setChecked(true);
+        }else{
+            holder.checkBox.setChecked(false);
+        }
+
+        if (holder.checkBox.isChecked()) {
+            holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.editText.setTextColor(Color.GRAY);
+
+        } else {
+            holder.editText.setPaintFlags(0);
+            holder.editText.setTextColor(Color.BLACK);
+
+        }
+
         holder.editText.setPaintFlags(0);
         holder.editText.setTextColor(Color.BLACK);
         holder.btnTodoModify.setEnabled(false);
         holder.editText.setText(list.get(position).getMsg());
-        if (checkedList.contains(seqArray.get(position))) {
-            holder.checkBox.setChecked(true);
-            holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.editText.setTextColor(Color.GRAY);
-        }
+//        if (checkedList.contains(seqArray.get(position))) {
+//            holder.checkBox.setChecked(true);
+//            holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//            holder.editText.setTextColor(Color.GRAY);
+//        }
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tgSchedule(seqArray.get(position));
+
                 if (holder.checkBox.isChecked()) {
                     holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.editText.setTextColor(Color.GRAY);
 
-                    if (!checkedList.contains(seqArray.get(position)))
-                        checkedList.add(seqArray.get(position));
-
                 } else {
                     holder.editText.setPaintFlags(0);
                     holder.editText.setTextColor(Color.BLACK);
-                    if (checkedList.contains(seqArray.get(position)))
-                        checkedList.remove(checkedList.indexOf(seqArray.get(position)));
+
                 }
 
-                setIntegerArrayPref(context, "checkedlist", checkedList);
 
             }
         });
@@ -305,55 +321,68 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
         return urls;
     }
 
-    private boolean upSchedule(String msg, int seq) {
-        final boolean[] result = new boolean[1];
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        String URL = "http://34.64.49.11/upschedule";
+    void tgSchedule(int seq){
+        RequestQueue QeueDelete = Volley.newRequestQueue(context);
 
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("session", session);
             jsonObject.put("seq", seq);
-            jsonObject.put("msg", msg);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d("tgschduletest", session);
+        Log.d("tgschduletest", String.valueOf(seq));
 
 
-        JsonObjectRequest scheduleWriteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+        String URL = "http://34.64.49.11/tgschedule";//각 상황에 맞는 서버 url
+
+
+        JsonObjectRequest tgschdulerequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    String res = response.getString("res"); //동일
+                    String res = response.getString("res");
+                    String isdone = response.getString("isdone");
+                    Log.d(TAG, "onResponse: isdone: " + isdone);
 
 
                     if (res.contains("SUCCESS")) {
-                        result[0] = true;
-                    } else {
-                        result[0] = false;
-                    }
-                    Log.d("testCalendar", res);
+                        Log.d(TAG, "onResponse: tgSchedule: "+res);
 
+                    } else {
+                        Log.d("tgschedule", res);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
             }
         });
-
-        requestQueue.add(scheduleWriteRequest);
-
-        return result[0];
+        QeueDelete.add(tgschdulerequest);
 
     }
+    public void setDoneList(ArrayList<Integer> donelist){
+        Log.d(TAG, "setDoneList: true");
+        for(int i = 0; i< donelist.size(); i++){
+            Log.d(TAG, "setDoneList: donelist: "+donelist.get(i));
+        }
+        this.donelist = donelist;
+    }
 
+    void detailsviewForDone(){
+
+
+    }
 
 }
 
