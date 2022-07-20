@@ -1,13 +1,16 @@
 package com.lotus.kangnamuniv;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -33,13 +36,15 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     private ArrayList<BoardView> list;
     ArrayList<Integer> seqArray = new ArrayList<>();
     Context context;
+    EditText edtCommentReport;
+    int Bnumber;
 
 
-    CommentRecyclerViewAdapter(ArrayList<BoardView> list, Context context) {
+    CommentRecyclerViewAdapter(ArrayList<BoardView> list, Context context, int Bnumber) {
         Log.d(TAG, "생성자");
         this.context = context;
         this.list = list;
-
+        this.Bnumber = Bnumber;
     }
 
     @NonNull
@@ -116,8 +121,32 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
                                 requestQueueCommentDel.add(commentDelete);
 
                                 break;
+                            case R.id.commentReport:
+                                edtCommentReport = new EditText(context);
+                                AlertDialog.Builder dialogReport = new AlertDialog.Builder(context);
+                                dialogReport.setTitle("댓글 신고");
+
+                                dialogReport.setView(edtCommentReport);
+                                dialogReport.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        commentReport();
+                                    }
+                                });
+                                dialogReport.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+
+                                dialogReport.show();
+                                break;
+
                         }
                         return false;
+
+
                     }
                 });
                 popupMenu.show();
@@ -150,6 +179,53 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
 
     void setSeqArray(ArrayList seq) {
         seqArray = seq;
+    }
+
+    void commentReport(){
+        RequestQueue QueueReport = Volley.newRequestQueue(context);
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type", 1);
+            jsonObject.put("seq", Bnumber);
+            jsonObject.put("msg", edtCommentReport.getText().toString());
+
+            Log.d(TAG, "postReport: " + edtCommentReport.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String URL = "https://k-project-jgukj.run.goorm.io/report";//각 상황에 맞는 서버 url
+
+
+        JsonObjectRequest boardDeleteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res");
+                    Log.d("test : resport ", res);
+                    if(res.equals("SUCCESS")){
+                        Toast.makeText(context, "신고 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        QueueReport.add(boardDeleteRequest);
+
+
+
     }
 
 

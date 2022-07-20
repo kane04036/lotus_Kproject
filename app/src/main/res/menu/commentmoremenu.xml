@@ -5,6 +5,9 @@
     <item
         android:id="@+id/commentDelete"
         android:title="삭제" />
+    <item
+        android:id="@+id/commentReport"
+        android:title="신고" />
 
 
 </menu>

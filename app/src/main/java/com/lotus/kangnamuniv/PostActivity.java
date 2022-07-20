@@ -96,7 +96,7 @@ public class PostActivity extends AppCompatActivity {
         btnMore = findViewById(R.id.btnMore);
         btnSound = findViewById(R.id.btnSound);
 
-        commentAdapater = new CommentRecyclerViewAdapter(cmtArray, getApplicationContext());
+        commentAdapater = new CommentRecyclerViewAdapter(cmtArray, PostActivity.this, Bnumber);
         listViewComment.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         listViewComment.setAdapter(commentAdapater);
 
