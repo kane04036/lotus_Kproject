@@ -32,7 +32,7 @@ public class Commentdelete {
             e.printStackTrace();
         }
 
-        String URL = "http://34.64.49.11/commentdelete";//각 상황에 맞는 서버 url
+        String URL = "https://k-project-jgukj.run.goorm.io/commentdelete";//각 상황에 맞는 서버 url
 
 
         JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {

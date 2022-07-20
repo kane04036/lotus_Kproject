@@ -124,7 +124,7 @@ public class BoardActivity extends AppCompatActivity {
         }
 
 
-        String URL = "http://34.64.49.11/mainview";//각 상황에 맞는 서버 url
+        String URL = "https://k-project-jgukj.run.goorm.io/mainview";//각 상황에 맞는 서버 url
 
         // 변수명은 그냥 알아듣기 쉬운 걸로~~ 앞으로는 거의 다 post로 사용할 거라서 거의 똑같이 작성하면 되긴함.
         //이거 그대로 따라 치다보면 new Resonse.Listener이 부분에서 자동으로 밑에 메소드들이 생길 거임

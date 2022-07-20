@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class LoginRequest extends StringRequest {
 
-    final static private String URL = "http://34.64.49.11/login";
+    final static private String URL = "https://k-project-jgukj.run.goorm.io/login";
     private Map<String, String> parameters;
 
     public LoginRequest(String Rid, String Rpassword, Response.Listener<String> listener){

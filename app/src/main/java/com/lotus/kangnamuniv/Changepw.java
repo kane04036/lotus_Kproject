@@ -18,7 +18,7 @@ public class Changepw {
     Changepw(String session, String newPw, Context context){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        String URL = "http://34.64.49.11/changepw";
+        String URL = "https://k-project-jgukj.run.goorm.io/changepw";
 
         JSONObject jsonObject = new JSONObject();
         try {

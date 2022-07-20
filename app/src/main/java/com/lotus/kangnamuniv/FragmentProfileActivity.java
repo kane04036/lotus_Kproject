@@ -27,7 +27,7 @@ public class FragmentProfileActivity extends Fragment {
 
         TextView btnLogout;
         btnLogout = view.findViewById(R.id.btnLogout);
-        String URL = "http://34.64.49.11/logout";//각 상황에 맞는 서버 url
+        String URL = "https://k-project-jgukj.run.goorm.io/logout";//각 상황에 맞는 서버 url
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         String nickname = sharedPreferences.getString("nickname", "");

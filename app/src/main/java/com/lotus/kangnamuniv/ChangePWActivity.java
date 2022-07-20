@@ -131,7 +131,7 @@ public class ChangePWActivity extends AppCompatActivity {
                     if (newpw_check) {
                         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-                        String URL = "http://34.64.49.11/changepw";
+                        String URL = "https://k-project-jgukj.run.goorm.io/changepw";
 
                         JSONObject jsonObject = new JSONObject();
                         try {

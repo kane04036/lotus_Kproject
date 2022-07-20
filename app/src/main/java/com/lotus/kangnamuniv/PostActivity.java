@@ -4,6 +4,7 @@ import static android.media.CamcorderProfile.get;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+//import androidx.appcompat.app.AlertDialog;
+import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +55,7 @@ public class PostActivity extends AppCompatActivity {
     static String msg;
     static String session;
     static int Bnumber;
+    EditText edtReport;
 
     MediaPlayer mediaPlayer;
 
@@ -71,6 +75,7 @@ public class PostActivity extends AppCompatActivity {
     ArrayList<Integer> CnumberAry = new ArrayList<>();
     ArrayList<BoardView> cmtArray = new ArrayList<>();
     String TAG = "test";
+    String reportMsg;
 
 
     @Override
@@ -118,7 +123,7 @@ public class PostActivity extends AppCompatActivity {
         Log.d("test7", String.valueOf(Bnumber));
 
 
-        String URL = "http://34.64.49.11/boardview";//각 상황에 맞는 서버 url
+        String URL = "https://k-project-jgukj.run.goorm.io/boardview";//각 상황에 맞는 서버 url
 
 
         JsonObjectRequest boardViewRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
@@ -190,7 +195,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-                String URL = "http://34.64.49.11/wvoice";
+                String URL = "https://k-project-jgukj.run.goorm.io/wvoice";
 
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -277,12 +282,35 @@ public class PostActivity extends AppCompatActivity {
                 PopupMenu popup = new PopupMenu(PostActivity.this, view);
                 getMenuInflater().inflate(R.menu.popup, popup.getMenu());
 
+
+
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.menu_delete:
                                 postDelete();
+                                break;
+                            case R.id.menu_report:
+                                edtReport = new EditText(getApplicationContext());
+                                AlertDialog.Builder dialogReport = new AlertDialog.Builder(PostActivity.this);
+                                dialogReport.setTitle("게시물 신고");
+
+                                dialogReport.setView(edtReport);
+                                dialogReport.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        postReport();
+                                    }
+                                });
+                                dialogReport.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+
+                                dialogReport.show();
                                 break;
                         }
                         return false;
@@ -317,7 +345,7 @@ public class PostActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                String commentURL = "http://34.64.49.11/commentwrite";//각 상황에 맞는 서버 url
+                String commentURL = "https://k-project-jgukj.run.goorm.io/commentwrite";//각 상황에 맞는 서버 url
 
                 JsonObjectRequest commentWriteRequest = new JsonObjectRequest(Request.Method.POST, commentURL, commentObject, new Response.Listener<JSONObject>() {
                     @Override
@@ -360,6 +388,51 @@ public class PostActivity extends AppCompatActivity {
 
 
     }
+    private void postReport(){
+        RequestQueue QeueDelete = Volley.newRequestQueue(getApplicationContext());
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type", 0);
+            jsonObject.put("seq", Bnumber);
+            jsonObject.put("msg", edtReport.getText().toString());
+
+            Log.d(TAG, "postReport: " + edtReport.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String URL = "https://k-project-jgukj.run.goorm.io/report";//각 상황에 맞는 서버 url
+
+
+        JsonObjectRequest boardDeleteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String res = response.getString("res");
+                    Log.d("test : resport ", res);
+                    if(res.equals("SUCCESS")){
+                        Toast.makeText(getApplicationContext(), "신고 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        QeueDelete.add(boardDeleteRequest);
+
+
+    }
 
     private void postDelete(){
         RequestQueue QeueDelete = Volley.newRequestQueue(getApplicationContext());
@@ -376,7 +449,7 @@ public class PostActivity extends AppCompatActivity {
         Log.d("test7", String.valueOf(Bnumber));
 
 
-        String URL = "http://34.64.49.11/boarddelete";//각 상황에 맞는 서버 url
+        String URL = "https://k-project-jgukj.run.goorm.io/boarddelete";//각 상황에 맞는 서버 url
 
 
         JsonObjectRequest boardDeleteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class IDValidateRequest extends StringRequest {
 
-    final static private String URL = "http://34.64.49.11/chid";
+    final static private String URL = "https://k-project-jgukj.run.goorm.io/chid";
     private Map<String, String> parameters;
 
     public IDValidateRequest(String Rid, Response.Listener<String> listener){

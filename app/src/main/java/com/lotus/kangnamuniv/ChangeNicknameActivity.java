@@ -98,7 +98,7 @@ public class ChangeNicknameActivity extends AppCompatActivity {
                 if (nickname_validate) {
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-                    String URL = "http://34.64.49.11/changenk";
+                    String URL = "https://k-project-jgukj.run.goorm.io/changenk";
 
                     JSONObject jsonObject = new JSONObject();
                     try {

@@ -115,7 +115,7 @@ public class WriteActivity extends AppCompatActivity {
                 }
 
 
-                String URL = "http://34.64.49.11/boardwrite";//각 상황에 맞는 서버 url
+                String URL = "https://k-project-jgukj.run.goorm.io/boardwrite";//각 상황에 맞는 서버 url
 
 
                 JsonObjectRequest boardWriteRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {

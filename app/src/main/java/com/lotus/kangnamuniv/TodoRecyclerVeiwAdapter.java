@@ -81,12 +81,14 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: start");
         holder.checkBox.setChecked(false);
+        Log.d(TAG, "onBindViewHolder: done:" + donelist.size());
+        Log.d(TAG, "onBindViewHolder: done position:" + position);
 
-        Log.d(TAG, "onBindViewHolder: donelist.get(position)" + donelist.get(position));
-        if(donelist.get(position) == 1){
-            holder.checkBox.setChecked(true);
-        }else{
-            holder.checkBox.setChecked(false);
+        if (donelist.size() != 0) {
+            if (donelist.get(position) == 1)
+                holder.checkBox.setChecked(true);
+            else
+                holder.checkBox.setChecked(false);
         }
 
         if (holder.checkBox.isChecked()) {
@@ -103,11 +105,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
         holder.editText.setTextColor(Color.BLACK);
         holder.btnTodoModify.setEnabled(false);
         holder.editText.setText(list.get(position).getMsg());
-//        if (checkedList.contains(seqArray.get(position))) {
-//            holder.checkBox.setChecked(true);
-//            holder.editText.setPaintFlags(holder.checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//            holder.editText.setTextColor(Color.GRAY);
-//        }
+
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +150,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                                         {
                                             RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-                                            String URL = "http://34.64.49.11/upschedule";
+                                            String URL = "https://k-project-jgukj.run.goorm.io/upschedule";
 
                                             JSONObject jsonObject = new JSONObject();
                                             try {
@@ -208,7 +206,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
                             case R.id.todoDelete:
                                 RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-                                String URL = "http://34.64.49.11/scheduledelete";
+                                String URL = "https://k-project-jgukj.run.goorm.io/scheduledelete";
 
                                 JSONObject jsonObject = new JSONObject();
                                 try {
@@ -231,6 +229,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
 
                                                 list.remove(position);
                                                 seqArray.remove(position);
+                                                donelist.remove(position);
                                                 notifyDataSetChanged();
 
 
@@ -322,7 +321,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
     }
 
 
-    void tgSchedule(int seq){
+    void tgSchedule(int seq) {
         RequestQueue QeueDelete = Volley.newRequestQueue(context);
 
         JSONObject jsonObject = new JSONObject();
@@ -337,7 +336,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
         Log.d("tgschduletest", String.valueOf(seq));
 
 
-        String URL = "http://34.64.49.11/tgschedule";//각 상황에 맞는 서버 url
+        String URL = "https://k-project-jgukj.run.goorm.io/tgschedule";//각 상황에 맞는 서버 url
 
 
         JsonObjectRequest tgschdulerequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
@@ -350,7 +349,7 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
 
 
                     if (res.contains("SUCCESS")) {
-                        Log.d(TAG, "onResponse: tgSchedule: "+res);
+                        Log.d(TAG, "onResponse: tgSchedule: " + res);
 
                     } else {
                         Log.d("tgschedule", res);
@@ -371,17 +370,18 @@ public class TodoRecyclerVeiwAdapter extends RecyclerView.Adapter<TodoRecyclerVe
         QeueDelete.add(tgschdulerequest);
 
     }
-    public void setDoneList(ArrayList<Integer> donelist){
-        Log.d(TAG, "setDoneList: true");
-        for(int i = 0; i< donelist.size(); i++){
-            Log.d(TAG, "setDoneList: donelist: "+donelist.get(i));
-        }
-        this.donelist = donelist;
+
+    public void putDoneList(int seq) {
+        donelist.add(seq);
     }
 
-    void detailsviewForDone(){
-
-
+    public void setDoneList(ArrayList<Integer> donelist) {
+        Log.d(TAG, "setDoneList: true");
+        Log.d(TAG, "setDoneList: donesize:" + donelist.size());
+        for (int i = 0; i < donelist.size(); i++) {
+            Log.d(TAG, "setDoneList: donelist: " + donelist.get(i));
+        }
+        this.donelist = donelist;
     }
 
 }

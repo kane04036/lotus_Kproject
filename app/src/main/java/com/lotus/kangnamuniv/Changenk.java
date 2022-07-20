@@ -19,7 +19,7 @@ public class Changenk {
    public Changenk(String session, String newNk, Context context){
        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-       String URL = "http://34.64.49.11/changenk";
+       String URL = "https://k-project-jgukj.run.goorm.io/changenk";
 
        JSONObject jsonObject = new JSONObject();
        try {

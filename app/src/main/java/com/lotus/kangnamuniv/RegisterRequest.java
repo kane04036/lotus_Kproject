@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
 
-    final static private String URL = "http://34.64.49.11/register";
+    final static private String URL = "https://k-project-jgukj.run.goorm.io/register";
     private Map<String, String> parameters;
 
     public RegisterRequest(String Rid, String Rpassword, String Rnickname, Response.Listener<String> listener){

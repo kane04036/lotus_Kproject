@@ -118,6 +118,7 @@ public class FragmentCalendarActivity extends Fragment {
                 msg = edtTodo.getText().toString();
                 scheduleWrite(msg);
 
+
             }
         });
 
@@ -136,7 +137,7 @@ public class FragmentCalendarActivity extends Fragment {
     void scheduleWrite(String msg){
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        String URL = "http://34.64.49.11/schedulewrite";
+        String URL = "https://k-project-jgukj.run.goorm.io/schedulewrite";
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -173,6 +174,7 @@ public class FragmentCalendarActivity extends Fragment {
                         todoAdapter.putSeqArray(seq);
                         todoAdapter.notifyDataSetChanged();
                         monthView();
+                        todoAdapter.putDoneList(0);
 
                     }
                     else{
@@ -198,7 +200,7 @@ public class FragmentCalendarActivity extends Fragment {
     public void monthView() {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        String URL = "http://34.64.49.11/monthsview";
+        String URL = "https://k-project-jgukj.run.goorm.io/monthsview";
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -247,7 +249,7 @@ public class FragmentCalendarActivity extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        String URL = "http://34.64.49.11/detailsview";
+        String URL = "https://k-project-jgukj.run.goorm.io/detailsview";
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -274,17 +276,20 @@ public class FragmentCalendarActivity extends Fragment {
                     if (res.contains("SUCCESS")) {
                         todoArray.clear();
                         todoSeqArray.clear();
+                        donelist.clear();
+
                         JSONArray doneJsonArray = response.getJSONArray("done");
                         String donestring = response.getString("done");
                         Log.d("test", "onResponse: donestring"+donestring);
 
-                        donelist.clear();
                         for (int i = 0; i < doneJsonArray.length(); i++) {
                             JSONArray each = (JSONArray) doneJsonArray.get(i);
+                            Log.d("test", "onResponse: donejsonarray.length: "+ doneJsonArray.length());
                             for (int j = 0; j < each.length(); j++) {
                                 donelist.add(Integer.valueOf((Integer) each.get(j)));
                             }
                         }
+                        Log.d("test", "onResponse: done set" + donelist.size());
                         todoAdapter.setDoneList(donelist);
 
                         for (int i = 0; i < msgArray.length(); i++) {

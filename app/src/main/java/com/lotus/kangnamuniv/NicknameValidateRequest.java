@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class NicknameValidateRequest extends StringRequest {
 
-    final static private String URL = "http://34.64.49.11/chnickname";
+    final static private String URL = "https://k-project-jgukj.run.goorm.io/chnickname";
     private Map<String, String> parameters;
 
     public NicknameValidateRequest(String Rnickname, Response.Listener<String> listener){

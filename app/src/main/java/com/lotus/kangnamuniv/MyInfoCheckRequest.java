@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class MyInfoCheckRequest extends StringRequest {
 
-    final static private String URL = "http://34.64.49.11/lectures";
+    final static private String URL = "https://k-project-jgukj.run.goorm.io/lectures";
     private Map<String, String> parameters;
 
     public MyInfoCheckRequest(String schoolID, String schoolPW, Response.Listener<String> listener) {
