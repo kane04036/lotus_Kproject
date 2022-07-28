@@ -74,12 +74,14 @@ public class RegisterActivity extends AppCompatActivity {
                             String result = jsonResponse.getString("res");
 
                             if (result.equals("SUCCESS")) {
+                                tvIdCheck.setTextSize(10);
                                 tvIdCheck.setTextColor(Color.BLUE);
                                 tvIdCheck.setText("사용가능한 아이디입니다.");
                                 id_validate = true;
                                 edtRegID.setEnabled(false);
                                 btnIdCheck.setEnabled(false);
                             } else {
+                                tvIdCheck.setTextSize(10);
                                 tvIdCheck.setTextColor(Color.RED);
                                 tvIdCheck.setText("이미 사용중인 아이디 입니다.");
                             }
@@ -103,10 +105,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if ((edtRegPW.getText().toString()).equals(edtRegPWcheck.getText().toString())) {
+                    tvPwCheck.setTextSize(10);
                     tvPwCheck.setTextColor(Color.BLUE);
                     tvPwCheck.setText("비밀번호가 일치합니다");
                     pw_check = true;
                 } else {
+                    tvPwCheck.setTextSize(10);
                     tvPwCheck.setTextColor(Color.RED);
                     tvPwCheck.setText("비밀번호가 일치하지 않습니다.");
                     pw_check = false;
@@ -128,10 +132,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if ((edtRegPW.getText().toString()).equals(edtRegPWcheck.getText().toString())) {
+                    tvPwCheck.setTextSize(10);
                     tvPwCheck.setTextColor(Color.BLUE);
                     tvPwCheck.setText("비밀번호가 일치합니다");
                     pw_check = true;
                 } else {
+                    tvPwCheck.setTextSize(10);
                     tvPwCheck.setTextColor(Color.RED);
                     tvPwCheck.setText("비밀번호가 일치하지 않습니다.");
                     pw_check = false;
@@ -175,6 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String result = jsonResponse.getString("res");
 
                             if (result.equals("SUCCESS")) {
+                                tvNicknameCheck.setTextSize(10);
                                 tvNicknameCheck.setTextColor(Color.BLUE);
                                 tvNicknameCheck.setText("사용가능한 닉네임 입니다.");
                                 nickname_validate = true;

@@ -26,24 +26,22 @@
         />
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="80dp">
-        <EditText
-            android:id="@+id/edtRegID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTintMode="add"
-            android:ems="10"
-            android:textSize="20dp"
-            android:backgroundTint="#317abe"
-            android:layout_marginLeft="50dp"
-            android:hint="ID"
-            android:maxLength="20"
-            />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <EditText
+           android:id="@+id/edtRegID"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_gravity="center"
+           android:backgroundTint="#317abe"
+           android:backgroundTintMode="add"
+           android:ems="10"
+           android:hint="ID"
+           android:maxLength="20"
+           android:textSize="20dp" />
         <Button
             android:id="@+id/btnIdCheck"
             android:layout_width="70dp"
@@ -54,45 +52,55 @@
             android:textStyle="bold"
             android:fontFamily="@font/minsans"
             android:textSize="12dp"
+            android:layout_toRightOf="@id/edtRegID"
+            android:layout_alignBaseline="@+id/edtRegID"
             />
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tvIdCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_marginLeft="50dp"
-        android:textSize="10dp"
-        android:textColor="#ff4040"/>
-
-
+       <TextView
+           android:id="@+id/tvIdCheck"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text=""
+           android:layout_alignStart="@+id/edtRegID"
+           android:layout_below="@+id/edtRegID"
+           android:textSize="0dp"
+           />
+   </RelativeLayout>
 
 
-    <EditText
-        android:id="@+id/edtRegPW"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:backgroundTintMode="add"
-        android:ems="10"
-        android:textSize="20dp"
-        android:backgroundTint="#317abe"
-        android:inputType="textPassword"
-        android:hint="비밀번호"
-        android:maxLength="20"
-
-        />
-
-    <TextView
-        android:id="@+id/tvPwCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_marginLeft="50dp"
-        android:textSize="10dp" />
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtRegPW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:backgroundTint="#317abe"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:maxLength="20"
+
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tvPwCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_alignStart="@+id/edtRegPW"
+            android:layout_below="@+id/edtRegPW"
+            android:textSize="0dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/edtRegPWcheck"
         android:layout_width="wrap_content"
@@ -101,40 +109,43 @@
         android:ems="10"
         android:textSize="20dp"
         android:backgroundTint="#317abe"
-        android:layout_marginLeft="50dp"
         android:inputType="textPassword"
         android:hint="비밀번호 확인"
         android:maxLength="20"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="비밀번호는 20자리 이내로 설정가능합니다"
-        android:layout_marginLeft="50dp"
-        android:textSize="10dp"
-        android:layout_marginBottom="7dp"
+        android:layout_centerHorizontal="true"
         />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtRegPWcheck"
+            android:layout_alignStart="@+id/edtRegPWcheck"
+            android:text="비밀번호는 20자리 이내로 설정가능합니다"
+            android:textSize="10dp" />
+
+
+    </RelativeLayout>
 
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/edtRegNickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTintMode="add"
-        android:ems="10"
-        android:textSize="20dp"
-        android:backgroundTint="#317abe"
-        android:layout_marginLeft="50dp"
-        android:hint="닉네임"
-        android:maxLength="15"
-        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtRegNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:backgroundTint="#317abe"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:hint="닉네임"
+            android:maxLength="15"
+            android:textSize="20dp" />
         <Button
             android:id="@+id/btnNicknameCheck"
             android:layout_width="70dp"
@@ -145,16 +156,21 @@
             android:textSize="12dp"
             android:textColor="@color/white"
             android:backgroundTint="#93DAFF"
+            android:layout_toRightOf="@+id/edtRegNickname"
+            android:layout_alignBaseline="@+id/edtRegNickname"
             />
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tvNicknameCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_marginLeft="50dp"
-        android:textSize="10dp"
-        android:textColor="#ff4040"/>
+
+        <TextView
+            android:id="@+id/tvNicknameCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_alignStart="@+id/edtRegNickname"
+            android:layout_below="@+id/edtRegNickname"
+            android:textSize="0dp"
+            />
+    </RelativeLayout>
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="320dp"

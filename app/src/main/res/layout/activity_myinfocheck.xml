@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white">
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tvMain"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:gravity="center"
         android:text="학생 정보를 확인해주세요"
         android:textColor="@color/black"
         android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tvExplain"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="수강중인 강의는 임의로 변경할 수 없습니다" />
+        android:text="수강중인 강의는 임의로 변경할 수 없습니다"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvMain"/>
+
 
     <TextView
+        android:id="@+id/tvSchoolID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:paddingLeft="20dp"
         android:text="강남대학교 계정 아이디(학번)"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:layout_alignStart="@+id/edtSchoolID"
+        android:layout_below="@id/tvExplain"/>
 
     <EditText
         android:id="@+id/edtSchoolID"
@@ -38,15 +43,18 @@
         android:layout_margin="10dp"
         android:background="@drawable/underline"
         android:ems="10"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tvSchoolID"
+        android:layout_centerHorizontal="true"
         android:hint="ID" />
 
     <TextView
+        android:id="@+id/tvSchoolPW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:layout_alignStart="@+id/edtSchoolPW"
         android:text="강남대학교 계정 비밀번호"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:layout_below="@+id/edtSchoolID"/>
 
     <EditText
         android:id="@+id/edtSchoolPW"
@@ -54,11 +62,11 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-
         android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/underline"
         android:ems="10"
+        android:layout_below="@+id/tvSchoolPW"
 
         />
 
@@ -66,37 +74,43 @@
         android:id="@+id/btnRenew"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:background="@drawable/roundcorner"
         android:padding="5dp"
         android:layout_margin="20dp"
         android:text="강의 불러오기"
         android:textSize="18dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edtSchoolPW"/>
 
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="60px"
         android:max="100"
         android:progressTint="#317abe"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_below="@+id/btnRenew"
+        android:layout_centerHorizontal="true"
+        />
     <TextView
         android:id="@+id/notice"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        />
 
 
 
     <ScrollView
         android:orientation="vertical"
         android:layout_width="match_parent"
-
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRenew">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -143,5 +157,5 @@
 
 
 
-</LinearLayout>
+</RelativeLayout>
 
