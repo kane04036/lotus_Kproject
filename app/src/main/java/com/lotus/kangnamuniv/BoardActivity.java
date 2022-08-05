@@ -109,6 +109,7 @@ public class BoardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        String id = sharedPreferences.getString("ID", null);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         //post나 get방식으로 통신을 하기 위해서는 RequestQueue를 만들어야함 걍 이거 고대로 복붙해서 쓰면 될듯? 괄호 안에 파라미터가 오류가 날 수 있는데,,, getActivity getContext 뭐 이런 거 쳐보고 잘 되는 걸로 고고 ㅎ
 
@@ -118,6 +119,7 @@ public class BoardActivity extends AppCompatActivity {
             // name:value 쌍으로 들어가는 거라서 name부분에는 문자열로 넣어야함 value는 변수 값
             jsonObject.put("session", session);
             jsonObject.put("Lnumber", Lnumber);
+            jsonObject.put("id", id);
 
         } catch (Exception e) {
             e.printStackTrace();

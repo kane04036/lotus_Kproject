@@ -63,7 +63,7 @@ public class PostActivity extends AppCompatActivity {
     ImageButton btnComment;
     EditText edtComment;
     CheckBox chkAnonymousComment;
-    String commentMsg, lecture;
+    String commentMsg, lecture, id;
     int commentAnonymous;
     RecyclerView listViewComment;
     ImageButton btnMore;
@@ -104,7 +104,7 @@ public class PostActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE); //이건 안드로이드 어플 내에 약간의 데이터를 저장해놓은 거. 필요할때 데이터 꺼내서 쓸 수 있음
         session = sharedPreferences.getString("session", "");
         lecture = getIntent().getStringExtra("Lecture");
-
+        id = sharedPreferences.getString("ID", null);
         Log.d("testLecture2", lecture);
 
         tvPostLecture.setText(lecture);
@@ -115,6 +115,7 @@ public class PostActivity extends AppCompatActivity {
         try {
             jsonObject.put("session", session);
             jsonObject.put("Bnumber", Bnumber);
+            jsonObject.put("id", id);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,11 +134,11 @@ public class PostActivity extends AppCompatActivity {
                 try {
                     String res = response.getString("res");
                     JSONArray boardarray = response.getJSONArray("board");
+                    String boardString = response.getString("board");
                     JSONArray commentarray = response.getJSONArray("comment");
-
+                    Log.d("testPostBoardView", res);
 
                     if (res.contains("Success")) {
-                        Log.d("testPost", res);
 
                         for (int i = 0; i < boardarray.length(); i++) {
                             JSONArray each = boardarray.getJSONArray(i);
@@ -396,6 +397,7 @@ public class PostActivity extends AppCompatActivity {
             jsonObject.put("type", 0);
             jsonObject.put("seq", Bnumber);
             jsonObject.put("msg", edtReport.getText().toString());
+            jsonObject.put("id", id);
 
             Log.d(TAG, "postReport: " + edtReport.getText().toString());
         } catch (Exception e) {
