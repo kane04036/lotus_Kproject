@@ -25,7 +25,7 @@
     <ListView
 
         android:id="@+id/listViewLecture"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
